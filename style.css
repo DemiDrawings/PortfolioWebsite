@@ -288,15 +288,26 @@ span {
 }
 
 /* Grid */
-.grid-container
-
+.grid-containerw{
+height: 800px;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: 200px 200px 200px;
+gap: 1em;
+justify-items: center;
+align-items: center;
+justify-content: center;
+align-content: center;
+}
 .item{
+    height: 100px;
+    width: 100px;
     padding: 2em;
     background-color: var(--primary-color);
     color: white;
     text-align: center;
     border-radius: 8px;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 /* Grid */
 
