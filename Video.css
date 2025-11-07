@@ -1,0 +1,23 @@
+header{
+    height: 100vh;
+  display: grid;
+  grid-template-areas: "stack";
+  place-items: center;
+}
+
+header video{
+grid-area: stack;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    /* opacity: 0.5; */
+}
+
+header .content{
+    grid-area: stack;
+    z-index: 1;
+    color: white;
+    width: min(30em, 100%);
+    padding: 2rem;
+}

@@ -1,0 +1,42 @@
+.grid-container{
+    background: black;
+    height: 500px;
+    width: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.child-1{
+    background-color: blue;
+    grid-column: 1/3;
+}
+.child-2{
+    background-color: purple;
+    grid-column: 2/4;
+    grid-row: 1/2;
+    opacity: 0.5;
+}
+.wrapper{
+    border-radius: 1em;
+    width: 30em;
+    display: grid;
+    place-items: center;
+}
+img{
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 1em;
+    grid-column: 1/ 2;
+    grid-row: 1 / 2;
+}
+.text-container{
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    height: max-content;
+    width: 100%;
+    padding: 2em;
+    /* background:  */
+}
