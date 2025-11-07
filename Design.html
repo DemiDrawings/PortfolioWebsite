@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="Grid.css">
   <!-- <link rel="stylesheet" href="file:///C:/Users/Admin/OneDrve/Pictures/DemiSaleebPortfolio.html#"> -->
   <title>Portfolio Website</title>
 
@@ -17,15 +17,15 @@
 </head>
 
 <body>
-  <!-- Testing Code -->
+  <div class="grid-container">
+    <div class="box" style="grid-area: box-1"></div>
+    <div class="box" style="grid-area: box-2"></div>
+    <div class="box" style="grid-area: box-3"></div>
+    <div class="box" style="grid-area: box-4"></div>
+    <div class="box" style="grid-area: box-5"></div>
+  </div box: 5px;>
 
   <header>
-   <div class="logo">
-  <img src="c:\Users\Admin\OneDrive\Pictures\Demi Logo.png" alt="Logo" class="logo-icon">
-  <!-- <span>Demi</span> -->
-
-</div>
-<i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
 </div>
 <div class="dropdown">
 </div>
@@ -36,84 +36,11 @@
       <a href="VisualArt.html">Visual Art</a>
       <a href="Design.html">Design</a>
       <a href="Other.html">Other</a>
-
-      <i class="fa-solid fa-xmark cancel"> </i>
     </nav>
   </header>
-<!-- 
-  <section class="About">
-  <div class="About-content">
-  </div>
-</section> -->
 
-  <section class="home">
-    <div class="home-img">
-      <img src="c:\Users\Admin\OneDrive\Pictures\Demi Saleeb Profile Image.jpg" alt="" />
-    </div>
-    <div class="home-content">
-      <h1>Hi, It's <span>DEMI</span></h1>
-      <h3 class="typing-text">I'm a <span></span></h3>
-      <p>This is the design page.</p>
-      <div class="social-icon">
-        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#"><i class="fa-brands fa-email"></i></a>
-      </div>
-      <a href="#" class="btn">HIRE ME</a>
-    </div>
-  </section>
-  <script src="script.js"></script>
   <script>
 
-
-    // Inserted ChatGBT
-
-    const roles = [
-      "CONCEPT ARTIST",
-      "DESIGNER",
-      "PRODUCER",
-      "GAME DEVELOPER",
-      "STORYTELLER"
-    ];
-
-    let part = 0;
-    let textIndex = 0;
-    let isDeleting = false;
-    const speed = 100;
-    const span = document.querySelector(".typing-text span");
-
-    function typeEffect() {
-      const current = roles[part];
-      let delay = speed;
-
-      if (!isDeleting) {
-        textIndex++;
-        span.textContent = current.substring(0, textIndex);
-
-        // If full word is typed, pause then start deleting
-        if (textIndex === current.length) {
-          isDeleting = true;
-          delay = 1000; // pause after full word
-        }
-      } else {
-        textIndex--;
-        span.textContent = current.substring(0, textIndex);
-
-        // If word is fully deleted, move to next
-        if (textIndex === 0) {
-          isDeleting = false;
-          part = (part + 1) % roles.length;
-          delay = 300; // slight pause before next word
-        } else {
-          delay = 50; // deleting speed
-        }
-      }
-
-      setTimeout(typeEffect, delay);
-    }
-    window.onload = typeEffect;
-
-    // End of ChatGBT
 
   </script>
 

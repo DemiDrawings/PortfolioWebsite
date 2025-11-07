@@ -287,12 +287,14 @@ span {
     }
 }
 
-/* Grid */
-.grid-containerw{
+/* Grid Test */
+/* .grid-containerw{
 height: 800px;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-grid-template-rows: 200px 200px 200px;
+grid-template-rows: 300px 300px 300px;
+grid-auto-rows: 300px;
+grid-auto-flow: column;
 gap: 1em;
 justify-items: center;
 align-items: center;
@@ -308,9 +310,8 @@ align-content: center;
     text-align: center;
     border-radius: 8px;
     font-size: 1.5rem;
-}
+} */
 /* Grid */
-
 
 
 
