@@ -1,0 +1,372 @@
+/* @import url(https://fontgoogleapis.com/css2?family=Pop) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rock+Salt&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    font-size: 62.5%
+}
+
+body {
+    width: 100% height 100vh;
+    overflow-x: hidden;
+    background-color: rgb(22, 22, 22);
+    color: white;
+}
+
+header {
+    margin-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 9%;
+    background-color: transparent;
+    filter: drop-shadow(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 3rem;
+  color: #00FFB6;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.logo-icon {
+  width: 125px;
+  height: 125px;
+  object-fit: contain;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.logo:hover .logo-icon {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+
+/* spacing between paragraphs */
+
+/* p + p {
+  margin-top: 1.5rem;
+} */
+
+
+
+
+
+/* .logo {
+    font-size: 3rem;
+    color: #00FFB6;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.5s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+
+} */
+
+nav a {
+    font-size: 1.8rem;
+    color: white;
+    margin-left: 4rem;
+    font-weight: 500;
+    transition: 0.3s ease;
+    border-bottom: 3px solid transparent;
+
+}
+
+nav a:hover,
+nav a:active {
+    color: #00FFB6;
+    border-bottom: 3px solid #00FFB6;
+}
+
+@media(max-width:995px) {
+    nav {
+        position: absolute;
+        display: none;
+        top: 0;
+        right: 0;
+        width: 40%;
+        border-left: 3px solid #00FFB6;
+        border-bottom-left-radius: 2rem;
+        padding: 1rem solid;
+        background-color: #161616;
+        border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav a {
+        display: block;
+        font-size: 2rem;
+        margin: 3rem 0;
+    }
+
+    nav a:hover,
+    nav a.active {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border-bottom: 0.5rem solid #00FFB6;
+    }
+    .hamburg,
+    .cancel{
+        display:block;
+    }
+    .main-container.content {
+        width: 80%;
+    }
+}
+
+section {
+    min-height: 100vh;
+    padding: 5rem 9% 5rem;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8rem;
+    background-color: rgb(22, 22, 22);
+}
+
+.home .home-content h1 {
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+span {
+    color: #00FFB6;
+}
+
+.home-content h3 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.home-content p {
+    font-size: 1.6rem;
+}
+
+.home-img {
+    border-radius: 50%;
+}
+
+.home-img img {
+    position: relative;
+    width: 32vw;
+    border-radius: 50%;
+    box-shadow: 0 0 25px solid #00FFB6;
+    cursor: pointer;
+    transition: 0.2s linear;
+}
+
+.home-img img:hover {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.social-icon a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: transparent;
+    border: 0.2rem solid #00FFB6;
+    font-size: 2rem;
+    border-radius: 50%;
+    margin: 3rem 1 5rem 3rem 0;
+    transition: 0.3s ease;
+    color: #00FFB6;
+}
+
+.social-icon a:hover {
+    color: rgb(22, 22, 22);
+    transform: scale(1.3) translateY(-5px);
+    background-color: #00FFB6;
+    box-shadow: 0 0 25px #00FFB6;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background-color: rgb(22, 22, 22);
+    border-radius: 4rem;
+    font-size: 1.6rem;
+    color: #00FFB6;
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+    border: 2px solid #00FFB6;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale3d(1.03);
+    background-color: #00FFB6;
+    color: rgb(22, 22, 22);
+    box-shadow: 0 0 25px #00FFB6;
+}
+
+/* Inserted ChatGBT */
+
+.typing-text {
+    position: relative;
+    display: inline-block;
+}
+
+.typing-text span {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 34px;
+    font-weight: 600;
+    color: #00FFB6;
+    text-shadow: 0 0 4px #00FFB6, 0 0 20px #00FFB6;
+}
+
+/* blinking cursor */
+.typing-text::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 6px;
+    background-color: #00FFB6;
+    top: 0;
+    left: calc(100% + 2px);
+    /* position just after typed text */
+    animation: blink 2s steps(1) infinite;
+
+}
+
+@keyframes blink {
+
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+/* Grid */
+.grid-container
+
+.item{
+    padding: 2em;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 2rem;
+}
+/* Grid */
+
+
+
+
+
+
+/* End of ChatGBT */
+
+/* Original Code, But Might Be Missing OG .Typing-text (that's the only one missing) */
+
+/* 
+.typing-text span::before{
+    content: "sofware Developer";
+    color: #b74b4b;
+    animation: words 20s infinite; */
+/* } */
+/* .typing-text span::after{
+    content: "";
+    background-color: black;
+    position: absolute;
+    width: calc(100% + 8px);
+    height: 100%;
+    border-left: 3px solid black;
+    right: -8;
+    animation: cursor 0.6s infinite
+}
+@keyframes cursor{
+    to{
+        border-left: 3px solid;
+    }
+}
+@keyframes words{
+    0%, 20%{
+        content: "CONCEPT ARTIST"
+    }
+    21%,40%{
+    content: "DESIGNER";
+}
+41%, 60%{
+    content: "PRODUCER"
+}
+61%, 80%{
+    content: "GAME DEVELOPER";
+}
+81%, 100%{
+    content: "STORYTELLER"
+}
+}
+
+@media(max-width: 1000px){
+    .home{
+        gap: 4rem;
+    }
+}
+
+@media(max-width:995px){
+    .home{
+        flex-direction: column;
+        margin: 5rem 4rem;
+    }
+    .home.home-content h3{
+        font-size: 2.5rem;
+    }
+    .home-content h1{
+        font-size: 5rem;
+    }
+    .home-img img{
+        width: 70vw;
+        margin-top: 4rem;
+    }
+} */
