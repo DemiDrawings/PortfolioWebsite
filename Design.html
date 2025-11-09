@@ -1,42 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="Style.css">
-  <title>Portfolio Website</title>
+  <title>Portfolio Grid Scroll Pop Animation</title>
+  <style>
+    body {
+       margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-image: url("starfall-gif-22.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #00FFB6;
+  overflow-x: hidden;
+    }
 
-  <!-- FONT REFERENCE -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rock+Salt&display=swap"
-    rel="stylesheet" />
-  <!-- END OF FONT REFERENCE -->
-</head>
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transform: scale(0.8) translateY(50px);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer;
+    }
+
+    .card.show {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card h3 {
+      margin: 15px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0 15px 20px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
   <header>
-    
-<div class="dropdown">
-</div>
     <nav>
       <a href="Home.html" class="active">Home</a>
-      <a href="About.html">3D Art</a>
+       <a href="About.html">3D Art</a>
       <a href="VisualArt.html">Visual Art</a>
       <a href="Design.html">Design</a>
-      <a href="Other.html">Projects</a>
-
+     <a href="Other.html">Projects</a>
     </nav>
   </header>
 
   <section class="home">
-    <div class="home-img">
-    </div>
     <div class="home-content">
+      <h1>DEMI SALEEB</h1>
+      <p>A series of my latest works!</p>
+    </div>
+  </section>
 
+  <section class="grid">
+    <div class="card" data-link="Page1.html">
+      <img src="C:\Users\Admin\Downloads\sproutcover.gif">
+      <h3>SPROUTED (Animation)</h3>
+      <p>Creative web design project.</p>
+    </div>
+    <div class="card" data-link="Page2.html">
+      <img src="c:\Users\Admin\Downloads\game concept Sprout.png">
+      <h3>Dreamscape (Game)</h3>
+      <p>Modern branding example.</p>
+    </div>
+    <div class="card" data-link="Page3.html">
+      <img src="c:\Users\Admin\Downloads\FishyGame.gif">
+      <h3>FISHY (Game)</h3>
+      <p>Mobile-friendly layout.</p>
+    </div>
+    <div class="card" data-link="Page4.html">
+      <img src="c:\Users\Admin\Downloads\ch1.png">
+      <h3>CLUSTERHUG (Graphic Book)</h3>
+      <p>Illustration concept art.</p>
+    </div>
+    <div class="card" data-link="Page5.html">
+      <img src="c:\Users\Admin\Downloads\Dream_11.gif">
+      <h3>SCARAB (Game)</h3>
+      <p>UI/UX product redesign.</p>
+    </div>
+    <div class="card" data-link="Page6.html">
+      <img src="C:\Users\Admin\Downloads\ruinsp.png">
+      <h3>3D Model</h3>
+      <p>Creative animation showcase.</p>
+    </div>
+  </section>
 
+  <script>
+    // Scroll animation
+    const cards = document.querySelectorAll('.card');
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+
+    // Clickable redirect
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const link = card.getAttribute('data-link');
+        if (link) window.location.href = link;
+      });
+    });
   </script>
-
 </body>
+</html>

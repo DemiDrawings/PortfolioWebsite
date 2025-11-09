@@ -1,1 +1,134 @@
-Pag4.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="Style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-image: url("starfall-gif-22.gif");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #00FFB6;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #00FFB6;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    /* Main layout */
+    .main-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Left text column */
+    .text-column {
+      flex: 1 1 400px;
+      min-width: 300px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Right grid column */
+    .grid-column {
+      flex: 1 1 400px;
+      display: grid;
+      grid-template-rows: 2fr 1fr 1fr;
+      gap: 20px;
+      min-width: 300px;
+    }
+
+    .grid-item {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .main-section {
+        flex-direction: column;
+      }
+      .grid-column {
+        grid-template-rows: repeat(3, 200px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="Home.html" class="active">Home</a>
+      <a href="About.html">3D Art</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+    </nav>
+  </header>
+
+  <section class="main-section">
+    <!-- Left text column -->
+    <div class="text-column">
+      <h2>About My Work</h2>
+      <p>
+        Here you can write about your creative work. For example, describe the projects you are showcasing, your design process, inspiration, or any notes. This text is static and only changes when you edit the code itself.
+      </p>
+      <p>
+        You can add multiple paragraphs and format it using standard HTML like <strong>bold</strong> or <em>italic</em> text.
+      </p>
+    </div>
+
+    <!-- Right grid column -->
+    <div class="grid-column">
+      <div class="grid-item">
+        <img src="C:/Users/Admin/Downloads/sproutcover.gif" alt="Large Project">
+      </div>
+      <div class="grid-item">
+        <img src="C:/Users/Admin/Downloads/game concept Sprout.png" alt="Small Project 1">
+      </div>
+      <div class="grid-item">
+        <img src="C:/Users/Admin/Downloads/FishyGame.gif" alt="Small Project 2">
+      </div>
+    </div>
+  </section>
+</body>
+</html>
