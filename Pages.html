@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #222;
+      color: white;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .portfolio-item {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      display: block;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .caption {
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Art Portfolio</h1>
+    <p>Click on an image to learn more about each piece</p>
+  </header>
+
+  <main class="portfolio-grid">
+    <div class="portfolio-item" onclick="location.href='piece1.html'">
+      <img src="images/piece1.jpg" alt="Piece 1">
+      <div class="caption">"Dreamscape" — Acrylic on Canvas</div>
+    </div>
+
+    <div class="portfolio-item" onclick="location.href='piece2.html'">
+      <img src="images/piece2.jpg" alt="Piece 2">
+      <div class="caption">"Urban Reflections" — Digital Illustration</div>
+    </div>
+
+    <div class="portfolio-item" onclick="location.href='piece3.html'">
+      <img src="images/piece3.jpg" alt="Piece 3">
+      <div class="caption">"Silent Echo" — Photography</div>
+    </div>
+
+    <!-- Add more pieces here -->
+  </main>
+</body>
+</html>
