@@ -1,80 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio</title>
-  <link rel="stylesheet" href="Style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinterest-style 3x3 Collage</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+  <link rel="stylesheet" href="style.css" />
+  </header>
+  <div class="dropdown">
+</div>
+    <nav>
+      <a href="Home.html" class="active">Home</a>
+       <a href="About.html">3D Art</a>
+      <!-- <a href="#3D Art">3D Art</a> -->
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+    </nav>
   <style>
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
-      background-image: url("starfall-gif-22.gif");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      color: #00FFB6;
+      font-family: sans-serif;
+      background: #111;
+      overflow-x: hidden;
     }
 
-    header {
-      text-align: center;
-      padding: 40px 20px;
+    [data-scroll-container] {
+      width: 100%;
     }
 
-    nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #00FFB6;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #fff;
-    }
-
-    /* Main layout */
-    .main-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+    /* Pinterest-style Collage Grid */
+    .grid-container {
+      width: 90%;
       max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    /* Left text column */
-    .text-column {
-      flex: 1 1 400px;
-      min-width: 300px;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 20px;
-      border-radius: 12px;
-      color: #fff;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    /* Right grid column */
-    .grid-column {
-      flex: 1 1 400px;
+      margin: 100px auto;
       display: grid;
-      grid-template-rows: 2fr 1fr 1fr;
-      gap: 20px;
-      min-width: 300px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px; /* base row height */
+      gap: 15px;
     }
 
     .grid-item {
-      background: #fff;
-      border-radius: 12px;
+      position: relative;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .grid-item:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+      cursor: pointer;
     }
 
     .grid-item img {
@@ -82,53 +55,111 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.5s ease;
     }
 
-    @media (max-width: 900px) {
-      .main-section {
-        flex-direction: column;
-      }
-      .grid-column {
-        grid-template-rows: repeat(3, 200px);
-      }
+    .grid-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .grid-item.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Slight variation in row span for Pinterest-style look */
+    .item1 { grid-row: span 3; }
+    .item2 { grid-row: span 2; }
+    .item3 { grid-row: span 2; }
+    .item4 { grid-row: span 3; }
+    .item5 { grid-row: span 2; }
+    .item6 { grid-row: span 3; }
+    .item7 { grid-row: span 2; }
+    .item8 { grid-row: span 3; }
+    .item9 { grid-row: span 2; }
+
+    /* Lightbox overlay */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    body::after {
+      content: '';
+      display: block;
+      height: 300px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="Home.html" class="active">Home</a>
-      <a href="About.html">3D Art</a>
-      <a href="VisualArt.html">Visual Art</a>
-      <a href="Design.html">Design</a>
-      <a href="Other.html">Projects</a>
-    </nav>
-  </header>
 
-  <section class="main-section">
-    <!-- Left text column -->
-    <div class="text-column">
-      <h2>About My Work</h2>
-      <p>
-        Here you can write about your creative work. For example, describe the projects you are showcasing, your design process, inspiration, or any notes. This text is static and only changes when you edit the code itself.
-      </p>
-      <p>
-        You can add multiple paragraphs and format it using standard HTML like <strong>bold</strong> or <em>italic</em> text.
-      </p>
+  <div data-scroll-container>
+    <div class="grid-container">
+      <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/800?random=1" alt="1"></div>
+      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=2" alt="2"></div>
+      <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/600?random=3" alt="3"></div>
+      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/900?random=4" alt="4"></div>
+      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=5" alt="5"></div>
+      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/850?random=6" alt="6"></div>
+      <div class="grid-item item7" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=7" alt="7"></div>
+      <div class="grid-item item8" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/900?random=8" alt="8"></div>
+      <div class="grid-item item9" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/550?random=9" alt="9"></div>
     </div>
+  </div>
 
-    <!-- Right grid column -->
-    <div class="grid-column">
-      <div class="grid-item">
-        <img src="C:/Users/Admin/Downloads/sproutcover.gif" alt="Large Project">
-      </div>
-      <div class="grid-item">
-        <img src="C:/Users/Admin/Downloads/game concept Sprout.png" alt="Small Project 1">
-      </div>
-      <div class="grid-item">
-        <img src="C:/Users/Admin/Downloads/FishyGame.gif" alt="Small Project 2">
-      </div>
-    </div>
-  </section>
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Enlarged Image" id="lightbox-img">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+  <script>
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+      multiplier: 1
+    });
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const items = document.querySelectorAll('.grid-item img');
+
+    items.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if(e.target !== lightboxImg) {
+        lightbox.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>

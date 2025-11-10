@@ -1,141 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="Style.css">
-  <title>Portfolio Grid Scroll Pop Animation</title>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Start page with fade-in
+    document.body.classList.add("fade-in");
+
+    // Intercept page link clicks
+    document.querySelectorAll("a[href]").forEach(link => {
+        link.addEventListener("click", function (e) {
+            const url = this.getAttribute("href");
+
+            if (!url.startsWith("#") && !url.startsWith("javascript:")) {
+                e.preventDefault();
+
+                // Fade-out current page
+                document.body.classList.remove("fade-in");
+                document.body.classList.add("fade-out");
+
+                // Wait for animation, then go to next page
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 700); // match animation duration
+            }
+        });
+    });
+});
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinterest-style 3x3 Collage</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+  <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="Page Transition.css" />
+  </header>
+  <div class="dropdown">
+</div>
+    <nav>
+      <a href="Home.html" class="active">Home</a>
+       <a href="About.html">3D Art</a>
+      <!-- <a href="#3D Art">3D Art</a> -->
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+    </nav>
   <style>
     body {
-       margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-image: url("starfall-gif-22.gif");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #00FFB6;
-  overflow-x: hidden;
+      margin: 0;
+      font-family: sans-serif;
+      background: #111;
+      overflow-x: hidden;
     }
 
-    header {
-      text-align: center;
-      padding: 80px 20px 40px;
+    [data-scroll-container] {
+      width: 100%;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      padding: 20px;
+    /* Pinterest-style Collage Grid */
+    .grid-container {
+      width: 90%;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 100px auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px; /* base row height */
+      gap: 15px;
     }
 
-    .card {
-      background: white;
-      border-radius: 12px;
+    .grid-item {
+      position: relative;
       overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      transform: scale(0.8) translateY(50px);
+      border-radius: 15px;
       opacity: 0;
-      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
       cursor: pointer;
     }
 
-    .card.show {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
-    .card img {
+    .grid-item img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.5s ease;
     }
 
-    .card h3 {
-      margin: 15px;
-      font-size: 1.2rem;
+    .grid-item:hover img {
+      transform: scale(1.05);
     }
 
-    .card p {
-      margin: 0 15px 20px;
-      color: #666;
+    .grid-item.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Slight variation in row span for Pinterest-style look */
+    .item1 { grid-row: span 3; }
+    .item2 { grid-row: span 2; }
+    .item3 { grid-row: span 2; }
+    .item4 { grid-row: span 3; }
+    .item5 { grid-row: span 2; }
+    .item6 { grid-row: span 3; }
+    .item7 { grid-row: span 2; }
+    .item8 { grid-row: span 3; }
+    .item9 { grid-row: span 2; }
+
+    /* Lightbox overlay */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    body::after {
+      content: '';
+      display: block;
+      height: 300px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="Home.html" class="active">Home</a>
-       <a href="About.html">3D Art</a>
-      <a href="VisualArt.html">Visual Art</a>
-      <a href="Design.html">Design</a>
-     <a href="Other.html">Projects</a>
-    </nav>
-  </header>
 
-  <section class="home">
-    <div class="home-content">
-      <h1>DEMI SALEEB</h1>
-      <p>A series of my latest works!</p>
+  <div data-scroll-container>
+    <div class="grid-container">
+      <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/800?random=1" alt="1"></div>
+      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=2" alt="2"></div>
+      <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/600?random=3" alt="3"></div>
+      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/900?random=4" alt="4"></div>
+      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=5" alt="5"></div>
+      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/850?random=6" alt="6"></div>
+      <div class="grid-item item7" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=7" alt="7"></div>
+      <div class="grid-item item8" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/900?random=8" alt="8"></div>
+      <div class="grid-item item9" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/550?random=9" alt="9"></div>
     </div>
-  </section>
+  </div>
 
-  <section class="grid">
-    <div class="card" data-link="Page1.html">
-      <img src="C:\Users\Admin\Downloads\sproutcover.gif">
-      <h3>SPROUTED (Animation)</h3>
-      <p>Creative web design project.</p>
-    </div>
-    <div class="card" data-link="Page2.html">
-      <img src="c:\Users\Admin\Downloads\game concept Sprout.png">
-      <h3>Dreamscape (Game)</h3>
-      <p>Modern branding example.</p>
-    </div>
-    <div class="card" data-link="Page3.html">
-      <img src="c:\Users\Admin\Downloads\FishyGame.gif">
-      <h3>FISHY (Game)</h3>
-      <p>Mobile-friendly layout.</p>
-    </div>
-    <div class="card" data-link="Page4.html">
-      <img src="c:\Users\Admin\Downloads\ch1.png">
-      <h3>CLUSTERHUG (Graphic Book)</h3>
-      <p>Illustration concept art.</p>
-    </div>
-    <div class="card" data-link="Page5.html">
-      <img src="c:\Users\Admin\Downloads\Dream_11.gif">
-      <h3>SCARAB (Game)</h3>
-      <p>UI/UX product redesign.</p>
-    </div>
-    <div class="card" data-link="Page6.html">
-      <img src="C:\Users\Admin\Downloads\ruinsp.png">
-      <h3>3D Model</h3>
-      <p>Creative animation showcase.</p>
-    </div>
-  </section>
+  <!-- Lightbox overlay -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Enlarged Image" id="lightbox-img">
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
   <script>
-    // Scroll animation
-    const cards = document.querySelectorAll('.card');
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+      multiplier: 1
+    });
 
-    cards.forEach(card => observer.observe(card));
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const items = document.querySelectorAll('.grid-item img');
 
-    // Clickable redirect
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        const link = card.getAttribute('data-link');
-        if (link) window.location.href = link;
+    items.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
       });
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if(e.target !== lightboxImg) {
+        lightbox.classList.remove('active');
+      }
     });
   </script>
 </body>

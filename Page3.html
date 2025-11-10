@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio</title>
-  <link rel="stylesheet" href="Style.css">
+  <link rel="stylesheet" href="style.css">
   <style>
+    p {
+  margin-bottom: 1em; /* Adds 1 unit of space below each paragraph */
+}
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
@@ -24,43 +27,32 @@
     nav a {
       margin: 0 10px;
       text-decoration: none;
-      color: #00FFB6;
+      color: #ffffff;
       font-weight: bold;
       transition: 0.3s;
     }
 
     nav a:hover {
-      color: #fff;
+      color: #00FFB6;
     }
 
-    /* Main layout */
-    .main-section {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    /* Left text column */
+    /* Left Text Column */
     .text-column {
       flex: 1 1 400px;
       min-width: 300px;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 20px;
+      /* background: rgba(0, 0, 0, 0.5); */
+      padding: 50px;
       border-radius: 12px;
-      color: #fff;
-      font-size: 1rem;
-      line-height: 1.5;
+      color: #959595;
+      font-size: 18px;
     }
 
-    /* Right grid column */
+    /* Right Grid Column */
     .grid-column {
       flex: 1 1 400px;
       display: grid;
-      grid-template-rows: 2fr 1fr 1fr;
-      gap: 20px;
+      grid-template-rows: 550px 400px 400px; /* ✅ Large top, two smaller */
+      gap: 225px;
       min-width: 300px;
     }
 
@@ -77,7 +69,9 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .grid-item img {
+    /* ✅ Make images and video fill the grid boxes */
+    .grid-item img,
+    .grid-item video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -89,8 +83,9 @@
         flex-direction: column;
       }
       .grid-column {
-        grid-template-rows: repeat(3, 200px);
+        grid-template-rows: 300px 200px 200px;
       }
+      
     }
   </style>
 </head>
@@ -108,25 +103,38 @@
   <section class="main-section">
     <!-- Left text column -->
     <div class="text-column">
-      <h2>About My Work</h2>
+     <p> <h2>FISHY (2025)</h2> <p>
+     
+      <p> 
+      All 2D Art, Illustrations, & Animations by Demi Saleeb; 3D Modeling & Programming (C#) by Vinny. 
       <p>
-        Here you can write about your creative work. For example, describe the projects you are showcasing, your design process, inspiration, or any notes. This text is static and only changes when you edit the code itself.
+      Created within the Design Media Arts (DMA) Collaborative Game Class at the University of California, Los Angeles (UCLA), "Fishy" is a one week, collaborative game jam inspired by the prompt: fishing. Explore a completely normal, non-existential, fish feeding simulator! 
       </p>
-      <p>
-        You can add multiple paragraphs and format it using standard HTML like <strong>bold</strong> or <em>italic</em> text.
+      “Fishy” explores consumerism; working as a clog within the corporate machine, helpless and subservient to the unending cycle of feeding and exploitation. For instance, if Fishy is not fed (whether as a means of opposition to this cruelty and food production at large, or simple idleness), it will die. Contrary, if you continue to feed Fishy, it will meet the same fate in being sold for consumption. 
+Although it was intended to have different endings—such as helping Fishy escape, though getting fired from your job in the process—the time constraint made us choose to feed( see what I did there?) into the game’s narrative of successive consumerism.
+
+
+
       </p>
     </div>
 
     <!-- Right grid column -->
     <div class="grid-column">
+      <!-- Large top box (video) -->
       <div class="grid-item">
-        <img src="C:/Users/Admin/Downloads/sproutcover.gif" alt="Large Project">
+        <video controls autoplay loop muted>
+          <source src="c:\Users\Admin\OneDrive\Pictures\LongFishVid.mp4" type="video/mp4">
+        </video>
       </div>
+
+      <!-- Smaller box #1 -->
       <div class="grid-item">
-        <img src="C:/Users/Admin/Downloads/game concept Sprout.png" alt="Small Project 1">
+        <img src="c:\Users\Admin\Downloads\FishyGame.gif" alt="Small Project 1">
       </div>
+
+      <!-- Smaller box #2 -->
       <div class="grid-item">
-        <img src="C:/Users/Admin/Downloads/FishyGame.gif" alt="Small Project 2">
+        <img src="c:\Users\Admin\Downloads\4fdcc118-5a38-444a-b9e9-b380cd75c1bc_rw_1920 (1).gif">
       </div>
     </div>
   </section>

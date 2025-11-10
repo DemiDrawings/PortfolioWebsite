@@ -2,9 +2,37 @@
 <html lang="en">
 
 <head>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Start page with fade-in
+    document.body.classList.add("fade-in");
+
+    // Intercept page link clicks
+    document.querySelectorAll("a[href]").forEach(link => {
+        link.addEventListener("click", function (e) {
+            const url = this.getAttribute("href");
+
+            if (!url.startsWith("#") && !url.startsWith("javascript:")) {
+                e.preventDefault();
+
+                // Fade-out current page
+                document.body.classList.remove("fade-in");
+                document.body.classList.add("fade-out");
+
+                // Wait for animation, then go to next page
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 700); // match animation duration
+            }
+        });
+    });
+});
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="Page Transition.css" />
   <!-- <link rel="stylesheet" href="file:///C:/Users/Admin/OneDrve/Pictures/DemiSaleebPortfolio.html#"> -->
   <title>Portfolio Website</title>
 
