@@ -1,173 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
-    // Start page with fade-in
-    document.body.classList.add("fade-in");
-
-    // Intercept page link clicks
-    document.querySelectorAll("a[href]").forEach(link => {
-        link.addEventListener("click", function (e) {
-            const url = this.getAttribute("href");
-
-            if (!url.startsWith("#") && !url.startsWith("javascript:")) {
-                e.preventDefault();
-
-                // Fade-out current page
-                document.body.classList.remove("fade-in");
-                document.body.classList.add("fade-out");
-
-                // Wait for animation, then go to next page
-                setTimeout(() => {
-                    window.location.href = url;
-                }, 700); // match animation duration
-            }
-        });
-    });
-});
-</script>
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="Style.css">
-  <title>Portfolio Grid Scroll Pop Animation</title>
-  <header>
-  <div class="logo">
-  <img src="c:\Users\Admin\OneDrive\Pictures\Demi Logo.png" alt="Logo" class="logo-icon">
-    <link rel="stylesheet" href="Page Transition.css" />
-  <nav>
-    <a href="Home.html">Home</a>
-    <a href="About.html">3D Art</a>
-    <a href="VisualArt.html">Visual Art</a>
-    <a href="Design.html">Design</a>
-    <a href="Other.html">Projects</a>
-  </nav>
-</header>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+  <title>Portfolio Website</title>
 
   <style>
-    
     body {
-       margin: 0;
-  font-family: "Poppins", sans-serif;
-  background-image: url("starfall-gif-22.gif");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #00FFB6;
-  overflow-x: hidden;
-    }
-
-    header {
-      text-align: center;
-      padding: 80px 20px 40px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      transform: scale(0.8) translateY(50px);
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #111;
+      overflow-x: hidden;
       opacity: 0;
-      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    body.page-loaded { opacity: 1; transform: scale(1); }
+    body.page-exit { opacity: 0; transform: scale(0.9); }
+
+    header { display: flex; align-items: center; justify-content: space-between; padding: 20px 50px; }
+    nav a { margin: 0 10px; text-decoration: none; color: #fff; font-weight: bold; transition: 0.3s; }
+    nav a:hover { color: #00FFB6; }
+
+    .grid-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 100px auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px;
+      gap: 15px;
+    }
+
+    .grid-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
       cursor: pointer;
     }
 
-    .card.show {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
-    .card img {
+    .grid-item img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.5s ease;
     }
 
-    .card h3 {
-      margin: 15px;
-      font-size: 1.2rem;
+    .grid-item:hover img { transform: scale(1.05); }
+    .grid-item.in-view { opacity: 1; transform: translateY(0); }
+
+    /* CAPTIONS */
+    .grid-caption {
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: #ffffff;
+      font-size: 18px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
     }
 
-    .card p {
-      margin: 0 15px 20px;
-      color: #666;
+    .grid-item.in-view .grid-caption {
+      opacity: 1;
+      transform: translateY(0);
+      bottom: 10px;
     }
+
+    /* GRID LAYOUT SPANS */
+    .item1 { grid-row: span 2; grid-column: span 2; }
+    .item2 { grid-row: span 1; }
+    .item3 { grid-row: span 2; }
+    .item4 { grid-row: span 1; grid-column: span 2; }
+    .item5 { grid-row: span 2; }
+    .item6 { grid-row: span 1; }
+    
   </style>
 </head>
+
 <body>
+  <header>
+    <div class="logo">
+      <img src="c:\\Users\\Admin\\OneDrive\\Pictures\\Demi Logo.png" alt="Logo" class="logo-icon">
+    </div>
+    <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+    <nav>
+      <a href="Home.html" class="active">Home</a>
+      <a href="About.html">3D Art</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+    </nav>
+  </header>
+  <div data-scroll-container>
+    <div data-scroll-container>
+
+  <!-- GRID BOX -->
+  <div class="grid-wrapper">
+
+    <div class="grid-container">
+      <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
+        <img src="c:\Users\Admin\Downloads\game concept Sprout.png" alt="1">
+          <!-- Title above caption -->
+         <div class="grid-title">DREAMSCAPE</div>
+  
+           <!-- Caption below -->
+          <div class="grid-caption">Digital Game</div>
+      </div>
+
+      <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
+        <img src="c:\\Users\\Admin\\Downloads\\sproutcover (1).gif" alt="2">
+         <div class="grid-title">SPROUTED</div>
+         <div class="grid-caption">Stop-Motion Animation Film</div>
+      </div>
+
+      <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
+       <img src="San.gif" alt="3">
+        <div class="grid-title">SCARAB</div>
+        <div class="grid-caption">Digital Game</div>
+      </div>
+
+      <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
+        <img src="c:\\Users\\Admin\\Downloads\\FishyGame.gif" alt="4">
+        <div class="grid-title">FISHY</div>
+        <div class="grid-caption">Digital Game</div>
+      </div>
+
+      <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
+        <img src="c:\Users\Admin\Downloads\19b4d8f8-1b67-4621-9908-3c9bb3d58988_rw_1920.jpeg" alt="5">
+        <div class="grid-title">BOARD GAMES</div>
+        <div class="grid-caption">Fabricated Games</div>
+      </div>
+
+      <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
+        <img src="c:\Users\Admin\OneDrive\Desktop\PortfolioWebsite\destinationpromo.gif" alt="6">
+        <div class="grid-title">DESTINATION</div>
+        <div class="grid-caption">Digital Game</div>
+      </div>
+    </div>
+
+  </div> <!-- end grid-wrapper -->
+
+</div> <!-- end data-scroll-container -->
 
 
-  <section class="home">
-    <div class="home-content">
-      <h1>DEMI SALEEB</h1>
-      <!-- <p>A series of my latest works!</p> -->
-    </div>
-  </section>
-
-  <section class="grid">
-    <div class="card" data-link="Page1.html">
-      <img src="C:\Users\Admin\Downloads\sproutcover.gif">
-      <h3>SPROUTED (Animation)</h3>
-      <p>Creative web design project.</p>
-    </div>
-    <div class="card" data-link="Page2.html">
-      <img src="c:\Users\Admin\Downloads\game concept Sprout.png">
-      <h3>Dreamscape (Game)</h3>
-      <p>Modern branding example.</p>
-    </div>
-    <div class="card" data-link="Page3.html">
-      <img src="c:\Users\Admin\Downloads\FishyGame.gif">
-      <h3>FISHY (Game)</h3>
-      <p>Mobile-friendly layout.</p>
-    </div>
-    <div class="card" data-link="Page4.html">
-      <img src="c:\Users\Admin\Downloads\ch1.png">
-      <h3>CLUSTERHUG (Graphic Book)</h3>
-      <p>Illustration concept art.</p>
-    </div>
-    <div class="card" data-link="Page5.html">
-      <img src="c:\Users\Admin\Downloads\Dream_11.gif">
-      <h3>SCARAB (Game)</h3>
-      <p>UI/UX product redesign.</p>
-    </div>
-    <div class="card" data-link="Page6.html">
-      <img src="C:\Users\Admin\Downloads\ruinsp.png">
-      <h3>3D Model</h3>
-      <p>Creative animation showcase.</p>
-    </div>
-  </section>
-
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
   <script>
-    // Scroll animation
-    const cards = document.querySelectorAll('.card');
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
+    document.addEventListener("DOMContentLoaded", () => {
+      requestAnimationFrame(() => {
+        document.body.classList.add("page-loaded");
 
-    cards.forEach(card => observer.observe(card));
+        const scroll = new LocomotiveScroll({
+          el: document.querySelector('[data-scroll-container]'),
+          smooth: true,
+          multiplier: 1
+        });
 
-    // Clickable redirect
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        const link = card.getAttribute('data-link');
-        if (link) window.location.href = link;
+        // Make grid items clickable
+        document.querySelectorAll('.grid-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const link = item.getAttribute('data-link');
+            if(link) {
+              document.body.classList.add("page-exit");
+              setTimeout(() => window.location.href = link, 500);
+            }
+          });
+        });
+
+        // Page transitions for nav links
+        document.querySelectorAll("a[href]").forEach(link => {
+          link.addEventListener("click", e => {
+            const url = link.getAttribute("href");
+            if(url.startsWith("#")) return;
+            e.preventDefault();
+            document.body.classList.add("page-exit");
+            setTimeout(() => window.location.href = url, 500);
+          });
+        });
+
+        // Trigger in-view for grid items
+        const gridItems = document.querySelectorAll('.grid-item');
+        gridItems.forEach(item => {
+          scroll.on('call', (value, way, obj) => {
+            if(value === 'in-view' && obj.el === item) {
+              item.classList.add('in-view');
+            }
+          });
+        });
       });
     });
   </script>

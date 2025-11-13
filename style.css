@@ -12,17 +12,20 @@
 }
 
 html {
-    font-size: 62.5%
+    font-size: 62.5%;
 }
 
+/* === BODY / BACKGROUND === */
 body {
-    width: 100% height 100vh;
+    width: 100%;
+    height: 100vh;
     overflow-x: hidden;
-    background-color: rgb(22, 22, 22);
     color: white;
+    background: url("WebAnimation.gif") no-repeat center center fixed;
+    background-size: cover;
 }
 
-
+/* === HEADER === */
 header {
     margin-top: 20px;
     position: fixed;
@@ -37,52 +40,11 @@ header {
     align-items: center;
     z-index: 100;
 }
+
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 3rem;
-  color: #00FFB6;
-  font-weight: 800;
-  cursor: pointer;
-  transition: 0.5s ease;
-}
-
-.logo-icon {
-  width: 125px;
-  height: 125px;
-  object-fit: contain;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-
-.logo:hover .logo-icon {
-  animation: pulse 1s ease-in-out infinite;
-}
-
-
-/* spacing between paragraphs */
-
-/* p + p {
-  margin-top: 1.5rem;
-} */
-
-
-
-
-
-/* .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
     font-size: 3rem;
     color: #00FFB6;
     font-weight: 800;
@@ -90,11 +52,23 @@ header {
     transition: 0.5s ease;
 }
 
-.logo:hover {
-    transform: scale(1.1);
+.logo-icon {
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+}
 
-} */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
 
+.logo:hover .logo-icon {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+/* === NAVIGATION === */
 nav a {
     font-size: 1.8rem;
     color: white;
@@ -102,7 +76,6 @@ nav a {
     font-weight: 500;
     transition: 0.3s ease;
     border-bottom: 3px solid transparent;
-
 }
 
 nav a:hover,
@@ -111,7 +84,7 @@ nav a:active {
     border-bottom: 3px solid #00FFB6;
 }
 
-@media(max-width:995px) {
+@media(max-width: 995px) {
     nav {
         position: absolute;
         display: none;
@@ -141,26 +114,30 @@ nav a:active {
         border-radius: 0.5rem;
         border-bottom: 0.5rem solid #00FFB6;
     }
+
     .hamburg,
-    .cancel{
-        display:block;
+    .cancel {
+        display: block;
     }
+
     .main-container.content {
         width: 80%;
     }
 }
 
+/* === SECTIONS === */
 section {
     min-height: 100vh;
     padding: 5rem 9% 5rem;
 }
 
+/* === HOME SECTION === */
 .home {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8rem;
-    background-color: rgb(22, 22, 22);
+    background-color: transparent; /* must be transparent to see GIF */
 }
 
 .home .home-content h1 {
@@ -201,6 +178,7 @@ span {
     font-weight: 500;
 }
 
+/* === SOCIAL ICONS === */
 .social-icon a {
     display: inline-flex;
     justify-content: center;
@@ -214,6 +192,7 @@ span {
     margin: 3rem 1 5rem 3rem 0;
     transition: 0.3s ease;
     color: #00FFB6;
+    margin: 1rem 0;
 }
 
 .social-icon a:hover {
@@ -223,6 +202,8 @@ span {
     box-shadow: 0 0 25px #00FFB6;
 }
 
+
+/* === BUTTON === */
 .btn {
     display: inline-block;
     padding: 1rem 2.8rem;
@@ -244,8 +225,7 @@ span {
     box-shadow: 0 0 25px #00FFB6;
 }
 
-/* Inserted ChatGBT */
-
+/* === TYPING TEXT EFFECT === */
 .typing-text {
     position: relative;
     display: inline-block;
@@ -260,7 +240,6 @@ span {
     text-shadow: 0 0 4px #00FFB6, 0 0 20px #00FFB6;
 }
 
-/* blinking cursor */
 .typing-text::after {
     content: "";
     position: absolute;
@@ -269,117 +248,196 @@ span {
     background-color: #00FFB6;
     top: 0;
     left: calc(100% + 2px);
-    /* position just after typed text */
     animation: blink 2s steps(1) infinite;
-
 }
 
 @keyframes blink {
-
-    0%,
-    50%,
-    100% {
-        opacity: 1;
-    }
-
-    25%,
-    75% {
-        opacity: 0;
-    }
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
 }
 
-/* Grid Test */
-/* .grid-containerw{
-height: 800px;
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-grid-template-rows: 300px 300px 300px;
-grid-auto-rows: 300px;
-grid-auto-flow: column;
-gap: 1em;
-justify-items: center;
-align-items: center;
-justify-content: center;
-align-content: center;
-}
-.item{
-    height: 100px;
-    width: 100px;
-    padding: 2em;
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-    font-size: 1.5rem;
-} */
-/* Grid */
-
-
-
-
-
-/* End of ChatGBT */
-
-/* Original Code, But Might Be Missing OG .Typing-text (that's the only one missing) */
-
-/* 
-.typing-text span::before{
-    content: "sofware Developer";
-    color: #b74b4b;
-    animation: words 20s infinite; */
-/* } */
-/* .typing-text span::after{
-    content: "";
-    background-color: black;
-    position: absolute;
-    width: calc(100% + 8px);
+/* === EMBED WRAPPER === */
+.fbo-embed-wrapper {
+    position: relative;
+    width: 100%;
     height: 100%;
-    border-left: 3px solid black;
-    right: -8;
-    animation: cursor 0.6s infinite
-}
-@keyframes cursor{
-    to{
-        border-left: 3px solid;
-    }
-}
-@keyframes words{
-    0%, 20%{
-        content: "CONCEPT ARTIST"
-    }
-    21%,40%{
-    content: "DESIGNER";
-}
-41%, 60%{
-    content: "PRODUCER"
-}
-61%, 80%{
-    content: "GAME DEVELOPER";
-}
-81%, 100%{
-    content: "STORYTELLER"
-}
 }
 
-@media(max-width: 1000px){
-    .home{
-        gap: 4rem;
-    }
+.fbo-embed-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
-@media(max-width:995px){
-    .home{
-        flex-direction: column;
-        margin: 5rem 4rem;
-    }
-    .home.home-content h3{
-        font-size: 2.5rem;
-    }
-    .home-content h1{
-        font-size: 5rem;
-    }
-    .home-img img{
-        width: 70vw;
-        margin-top: 4rem;
-    }
-} */
+/* --- PAGE TRANSITION OVERLAY --- */
+/* Page transition overlay */
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #111;
+  z-index: 9999;
+  pointer-events: none; /* ALLOWS INTERACTIONS THROUGH IT */
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* When active (during transition) */
+.page-transition.active {
+  pointer-events: auto; /* ENABLES blocking during animation */
+  opacity: 1;
+
+}
+
+/* --- PAGE CONTENT ENTER ANIMATION --- */
+.page-content {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Show content after transition */
+.page-content.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Make IMAGES appear first */
+.page-content img {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.page-content.show img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Make TEXT appear slightly after images */
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content p,
+.page-content a,
+.page-content div {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+}
+
+.page-content.show h1,
+.page-content.show h2,
+.page-content.show h3,
+.page-content.show p,
+.page-content.show a,
+.page-content.show div {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* I'm pissy also this is CHAT */
+
+.grid-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+  cursor: pointer;
+}
+/* Grid Title */
+.grid-title {
+  position: absolute;
+  bottom: 40px; /* place above the caption */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #ffffff; /* bright title color */
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.grid-item.in-view .grid-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.grid-caption {
+  position: absolute;
+  bottom: -50px; /* start below the image */
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  font-size: 18px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.grid-item.in-view .grid-caption {
+  opacity: 1;
+  transform: translateY(0);
+  bottom: 10px; /* visible position */
+}
+
+/* Add a box around the grid */
+.grid-wrapper {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 30px;
+  background-color: #1a1a1a; /* darker box so captions pop */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Optional: slightly lift grid items on hover for extra pop */
+.grid-item:hover {
+  transform: translateY(-5px);
+  transition: transform 0.5s ease, opacity 0.8s ease;
+}
+
+/* My own chaos */
+
+
+ .text-column h2 {
+  color: #ffffff; /* or whatever highlight color you want */
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-transform: uppercase; /* optional */
+  letter-spacing: 1px; /* optional for stylistic spacing */
+}
+
+/* Regular body paragraphs */
+.text-column p {
+  color: #919191; /* softer gray tone for readability */
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 1em;
+}
+
+.caption {
+  /* text-align: center; */
+  font-size: 22px; /* make it clearly visible */
+  font-weight: 400;
+  color: #cecece !important;
+  /* background: rgba(255, 0, 0, 0.2);  */
+  /* border: 1px solid red; */
+  /* padding: 20px; */
+  margin-top: 20px;
+  display: block;
+  opacity: 1;
+  position: relative;
+  z-index: 100;
+}

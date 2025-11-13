@@ -1,165 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pinterest-style 3x3 Collage</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
-  <link rel="stylesheet" href="style.css" />
-  </header>
-  <div class="dropdown">
-</div>
-    <nav>
-      <a href="Home.html" class="active">Home</a>
-       <a href="About.html">3D Art</a>
-      <!-- <a href="#3D Art">3D Art</a> -->
-      <a href="VisualArt.html">Visual Art</a>
-      <a href="Design.html">Design</a>
-      <a href="Other.html">Projects</a>
-    </nav>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      background: #111;
-      overflow-x: hidden;
+      font-family: "Poppins", sans-serif;
+      background-size: cover;
+      background-position: center;
+      background: url("WebAnimation.gif") no-repeat center center fixed;
+      background-repeat: no-repeat;
+      color: #00FFB6;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    [data-scroll-container] {
-      width: 100%;
+    body.page-loaded {
+      opacity: 1;
+      transform: scale(1);
     }
 
-    /* Pinterest-style Collage Grid */
-    .grid-container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 100px auto;
+    body.page-exit {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #00FFB6;
+    }
+
+    .main-section {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 80px;
+      gap: 40px;
+    }
+  
+    /* Text column */
+    .text-column {
+      flex: 1 1 400px;
+      min-width: 300px;
+      padding: 50px;
+      border-radius: 12px;
+      color: #525252;
+      font-size: 18px;
+      opacity: 0;
+      transform: scale(0.95) translateY(50px); /* Small pop-down start */
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          p {
+        margin-bottom: 1em; /* Adjust the value as needed (e.g., 16px, 1.5rem) */
+    }
+    }
+
+    .text-column.in-view {
+      opacity: 1;
+      transform: scale(1) translateY(0); /* Pop to normal size & position */
+    }
+
+    /* Grid column */
+    .grid-column {
+      flex: 1 1 400px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 200px; /* base row height */
-      gap: 15px;
+      grid-template-rows: 550px 400px 400px;
+      gap: 100px;
+      min-width: 300px;
     }
 
     .grid-item {
-      position: relative;
+      background: #fff;
+      border-radius: 12px;
       overflow: hidden;
-      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease-out, transform 0.8s ease-out;
       opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease-out;
-      cursor: pointer;
-    }
-
-    .grid-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .grid-item:hover img {
-      transform: scale(1.05);
+      transform: scale(0.95) translateY(50px);
     }
 
     .grid-item.in-view {
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1) translateY(0);
     }
 
-    /* Slight variation in row span for Pinterest-style look */
-    .item1 { grid-row: span 3; }
-    .item2 { grid-row: span 2; }
-    .item3 { grid-row: span 2; }
-    .item4 { grid-row: span 3; }
-    .item5 { grid-row: span 2; }
-    .item6 { grid-row: span 3; }
-    .item7 { grid-row: span 2; }
-    .item8 { grid-row: span 3; }
-    .item9 { grid-row: span 2; }
-
-    /* Lightbox overlay */
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 1000;
+    .grid-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .lightbox.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    body::after {
-      content: '';
+    .grid-item img,
+    .grid-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      height: 300px;
+    }
+
+    @media (max-width: 900px) {
+      .main-section {
+        flex-direction: column;
+      }
+      .grid-column {
+        grid-template-rows: 300px 200px 200px;
+        gap: 100px;
+      }
     }
   </style>
 </head>
 <body>
+   <header>
+      <div class="logo">
+        <img src="c:\Users\Admin\OneDrive\Pictures\Demi Logo.png" alt="Logo" class="logo-icon">
+      </div>
 
-  <div data-scroll-container>
-    <div class="grid-container">
-      <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/800?random=1" alt="1"></div>
-      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=2" alt="2"></div>
-      <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/600?random=3" alt="3"></div>
-      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/900?random=4" alt="4"></div>
-      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=5" alt="5"></div>
-      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/850?random=6" alt="6"></div>
-      <div class="grid-item item7" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/500?random=7" alt="7"></div>
-      <div class="grid-item item8" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/900?random=8" alt="8"></div>
-      <div class="grid-item item9" data-scroll data-scroll-class="in-view"><img src="https://picsum.photos/600/550?random=9" alt="9"></div>
+      <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+
+      <nav>
+        <a href="Home.html" class="active">Home</a>
+        <a href="About.html">3D Art</a>
+        <a href="VisualArt.html">Visual Art</a>
+        <a href="Design.html">Design</a>
+        <a href="Other.html">Projects</a>
+      </nav>
+    </header>
+
+  <section class="main-section">
+    <div class="text-column">
+      <h2> SPROUTED, STOP MOTION ANIMATION (2025)</h2>
+      <p class="caption">Puppet, concept, storyboard, editing, animation and film entirely made by Demi Saleeb.</p>
+      <p>Sprout, our protagonist, is having a nightmare. Waking into unending oblivion, all seems doomed until they stumble upon a single star fragment…</p>
+      <p>Fabricated and filmed at the School of Film & Television at the University of California, Los Angeles (UCLA). This is a 30 second film made within the Stop Motion Animation, upper division, graduate course.Within the span of 10 weeks, I learned to design, rig, animate and bring my own puppet to life. Within the span of 10 weeks, I learned to design, rig, animate and bring my own puppet to life. Within a span of 10 weeks, I learned to design, rig, animate and bring my own puppet to life.  </p>
     </div>
-  </div>
 
-  <!-- Lightbox overlay -->
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="Enlarged Image" id="lightbox-img">
-  </div>
+    <div class="grid-column">
+      <div class="grid-item">
+        <video controls autoplay loop muted>
+          <source src="Sprouted.mp4" type="video/mp4">
+        </video>
+      </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+      <div class="grid-item">
+        <img src="SproutPup.jpg" alt="Small Project 1">
+      </div>
+
+      <div class="grid-item">
+        <img src="Spork.jpg" alt="Small Project 2">
+      </div>
+    </div>
+  </section>
+
   <script>
-    const scroll = new LocomotiveScroll({
-      el: document.querySelector('[data-scroll-container]'),
-      smooth: true,
-      multiplier: 1
-    });
+    // === PAGE TRANSITIONS ===
+    document.addEventListener("DOMContentLoaded", () => {
+      requestAnimationFrame(() => document.body.classList.add("page-loaded"));
 
-    // Lightbox functionality
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const items = document.querySelectorAll('.grid-item img');
-
-    items.forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
+      document.querySelectorAll("a[href]").forEach(link => {
+        link.addEventListener("click", e => {
+          const url = link.getAttribute("href");
+          if (!url || url.startsWith("#")) return;
+          e.preventDefault();
+          document.body.classList.add("page-exit");
+          setTimeout(() => window.location.href = url, 500);
+        });
       });
     });
 
-    lightbox.addEventListener('click', (e) => {
-      if(e.target !== lightboxImg) {
-        lightbox.classList.remove('active');
+    window.addEventListener("pageshow", event => {
+      if (event.persisted) {
+        document.body.classList.remove("page-exit");
+        document.body.classList.add("page-loaded");
       }
     });
+
+    // === SCROLL POP-UP OBSERVER ===
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".text-column, .grid-item").forEach(el => observer.observe(el));
   </script>
 </body>
 </html>

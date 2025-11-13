@@ -6,17 +6,27 @@
   <title>Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    p {
-  margin-bottom: 1em; /* Adds 1 unit of space below each paragraph */
-}
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
-      background-image: url("starfall-gif-22.gif");
       background-size: cover;
       background-position: center;
+      background: url("WebAnimation.gif") no-repeat center center fixed;
       background-repeat: no-repeat;
       color: #00FFB6;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    body.page-loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    body.page-exit {
+      opacity: 0;
+      transform: scale(0.9);
     }
 
     header {
@@ -36,23 +46,41 @@
       color: #00FFB6;
     }
 
-    /* Left Text Column */
+    .main-section {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 80px;
+      gap: 40px;
+    }
+
+    /* Text column */
     .text-column {
       flex: 1 1 400px;
       min-width: 300px;
-      /* background: rgba(0, 0, 0, 0.5); */
       padding: 50px;
       border-radius: 12px;
-      color: #959595;
+      color: #bdbdbd;
       font-size: 18px;
+      opacity: 0;
+      transform: scale(0.95) translateY(50px); /* Small pop-down start */
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          p {
+        margin-bottom: 1em; /* Adjust the value as needed (e.g., 16px, 1.5rem) */
+    }
     }
 
-    /* Right Grid Column */
+    .text-column.in-view {
+      opacity: 1;
+      transform: scale(1) translateY(0); /* Pop to normal size & position */
+    }
+
+    /* Grid column */
     .grid-column {
       flex: 1 1 400px;
       display: grid;
-      grid-template-rows: 550px 400px 400px; /* ✅ Large top, two smaller */
-      gap: 225px;
+      grid-template-rows: 550px 400px 400px;
+      gap: 100px;
       min-width: 300px;
     }
 
@@ -61,7 +89,14 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease-out, transform 0.8s ease-out;
+      opacity: 0;
+      transform: scale(0.95) translateY(50px);
+    }
+
+    .grid-item.in-view {
+      opacity: 1;
+      transform: scale(1) translateY(0);
     }
 
     .grid-item:hover {
@@ -69,7 +104,6 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    /* ✅ Make images and video fill the grid boxes */
     .grid-item img,
     .grid-item video {
       width: 100%;
@@ -84,59 +118,91 @@
       }
       .grid-column {
         grid-template-rows: 300px 200px 200px;
+        gap: 100px;
       }
-      
     }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="Home.html" class="active">Home</a>
-      <a href="About.html">3D Art</a>
-      <a href="VisualArt.html">Visual Art</a>
-      <a href="Design.html">Design</a>
-      <a href="Other.html">Projects</a>
-    </nav>
-  </header>
+   <header>
+      <div class="logo">
+        <img src="c:\Users\Admin\OneDrive\Pictures\Demi Logo.png" alt="Logo" class="logo-icon">
+      </div>
+
+      <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+
+      <nav>
+        <a href="Home.html" class="active">Home</a>
+        <a href="About.html">3D Art</a>
+        <a href="VisualArt.html">Visual Art</a>
+        <a href="Design.html">Design</a>
+        <a href="Other.html">Projects</a>
+      </nav>
+    </header>
 
   <section class="main-section">
-    <!-- Left text column -->
     <div class="text-column">
-     <p> <h2>FISHY (2025)</h2> <p>
-     
-      <p> 
-      All 2D Art, Illustrations, & Animations by Demi Saleeb; 3D Modeling & Programming (C#) by Vinny. 
-      <p>
-      Created within the Design Media Arts (DMA) Collaborative Game Class at the University of California, Los Angeles (UCLA), "Fishy" is a one week, collaborative game jam inspired by the prompt: fishing. Explore a completely normal, non-existential, fish feeding simulator! 
-      </p>
-      “Fishy” explores consumerism; working as a clog within the corporate machine, helpless and subservient to the unending cycle of feeding and exploitation. For instance, if Fishy is not fed (whether as a means of opposition to this cruelty and food production at large, or simple idleness), it will die. Contrary, if you continue to feed Fishy, it will meet the same fate in being sold for consumption. 
-Although it was intended to have different endings—such as helping Fishy escape, though getting fired from your job in the process—the time constraint made us choose to feed( see what I did there?) into the game’s narrative of successive consumerism.
+      <h2>SCARAB, DIGITAL GAME (2024)</h2>
+      <p>Exiled and on the brink of death, a lone Nomad awakens in the shadowed Afterlife. With the sun vanquished and magic fading, they must navigate a perilous purgatory, confront twisted guardians, and reach the gates of DUAT to restore light, reclaim lost magic, and fight for a way home.</p>
+      <p>Journey with Nomad and their bug-companion through an Egyptian-inspired underworld to restore the sun, navigating magic's perils and existential trials in a blend of adventure, comedy, horror, and self-discovery.</p>
+      <p>Oversaw all departments to ensure cohesive vision and quality. Coordinated team effort projects and managed project deadlines. Helped envision storyline, narrative and characters. Provided clear ideas and concepts for character design. Assisted voice actors with line delivery and acting performance. Created various 3D assets, concept art, & screenwriting scripts. VA for Nomad. The project is currently undergoing development. (2024 - Present)
+</p>Game Production & Project Lead, Demi Saleeb.
+
+Animation by Helen Juwon Park. 3D Models by Demi Saleeb. Character Design by Jeffrey Huang. Concept Art (including Character and Environment Design) by Demi Saleeb. Environmental Textures by Helen Juwon Park & Julianna Ernie. Level Design by Yongija Tang. Music/SFX by Sean Son & Aderyn Clark. Programming by DanielKao & Woyu Wang. UI/UX by Michelle Chen. Voice Acting by Akemi Webster, Demi Saleeb, Ifeanyichukwu Onyeanakwe, Karen Truong, & Sock Pan Rah. Writing by Akemi Webster, Anthony Nash, & Demi Saleeb
 
 
-
-      </p>
     </div>
 
-    <!-- Right grid column -->
     <div class="grid-column">
-      <!-- Large top box (video) -->
       <div class="grid-item">
         <video controls autoplay loop muted>
-          <source src="c:\Users\Admin\OneDrive\Pictures\LongFishVid.mp4" type="video/mp4">
+          <source src="Showcase_Video.mp4">
         </video>
       </div>
 
-      <!-- Smaller box #1 -->
       <div class="grid-item">
-        <img src="c:\Users\Admin\Downloads\FishyGame.gif" alt="Small Project 1">
+        <img src="c:\Users\Admin\Downloads\Dream_11.gif" alt="Small Project 1">
       </div>
 
-      <!-- Smaller box #2 -->
       <div class="grid-item">
-        <img src="c:\Users\Admin\Downloads\4fdcc118-5a38-444a-b9e9-b380cd75c1bc_rw_1920 (1).gif">
+        <img src="c:\Users\Admin\Downloads\shaman.png" alt="Small Project 2">
       </div>
     </div>
   </section>
+
+  <script>
+    // === PAGE TRANSITIONS ===
+    document.addEventListener("DOMContentLoaded", () => {
+      requestAnimationFrame(() => document.body.classList.add("page-loaded"));
+
+      document.querySelectorAll("a[href]").forEach(link => {
+        link.addEventListener("click", e => {
+          const url = link.getAttribute("href");
+          if (!url || url.startsWith("#")) return;
+          e.preventDefault();
+          document.body.classList.add("page-exit");
+          setTimeout(() => window.location.href = url, 500);
+        });
+      });
+    });
+
+    window.addEventListener("pageshow", event => {
+      if (event.persisted) {
+        document.body.classList.remove("page-exit");
+        document.body.classList.add("page-loaded");
+      }
+    });
+
+    // === SCROLL POP-UP OBSERVER ===
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".text-column, .grid-item").forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
