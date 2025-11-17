@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+
   <title>Portfolio Website</title>
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rock+Salt&display=swap" rel="stylesheet" />
 
   <style>
     body {
@@ -21,31 +27,52 @@
     body.page-loaded { opacity: 1; transform: scale(1); }
     body.page-exit { opacity: 0; transform: scale(0.9); }
 
-    header { display: flex; align-items: center; justify-content: space-between; padding: 20px 50px; }
-    nav a { margin: 0 10px; text-decoration: none; color: #fff; font-weight: bold; transition: 0.3s; }
+    header { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      padding: 20px 50px; 
+    }
+    nav a { 
+      margin: 0 10px; 
+      text-decoration: none; 
+      color: #fff; 
+      font-weight: bold; 
+      transition: 0.3s; 
+    }
     nav a:hover { color: #00FFB6; }
 
+    /* ================================ */
+    /*      NEW UPGRADED BIGGER GRID     */
+    /* ================================ */
+
     .grid-container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 100px auto;
+      width: 92%;
+      max-width: 1400px;
+      margin: 120px auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 200px;
-      gap: 15px;
+
+      /* Wider + cleaner collage layout */
+      grid-template-columns: 1.2fr 1fr 1.2fr;
+
+      /* Bigger items */
+      grid-auto-rows: 260px;
+
+      gap: 22px;
     }
 
     .grid-item {
       position: relative;
       overflow: hidden;
-      border-radius: 15px;
+      border-radius: 18px;
       opacity: 0;
       transform: translateY(50px);
       transition: all 0.8s ease-out;
       cursor: pointer;
     }
 
-    .grid-item img {
+    .grid-item img,
+    .grid-item video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -53,107 +80,130 @@
       transition: transform 0.5s ease;
     }
 
-    .grid-item:hover img { transform: scale(1.05); }
+    .grid-item:hover img,
+    .grid-item:hover video {
+      transform: scale(1.06);
+    }
+
     .grid-item.in-view { opacity: 1; transform: translateY(0); }
+
+    /* TITLES */
+    .grid-title {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
 
     /* CAPTIONS */
     .grid-caption {
       position: absolute;
-      bottom: -50px;
+      bottom: -40px;
       left: 0;
       width: 100%;
       text-align: center;
       color: #ffffff;
       font-size: 18px;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease-out;
+      transform: translateY(10px);
+      transition: all 0.5s ease-out;
     }
 
     .grid-item.in-view .grid-caption {
       opacity: 1;
       transform: translateY(0);
-      bottom: 10px;
+      bottom: 12px;
     }
 
-    /* GRID LAYOUT SPANS */
+    /* COLLAGE SPANS */
     .item1 { grid-row: span 2; grid-column: span 2; }
     .item2 { grid-row: span 1; }
     .item3 { grid-row: span 2; }
     .item4 { grid-row: span 1; grid-column: span 2; }
     .item5 { grid-row: span 2; }
     .item6 { grid-row: span 1; }
-    
+
   </style>
 </head>
 
 <body>
+
   <header>
     <div class="logo">
       <img src="Demi Logo.png" alt="Logo" class="logo-icon">
     </div>
+
     <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+
     <nav>
       <a href="Home.html" class="active">Home</a>
-      <!-- <a href="About.html">3D Art</a> -->
       <a href="VisualArt.html">Visual Art</a>
       <a href="Design.html">Design</a>
       <a href="Other.html">Projects</a>
     </nav>
   </header>
+
   <div data-scroll-container>
-    <div data-scroll-container>
+  <div data-scroll-container>
 
-  <!-- GRID BOX -->
-  <div class="grid-wrapper">
+    <!-- GRID BOX -->
+    <div class="grid-wrapper">
+      <div class="grid-container">
 
-    <div class="grid-container">
-      <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
-        <img src="sprout.png" alt="1">
-         <div class="grid-title">DREAMSCAPE</div>
+        <!-- ITEM 1 -->
+        <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
+          <img src="sprout.png" alt="1">
+          <div class="grid-title">DREAMSCAPE</div>
           <div class="grid-caption">Digital Game</div>
-      </div>
+        </div>
 
-      <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
-  <video controls autoplay loop muted>
-    <source src="sproutcover.mp4" type="video/mp4">
-  </video>
-  <div class="grid-title">SPROUTED</div>
-  <div class="grid-caption">Stop-Motion Animation Film</div>
-</div>
+        <!-- ITEM 2 -->
+        <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
+          <video autoplay loop muted>
+            <source src="sproutcover.mp4" type="video/mp4">
+          </video>
+          <div class="grid-title">SPROUTED</div>
+          <div class="grid-caption">Stop-Motion Animation Film</div>
+        </div>
 
+        <!-- ITEM 3 -->
+        <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
+          <img src="San.gif" alt="3">
+          <div class="grid-title">SCARAB</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
 
-      <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
-       <img src="San.gif" alt="3">
-        <div class="grid-title">SCARAB</div>
-        <div class="grid-caption">Digital Game</div>
-      </div>
+        <!-- ITEM 4 -->
+        <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
+          <video autoplay loop muted>
+            <source src="FishyGame.mp4" type="video/mp4">
+          </video>
+          <div class="grid-title">FISHY</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
 
-      <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
-         <video controls autoplay loop muted>
-          <source src="FishyGame.mp4" type="video/mp4">
-        </video>
-        <div class="grid-title">FISHY</div>
-        <div class="grid-caption">Digital Game</div>
-      </div>
+        <!-- ITEM 5 -->
+        <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
+          <img src="card6.jpeg" alt="5">
+          <div class="grid-title">BOARD GAMES</div>
+          <div class="grid-caption">Fabricated Games</div>
+        </div>
 
-      <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
-        <img src="card6.jpeg" alt="5">
-        <div class="grid-title">BOARD GAMES</div>
-        <div class="grid-caption">Fabricated Games</div>
-      </div>
+        <!-- ITEM 6 -->
+        <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
+          <img src="destinationpromo.gif" alt="6">
+          <div class="grid-title">DESTINATION</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
 
-      <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
-        <img src="destinationpromo.gif" alt="6">
-        <div class="grid-title">DESTINATION</div>
-        <div class="grid-caption">Digital Game</div>
       </div>
     </div>
 
-  </div> <!-- end grid-wrapper -->
-
-</div> <!-- end data-scroll-container -->
-
+  </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
   <script>
@@ -167,7 +217,6 @@
           multiplier: 1
         });
 
-        // Make grid items clickable
         document.querySelectorAll('.grid-item').forEach(item => {
           item.addEventListener('click', () => {
             const link = item.getAttribute('data-link');
@@ -178,7 +227,6 @@
           });
         });
 
-        // Page transitions for nav links
         document.querySelectorAll("a[href]").forEach(link => {
           link.addEventListener("click", e => {
             const url = link.getAttribute("href");
@@ -189,7 +237,6 @@
           });
         });
 
-        // Trigger in-view for grid items
         const gridItems = document.querySelectorAll('.grid-item');
         gridItems.forEach(item => {
           scroll.on('call', (value, way, obj) => {
@@ -198,6 +245,7 @@
             }
           });
         });
+
       });
     });
   </script>
