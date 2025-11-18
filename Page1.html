@@ -12,7 +12,6 @@
       background-size: cover;
       background-position: center;
       background: url("WebAnimation.gif") no-repeat center center fixed;
-      background-repeat: no-repeat;
       color: #00FFB6;
       opacity: 0;
       transform: scale(1.03);
@@ -54,7 +53,6 @@
       gap: 40px;
     }
 
-    /* Text column */
     .text-column {
       flex: 1 1 400px;
       min-width: 300px;
@@ -63,35 +61,38 @@
       color: #bdbdbd;
       font-size: 18px;
       opacity: 0;
-      transform: scale(0.95) translateY(50px); /* Small pop-down start */
+      transform: scale(0.95) translateY(50px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-          p {
-        margin-bottom: 1em; /* Adjust the value as needed (e.g., 16px, 1.5rem) */
     }
+
+    .text-column p {
+      margin-bottom: 1em;
     }
 
     .text-column.in-view {
       opacity: 1;
-      transform: scale(1) translateY(0); /* Pop to normal size & position */
+      transform: scale(1) translateY(0);
     }
 
-    /* Grid column */
     .grid-column {
-      flex: 1 1 400px;
+      flex: 1 1 450px;
       display: grid;
-      grid-template-rows: 550px 400px 400px;
-      gap: 100px;
+      grid-template-rows: repeat(3, 400px);
+      gap: 60px;
+      justify-items: center;
       min-width: 300px;
     }
 
     .grid-item {
-      background: #fff;
+      background: #000; /* black background for empty space */
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease-out, transform 0.8s ease-out;
       opacity: 0;
       transform: scale(0.95) translateY(50px);
+      width: 100%;
+      max-width: 500px;
     }
 
     .grid-item.in-view {
@@ -99,17 +100,28 @@
       transform: scale(1) translateY(0);
     }
 
-    .grid-item:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
     .grid-item img,
     .grid-item video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* ensures full media fits without cropping */
       display: block;
+      background: #000;
+    }
+
+    .grid-caption {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #bdbdbd;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     @media (max-width: 900px) {
@@ -117,35 +129,40 @@
         flex-direction: column;
       }
       .grid-column {
-        grid-template-rows: 300px 200px 200px;
-        gap: 100px;
+        grid-template-rows: repeat(3, 300px);
+        gap: 40px;
+      }
+      .grid-item img,
+      .grid-item video {
+        height: 300px;
+      }
+      .grid-caption {
+        max-width: 100%;
       }
     }
   </style>
 </head>
 <body>
-   <header>
-      <div class="logo">
-        <img src="Demi Logo.png" alt="Logo" class="logo-icon">
-      </div>
-
-      <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
-
-      <nav>
-        <a href="Home.html" class="active">Home</a>
-        <a href="About.html">3D Art</a>
-        <a href="VisualArt.html">Visual Art</a>
-        <a href="Design.html">Design</a>
-        <a href="Other.html">Projects</a>
-      </nav>
-    </header>
+  <header>
+    <div class="logo">
+      <img src="Demi Logo.png" alt="Logo" class="logo-icon">
+    </div>
+    <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+    <nav>
+      <a href="Home.html" class="active">Home</a>
+      <a href="About.html">3D Art</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+    </nav>
+  </header>
 
   <section class="main-section">
     <div class="text-column">
       <h2>SENIOR UG EXHIBITION 2025: DREAMSCAPE (2025)</h2>
       <p>All 2D & 3D art, animations, and programming created by Demi Saleeb. VO by Sebastian Waverly. Music by Victor Kim. Debugging by Nicolette Bond.</p>
       <p>Featured within the DMA Senior Undergraduate Exhibition at the University of California, Los Angeles (UCLA), Dreamscape was a point-click videogame installation, allowing guests to interact with Sprout’s room and memories.</p>
-      <p>Trapped in the Dreamscape—a surreal realm shaped by fractured memories and trauma—Sprout, a depressed teen, must reconstruct their reality to break a cycle of self-harm and the only known reset: suicide. </p>
+      <p>Trapped in the Dreamscape—a surreal realm shaped by fractured memories and trauma—Sprout, a depressed teen, must reconstruct their reality to break a cycle of self-harm and the only known reset: suicide.</p>
     </div>
 
     <div class="grid-column">
@@ -156,20 +173,20 @@
       </div>
 
       <div class="grid-item">
-        <img src="DreamscapePromo.gif" alt="Small Project 1">
+        <img src="sprout.png" alt="Small Project 1">
       </div>
 
       <div class="grid-item">
-        <img src="void.gif" alt="Small Project 2">
+        <img src="r1.jpg" alt="Small Project 2">
       </div>
+
+      <div class="grid-caption">Made by [blank]</div>
     </div>
   </section>
 
   <script>
-    // === PAGE TRANSITIONS ===
     document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(() => document.body.classList.add("page-loaded"));
-
       document.querySelectorAll("a[href]").forEach(link => {
         link.addEventListener("click", e => {
           const url = link.getAttribute("href");
@@ -188,7 +205,6 @@
       }
     });
 
-    // === SCROLL POP-UP OBSERVER ===
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {

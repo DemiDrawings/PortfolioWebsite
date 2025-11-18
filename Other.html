@@ -43,22 +43,18 @@
     nav a:hover { color: #00FFB6; }
 
     /* ================================ */
-    /*      NEW UPGRADED BIGGER GRID     */
+    /*      COLLAGE GRID STYLES         */
     /* ================================ */
-
     .grid-container {
       width: 92%;
       max-width: 1400px;
       margin: 120px auto;
       display: grid;
 
-      /* Wider + cleaner collage layout */
-      grid-template-columns: 1.2fr 1fr 1.2fr;
-
-      /* Bigger items */
-      grid-auto-rows: 260px;
-
-      gap: 22px;
+      /* Collage layout */
+      grid-template-columns: 1.3fr 1fr 1.3fr;
+      grid-auto-rows: auto; /* auto height to match content */
+      gap: 24px;
     }
 
     .grid-item {
@@ -75,34 +71,33 @@
     .grid-item video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* FIT ENTIRE IMAGE */
       display: block;
       transition: transform 0.5s ease;
     }
 
     .grid-item:hover img,
     .grid-item:hover video {
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
     .grid-item.in-view { opacity: 1; transform: translateY(0); }
 
-    /* TITLES */
     .grid-title {
       position: absolute;
       top: 12px;
       left: 12px;
-      font-size: 20px;
+      font-size: 32px;
       font-weight: 600;
       color: #fff;
       text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
-    /* CAPTIONS */
     .grid-caption {
       position: absolute;
-      bottom: -40px;
-      left: 0;
+      top: 48px;
+      left: 12px;
+      font-size: 20px;
       width: 100%;
       text-align: center;
       color: #ffffff;
@@ -146,21 +141,18 @@
     </nav>
   </header>
 
-  <div data-scroll-container>
+  <!-- SINGLE scroll container -->
   <div data-scroll-container>
 
-    <!-- GRID BOX -->
     <div class="grid-wrapper">
       <div class="grid-container">
 
-        <!-- ITEM 1 -->
         <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
           <img src="sprout.png" alt="1">
           <div class="grid-title">DREAMSCAPE</div>
           <div class="grid-caption">Digital Game</div>
         </div>
 
-        <!-- ITEM 2 -->
         <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
           <video autoplay loop muted>
             <source src="sproutcover.mp4" type="video/mp4">
@@ -169,14 +161,12 @@
           <div class="grid-caption">Stop-Motion Animation Film</div>
         </div>
 
-        <!-- ITEM 3 -->
         <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
           <img src="San.gif" alt="3">
           <div class="grid-title">SCARAB</div>
           <div class="grid-caption">Digital Game</div>
         </div>
 
-        <!-- ITEM 4 -->
         <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
           <video autoplay loop muted>
             <source src="FishyGame.mp4" type="video/mp4">
@@ -185,14 +175,12 @@
           <div class="grid-caption">Digital Game</div>
         </div>
 
-        <!-- ITEM 5 -->
         <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
           <img src="card6.jpeg" alt="5">
           <div class="grid-title">BOARD GAMES</div>
           <div class="grid-caption">Fabricated Games</div>
         </div>
 
-        <!-- ITEM 6 -->
         <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
           <img src="destinationpromo.gif" alt="6">
           <div class="grid-title">DESTINATION</div>
@@ -202,8 +190,7 @@
       </div>
     </div>
 
-  </div>
-  </div>
+  </div> <!-- end scroll container -->
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
   <script>
@@ -224,16 +211,6 @@
               document.body.classList.add("page-exit");
               setTimeout(() => window.location.href = link, 500);
             }
-          });
-        });
-
-        document.querySelectorAll("a[href]").forEach(link => {
-          link.addEventListener("click", e => {
-            const url = link.getAttribute("href");
-            if(url.startsWith("#")) return;
-            e.preventDefault();
-            document.body.classList.add("page-exit");
-            setTimeout(() => window.location.href = url, 500);
           });
         });
 
