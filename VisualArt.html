@@ -64,12 +64,15 @@
       transition: all 0.8s ease-out;
       cursor: pointer;
       background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .grid-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
       display: block;
       transition: transform 0.5s ease;
     }
@@ -98,6 +101,7 @@
       font-size: 20px;
       line-height: 1.6;
       text-align: center;
+      padding-top: 125px;
     }
 
     .lightbox {
@@ -146,6 +150,13 @@
 
   <div data-scroll-container>
 
+        <!-- PARAGRAPH BETWEEN GRIDS -->
+    <div class="text-block" data-scroll data-scroll-class="in-view">
+      <p>
+       2D ART
+      </p>
+    </div>
+
     <!-- FIRST GRID (FILLED) -->
     <div class="grid-container">
       <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="Astarion.png" alt="1"></div>
@@ -162,17 +173,16 @@
     <!-- PARAGRAPH BETWEEN GRIDS -->
     <div class="text-block" data-scroll data-scroll-class="in-view">
       <p>
-        This section highlights the evolution of my visual storytelling, focusing on composition, character, 
-        and narrative depth. Each piece is part of a broader exploration into identity, movement, and emotional resonance.
+       3D ART
       </p>
     </div>
 
-    <!-- SECOND GRID (EMPTY) -->
+    <!-- SECOND GRID (FILLED FOR DEMO) -->
     <div class="grid-container">
       <div class="grid-item item10" data-scroll data-scroll-class="in-view"><img src="ruinsp.png" alt="10"></div>
-      <div class="grid-item item11" data-scroll data-scroll-class="in-view"><img src="r2.jpg" alt="11"></div>
+      <div class="grid-item item11" data-scroll data-scroll-class="in-view"><img src="sprout 3d.png" alt="11"></div>
       <div class="grid-item item12" data-scroll data-scroll-class="in-view"><img src="g1.png" alt="12"></div>
-      <div class="grid-item item13" data-scroll data-scroll-class="in-view"><img src="g2.png" alt="13"></div>
+      <!-- <div class="grid-item item13" data-scroll data-scroll-class="in-view"><img src="g2.png" alt="13"></div> -->
     </div>
 
   </div>
