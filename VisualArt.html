@@ -8,7 +8,6 @@
   <title>Portfolio Website</title>
 
   <style>
-    /* BODY & PAGE TRANSITIONS */
     body {
       margin: 0;
       font-family: sans-serif;
@@ -17,19 +16,12 @@
       opacity: 0;
       transform: scale(1.03);
       transition: opacity 0.6s ease, transform 0.6s ease;
+      color: #fff;
     }
 
-    body.page-loaded {
-      opacity: 1;
-      transform: scale(1);
-    }
+    body.page-loaded { opacity: 1; transform: scale(1); }
+    body.page-exit { opacity: 0; transform: scale(0.9); }
 
-    body.page-exit {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
-    /* ELEMENT STAGGER */
     img, .text-block, .grid-container, nav, header {
       opacity: 0;
       transform: translateY(20px);
@@ -37,7 +29,8 @@
     }
 
     body.page-loaded img,
-    body.page-loaded .grid-container {
+    body.page-loaded .grid-container,
+    body.page-loaded .text-block {
       opacity: 1;
       transform: translateY(0);
       transition-delay: 0.2s;
@@ -50,10 +43,7 @@
       transition-delay: 0.45s;
     }
 
-    /* GRID STYLES */
-    [data-scroll-container] {
-      width: 100%;
-    }
+    [data-scroll-container] { width: 100%; }
 
     .grid-container {
       width: 90%;
@@ -73,6 +63,7 @@
       transform: translateY(50px);
       transition: all 0.8s ease-out;
       cursor: pointer;
+      background: #222;
     }
 
     .grid-item img {
@@ -83,14 +74,8 @@
       transition: transform 0.5s ease;
     }
 
-    .grid-item:hover img {
-      transform: scale(1.05);
-    }
-
-    .grid-item.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .grid-item:hover img { transform: scale(1.05); }
+    .grid-item.in-view { opacity: 1; transform: translateY(0); }
 
     .item1 { grid-row: span 3; }
     .item2 { grid-row: span 2; }
@@ -106,7 +91,15 @@
     .item12{ grid-row: span 3; }
     .item13{ grid-row: span 2; }
 
-    /* LIGHTBOX */
+    .text-block {
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto 100px auto;
+      font-size: 20px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
     .lightbox {
       position: fixed;
       top: 0;
@@ -152,6 +145,8 @@
   </header>
 
   <div data-scroll-container>
+
+    <!-- FIRST GRID (FILLED) -->
     <div class="grid-container">
       <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="Astarion.png" alt="1"></div>
       <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="Athena.png" alt="2"></div>
@@ -162,11 +157,24 @@
       <div class="grid-item item7" data-scroll data-scroll-class="in-view"><img src="body.jpg" alt="7"></div>
       <div class="grid-item item8" data-scroll data-scroll-class="in-view"><img src="owls2.png" alt="8"></div>
       <div class="grid-item item9" data-scroll data-scroll-class="in-view"><img src="Sprout pose6j6.png" alt="9"></div>
-      <div class="grid-item item10" data-scroll data-scroll-class="in-view"><img src="mountt.png" alt="10"></div>
-      <div class="grid-item item11" data-scroll data-scroll-class="in-view"><img src="Hands.png" alt="11"></div>
-      <div class="grid-item item12" data-scroll data-scroll-class="in-view"><img src="sketchy.png" alt="12"></div>
-      <div class="grid-item item13" data-scroll data-scroll-class="in-view"><img src="handy.jpg" alt="13"></div>
     </div>
+
+    <!-- PARAGRAPH BETWEEN GRIDS -->
+    <div class="text-block" data-scroll data-scroll-class="in-view">
+      <p>
+        This section highlights the evolution of my visual storytelling, focusing on composition, character, 
+        and narrative depth. Each piece is part of a broader exploration into identity, movement, and emotional resonance.
+      </p>
+    </div>
+
+    <!-- SECOND GRID (EMPTY) -->
+    <div class="grid-container">
+      <div class="grid-item item10" data-scroll data-scroll-class="in-view"><img src="ruinsp.png" alt="10"></div>
+      <div class="grid-item item11" data-scroll data-scroll-class="in-view"><img src="r2.jpg" alt="11"></div>
+      <div class="grid-item item12" data-scroll data-scroll-class="in-view"><img src="g1.png" alt="12"></div>
+      <div class="grid-item item13" data-scroll data-scroll-class="in-view"><img src="g2.png" alt="13"></div>
+    </div>
+
   </div>
 
   <div class="lightbox" id="lightbox">
@@ -206,10 +214,8 @@
             setTimeout(() => window.location.href = url, 500);
           });
         });
-
       });
     });
   </script>
-
 </body>
 </html>
