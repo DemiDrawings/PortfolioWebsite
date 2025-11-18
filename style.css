@@ -225,6 +225,11 @@ span {
     box-shadow: 0 0 25px #00FFB6;
 }
 
+.social-btn img {
+  width: 70%; /* make image fit nicely inside button */
+  height: 70%;
+  object-fit: contain;
+}
 /* === TYPING TEXT EFFECT === */
 .typing-text {
     position: relative;
