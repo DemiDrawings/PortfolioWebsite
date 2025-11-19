@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
-  <!-- <link rel="stylesheet" href="carousel.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
   <title>Portfolio Website</title>
 
@@ -76,15 +75,18 @@
       cursor: pointer;
     }
 
-    .grid-item img {
+    .grid-item img,
+    .grid-item iframe {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      border: 0;
       transition: transform 0.5s ease;
     }
 
-    .grid-item:hover img {
+    .grid-item:hover img,
+    .grid-item:hover iframe {
       transform: scale(1.05);
     }
 
@@ -99,7 +101,7 @@
     .item4 { grid-row: span 3; }
     .item5 { grid-row: span 2; }
     .item6 { grid-row: span 3; }
-    .item7 { grid-row: span 2; }
+    .item7 { grid-row: span 2; }  /* Book row height */
     .item8 { grid-row: span 3; }
     .item9 { grid-row: span 2; }
 
@@ -142,99 +144,72 @@
     <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
     <nav>
       <a href="Home.html" class="active">Home</a>
-      <!-- <a href="About.html">3D Art</a> -->
       <a href="VisualArt.html">Visual Art</a>
       <a href="Design.html">Design</a>
       <a href="Other.html">Projects</a>
     </nav>
   </header>
-<!-- <div class="carousel">
-        <div class="group">
-            <div class="card">1</div>
-            <div class="card">2</div>
-            <div class="card">3</div>
-            <div class="card">4</div>
-            <div class="card">5</div>
-            <div class="card">6</div>
-        </div>
-            <div aria-hidden class="group">
-            <div class="card">1</div>
-            <div class="card">2</div>
-            <div class="card">3</div>
-            <div class="card">4</div>
-            <div class="card">5</div>
-            <div class="card">6</div>
-    </div>
-</div> -->
 
   <div data-scroll-container>
     <div class="grid-container">
+
       <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="Graphic Design1.png" alt="1"></div>
       <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="soccerr.png" alt="2"></div>
       <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="VotingRights.png" alt="3"></div>
       <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="Voting Rights2.png" alt="4"></div>
       <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="Graphic Design2.jpg" alt="5"></div>
       <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="graphic.png" alt="6"></div>
-     <div class="grid-item item7" data-scroll data-scroll-class="in-view">
 
-  <a href="https://online.flippingbook.com/view/71497140/" 
-     class="fbo-embed" 
-     data-fbo-id="1dcbc56ad1"
-     data-fbo-ratio="3:2"
-     data-fbo-lightbox="yes"
-     data-fbo-width="100%"
-     data-fbo-height="auto"
-     data-fbo-version="1"
-     style="max-width: 100%">
-     Clusterhug Book by Demi Saleeb 2025 fixup
-  </a>
+      <!-- RESPONSIVE ANYFLIP BOOK (behaves like image tile) -->
+      <div class="grid-item item7" data-scroll data-scroll-class="in-view">
+        <iframe
+          src="https://online.anyflip.com/jzjop/pujh/index.html"
+          allowfullscreen="true"
+          scrolling="no">
+        </iframe>
+      </div>
 
-  <script async defer 
-     src="https://online.flippingbook.com/EmbedScriptUrl.aspx?m=redir&hid=71497140">
-  </script>
-
-</div>
+      <div class="grid-item item8" data-scroll data-scroll-class="in-view"><img src="your-image-8.png" alt="8"></div>
+      <div class="grid-item item9" data-scroll data-scroll-class="in-view"><img src="your-image-9.png" alt="9"></div>
 
     </div>
   </div>
-
 
   <div class="lightbox" id="lightbox">
     <img src="" alt="Enlarged Image" id="lightbox-img">
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+
   <script>
-    // Wait until page-loaded to init Locomotive Scroll
     document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(() => {
         document.body.classList.add("page-loaded");
 
-        // Initialize Locomotive Scroll **after page is visible**
         const scroll = new LocomotiveScroll({
           el: document.querySelector('[data-scroll-container]'),
           smooth: true,
           multiplier: 1
         });
 
-        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
+
         document.querySelectorAll('.grid-item img').forEach(img => {
           img.addEventListener('click', () => {
             lightboxImg.src = img.src;
             lightbox.classList.add('active');
           });
         });
+
         lightbox.addEventListener('click', e => {
           if(e.target !== lightboxImg) lightbox.classList.remove('active');
         });
 
-        // Link transitions
         document.querySelectorAll("a[href]").forEach(link => {
           link.addEventListener("click", e => {
             const url = link.getAttribute("href");
-            if(url.startsWith("#") || link.hasAttribute("data-lightbox")) return;
+            if(url.startsWith("#")) return;
             e.preventDefault();
             document.body.classList.add("page-exit");
             setTimeout(() => window.location.href = url, 500);
