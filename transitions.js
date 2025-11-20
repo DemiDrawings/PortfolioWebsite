@@ -1,41 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const transition = document.querySelector(".page-transition");
-    const content = document.querySelector(".page-content");
+    
+    // PAGE LOAD — fade-in + zoom-in
+    requestAnimationFrame(() => {
+        document.body.classList.add("page-loaded");
+    });
 
-    // PAGE ENTER — wait a tick then reveal content
-    setTimeout(() => {
-        content.classList.add("show");
-    }, 80);
-
-    // HANDLE LINK CLICKS
-    document.querySelectorAll("a[href]").forEach(link => {
-        // Ignore external or anchor links
+    // PAGE EXIT — fade-out + fast zoom-out
+    document.querySelectorAll('a[href]').forEach(link => {
         const url = link.getAttribute("href");
-        if (!url || url.startsWith("#") || url.includes("javascript")) return;
+
+        // Ignore anchors and JS links
+        if (!url || url.startsWith("#") || url.startsWith("javascript")) return;
 
         link.addEventListener("click", e => {
             e.preventDefault();
-            transition.classList.add("active");
+
+            document.body.classList.add("page-exit");
 
             setTimeout(() => {
                 window.location.href = url;
-            }, 600); // match CSS duration
+            }, 320); // match exit animation speed
         });
     });
 });
-
-document.querySelectorAll("a[href]").forEach(link => {
-  link.addEventListener("click", e => {
-    const url = link.getAttribute("href");
-    if(url.startsWith("#")) return;
-    e.preventDefault();
-
-    const overlay = document.querySelector(".page-transition");
-    overlay.classList.add("active"); // show overlay
-
-    setTimeout(() => {
-      window.location.href = url;
-    }, 600); // match CSS transition duration
-  });
-});
-

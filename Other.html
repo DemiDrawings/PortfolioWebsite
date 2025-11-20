@@ -44,7 +44,7 @@
 
       /* Collage layout */
       grid-template-columns: 1.3fr 1fr 1.3fr;
-      grid-auto-rows: auto; /* auto height to match content */
+      grid-auto-rows: auto;
       gap: 24px;
     }
 
@@ -62,7 +62,7 @@
     .grid-item video {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* FIT ENTIRE IMAGE */
+      object-fit: contain;
       display: block;
       transition: transform 0.5s ease;
     }
@@ -72,7 +72,10 @@
       transform: scale(1.05);
     }
 
-    .grid-item.in-view { opacity: 1; transform: translateY(0); }
+    .grid-item.in-view { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
 
     .grid-title {
       position: absolute;
@@ -88,7 +91,6 @@
       position: absolute;
       top: 48px;
       left: 12px;
-      font-size: 20px;
       width: 100%;
       text-align: center;
       color: #ffffff;
@@ -101,7 +103,6 @@
     .grid-item.in-view .grid-caption {
       opacity: 1;
       transform: translateY(0);
-      bottom: 12px;
     }
 
     /* COLLAGE SPANS */
@@ -111,7 +112,6 @@
     .item4 { grid-row: span 1; grid-column: span 2; }
     .item5 { grid-row: span 2; }
     .item6 { grid-row: span 1; }
-
   </style>
 </head>
 
@@ -138,13 +138,13 @@
     <div class="grid-wrapper">
       <div class="grid-container">
 
-        <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
+        <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
           <img src="sprout.png" alt="1">
           <div class="grid-title">DREAMSCAPE</div>
           <div class="grid-caption">Digital Game</div>
         </div>
 
-        <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
+        <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
           <video autoplay loop muted>
             <source src="sproutcover.mp4" type="video/mp4">
           </video>
@@ -152,13 +152,13 @@
           <div class="grid-caption">Stop-Motion Animation Film</div>
         </div>
 
-        <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
+        <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
           <img src="San.gif" alt="3">
           <div class="grid-title">SCARAB</div>
           <div class="grid-caption">Digital Game</div>
         </div>
 
-        <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
+        <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
           <video autoplay loop muted>
             <source src="FishyPromo.mp4" type="video/mp4">
           </video>
@@ -166,13 +166,13 @@
           <div class="grid-caption">Digital Game</div>
         </div>
 
-        <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
+        <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
           <img src="card6.jpeg" alt="5">
           <div class="grid-title">BOARD GAMES</div>
           <div class="grid-caption">Fabricated Games</div>
         </div>
 
-        <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
+        <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
           <img src="destinationpromo.gif" alt="6">
           <div class="grid-title">DESTINATION</div>
           <div class="grid-caption">Digital Game</div>
@@ -187,29 +187,24 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(() => {
+
+        // PAGE ENTER FADE-IN
         document.body.classList.add("page-loaded");
 
+        // LOCOMOTIVE SCROLL INIT
         const scroll = new LocomotiveScroll({
           el: document.querySelector('[data-scroll-container]'),
           smooth: true,
           multiplier: 1
         });
 
+        // PAGE EXIT ANIMATION
         document.querySelectorAll('.grid-item').forEach(item => {
           item.addEventListener('click', () => {
             const link = item.getAttribute('data-link');
-            if(link) {
+            if (link) {
               document.body.classList.add("page-exit");
               setTimeout(() => window.location.href = link, 500);
-            }
-          });
-        });
-
-        const gridItems = document.querySelectorAll('.grid-item');
-        gridItems.forEach(item => {
-          scroll.on('call', (value, way, obj) => {
-            if(value === 'in-view' && obj.el === item) {
-              item.classList.add('in-view');
             }
           });
         });
