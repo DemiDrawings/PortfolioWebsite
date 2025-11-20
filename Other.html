@@ -1,216 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css" />
 
-  <title>Portfolio Website</title>
+<title>Portfolio Website</title>
 
-  <!-- FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rock+Salt&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rock+Salt&display=swap" rel="stylesheet" />
 
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #111;
-      overflow-x: hidden;
-      opacity: 0;
-      transform: scale(1.03);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    background-color: #111;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  body.page-loaded { opacity: 1; transform: scale(1); }
+  body.page-exit { opacity: 0; transform: scale(0.92); transition: opacity 0.6s ease, transform 0.6s ease; }
 
-    body.page-loaded { opacity: 1; transform: scale(1); }
-    body.page-exit { opacity: 0; transform: scale(0.9); }
+  nav a { text-decoration: none; transition: 0.3s; }
+  nav a:hover { color: #00FFB6; }
 
-    nav a {  
-      text-decoration: none; 
-      transition: 0.3s; 
-    }
-    nav a:hover { color: #00FFB6; }
+  .grid-container {
+    width: 92%;
+    max-width: 1400px;
+    margin: 120px auto;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1.3fr;
+    grid-auto-rows: auto;
+    gap: 24px;
+  }
 
-    /* ================================ */
-    /*      COLLAGE GRID STYLES         */
-    /* ================================ */
-    .grid-container {
-      width: 92%;
-      max-width: 1400px;
-      margin: 120px auto;
-      display: grid;
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+    cursor: pointer;
+  }
+  .grid-item img, .grid-item video { width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease; }
+  .grid-item:hover img, .grid-item:hover video { transform: scale(1.05); }
+  .grid-item.in-view { opacity: 1; transform: translateY(0); }
 
-      /* Collage layout */
-      grid-template-columns: 1.3fr 1fr 1.3fr;
-      grid-auto-rows: auto;
-      gap: 24px;
-    }
+  .grid-title { position: absolute; top: 12px; left: 12px; font-size: 32px; font-weight: 600; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+  .grid-caption { position: absolute; top: 48px; left: 12px; width: 100%; text-align: center; color: #fff; font-size: 18px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease-out; }
+  .grid-item.in-view .grid-caption { opacity: 1; transform: translateY(0); }
 
-    .grid-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease-out;
-      cursor: pointer;
-    }
-
-    .grid-item img,
-    .grid-item video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .grid-item:hover img,
-    .grid-item:hover video {
-      transform: scale(1.05);
-    }
-
-    .grid-item.in-view { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-
-    .grid-title {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      font-size: 32px;
-      font-weight: 600;
-      color: #fff;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
-
-    .grid-caption {
-      position: absolute;
-      top: 48px;
-      left: 12px;
-      width: 100%;
-      text-align: center;
-      color: #ffffff;
-      font-size: 18px;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.5s ease-out;
-    }
-
-    .grid-item.in-view .grid-caption {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* COLLAGE SPANS */
-    .item1 { grid-row: span 2; grid-column: span 2; }
-    .item2 { grid-row: span 1; }
-    .item3 { grid-row: span 2; }
-    .item4 { grid-row: span 1; grid-column: span 2; }
-    .item5 { grid-row: span 2; }
-    .item6 { grid-row: span 1; }
-  </style>
+  .item1 { grid-row: span 2; grid-column: span 2; }
+  .item2 { grid-row: span 1; }
+  .item3 { grid-row: span 2; }
+  .item4 { grid-row: span 1; grid-column: span 2; }
+  .item5 { grid-row: span 2; }
+  .item6 { grid-row: span 1; }
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">
-      <img src="Demi Logo.png" alt="Logo" class="logo-icon">
-    </div>
+<header>
+  <div class="logo"><img src="Demi Logo.png" alt="Logo" class="logo-icon"></div>
+  <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+  <nav>
+    <a href="Home.html" class="active">Home</a>
+    <a href="VisualArt.html">Visual Art</a>
+    <a href="Design.html">Design</a>
+    <a href="Other.html">Projects</a>
+  </nav>
+</header>
 
-    <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
-
-    <nav>
-      <a href="Home.html" class="active">Home</a>
-      <a href="VisualArt.html">Visual Art</a>
-      <a href="Design.html">Design</a>
-      <a href="Other.html">Projects</a>
-    </nav>
-  </header>
-
-  <!-- SINGLE scroll container -->
-  <div data-scroll-container>
-
-    <div class="grid-wrapper">
-      <div class="grid-container">
-
-        <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
-          <img src="sprout.png" alt="1">
-          <div class="grid-title">DREAMSCAPE</div>
-          <div class="grid-caption">Digital Game</div>
-        </div>
-
-        <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
-          <video autoplay loop muted>
-            <source src="sproutcover.mp4" type="video/mp4">
-          </video>
-          <div class="grid-title">SPROUTED</div>
-          <div class="grid-caption">Stop-Motion Animation Film</div>
-        </div>
-
-        <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
-          <img src="San.gif" alt="3">
-          <div class="grid-title">SCARAB</div>
-          <div class="grid-caption">Digital Game</div>
-        </div>
-
-        <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
-          <video autoplay loop muted>
-            <source src="FishyPromo.mp4" type="video/mp4">
-          </video>
-          <div class="grid-title">FISHY</div>
-          <div class="grid-caption">Digital Game</div>
-        </div>
-
-        <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
-          <img src="card6.jpeg" alt="5">
-          <div class="grid-title">BOARD GAMES</div>
-          <div class="grid-caption">Fabricated Games</div>
-        </div>
-
-        <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view" data-scroll-call="in-view">
-          <img src="destinationpromo.gif" alt="6">
-          <div class="grid-title">DESTINATION</div>
-          <div class="grid-caption">Digital Game</div>
-        </div>
-
+<div data-scroll-container>
+  <div class="grid-wrapper">
+    <div class="grid-container">
+      <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
+        <img src="sprout.png" alt="1">
+        <div class="grid-title">DREAMSCAPE</div>
+        <div class="grid-caption">Digital Game</div>
+      </div>
+      <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
+        <video autoplay loop muted><source src="sproutcover.mp4" type="video/mp4"></video>
+        <div class="grid-title">SPROUTED</div>
+        <div class="grid-caption">Stop-Motion Animation Film</div>
+      </div>
+      <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
+        <img src="San.gif" alt="3">
+        <div class="grid-title">SCARAB</div>
+        <div class="grid-caption">Digital Game</div>
+      </div>
+      <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
+        <video autoplay loop muted><source src="FishyPromo.mp4" type="video/mp4"></video>
+        <div class="grid-title">FISHY</div>
+        <div class="grid-caption">Digital Game</div>
+      </div>
+      <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
+        <img src="card6.jpeg" alt="5">
+        <div class="grid-title">BOARD GAMES</div>
+        <div class="grid-caption">Fabricated Games</div>
+      </div>
+      <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
+        <img src="destinationpromo.gif" alt="6">
+        <div class="grid-title">DESTINATION</div>
+        <div class="grid-caption">Digital Game</div>
       </div>
     </div>
+  </div>
+</div>
 
-  </div> <!-- end scroll container -->
+<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Fade in
+  requestAnimationFrame(() => document.body.classList.add("page-loaded"));
 
-  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      requestAnimationFrame(() => {
+  // Init Locomotive Scroll
+  const scroll = new LocomotiveScroll({
+    el: document.querySelector('[data-scroll-container]'),
+    smooth: true,
+    multiplier: 1
+  });
 
-        // PAGE ENTER FADE-IN
-        document.body.classList.add("page-loaded");
+  // Click grid items — fade out
+  document.querySelectorAll('.grid-item').forEach(item => {
+    item.addEventListener('click', e => {
+      const link = item.getAttribute('data-link');
+      if (!link) return;
 
-        // LOCOMOTIVE SCROLL INIT
-        const scroll = new LocomotiveScroll({
-          el: document.querySelector('[data-scroll-container]'),
-          smooth: true,
-          multiplier: 1
-        });
+      e.preventDefault();
+      document.body.classList.add("page-exit");
 
-        // PAGE EXIT ANIMATION
-        document.querySelectorAll('.grid-item').forEach(item => {
-          item.addEventListener('click', () => {
-            const link = item.getAttribute('data-link');
-            if (link) {
-              document.body.classList.add("page-exit");
-              setTimeout(() => window.location.href = link, 500);
-            }
-          });
-        });
-
-      });
+      // Wait for fade-out then navigate
+      const duration = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
+      setTimeout(() => window.location.href = link, duration);
     });
-  </script>
+  });
+
+  // Also handle normal nav links
+  document.querySelectorAll('nav a').forEach(link => {
+    if (link.target === "_blank") return;
+
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.body.classList.add("page-exit");
+      const duration = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
+      setTimeout(() => window.location.href = link.href, duration);
+    });
+  });
+});
+</script>
+
 </body>
 </html>
