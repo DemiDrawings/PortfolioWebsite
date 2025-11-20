@@ -8,6 +8,16 @@
   <title>Portfolio Website</title>
 
   <style>
+    /* REQUIRED FOR LOCOMOTIVE SCROLL */
+    html, body {
+      height: 100%;
+    }
+
+    [data-scroll-container] {
+      min-height: 100vh;
+      position: relative;
+    }
+
     /* BODY & PAGE TRANSITIONS */
     body {
       margin: 0;
@@ -50,11 +60,25 @@
       transition-delay: 0.45s;
     }
 
-    /* GRID STYLES */
-    [data-scroll-container] {
-      width: 100%;
+    /* INTRO PARAGRAPH ANIMATION */
+    .intro-text {
+      width: 90%;
+      max-width: 900px;
+      margin: 120px auto 60px auto;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #ddd;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.8s ease-out;
     }
 
+    .intro-in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* GRID STYLES */
     .grid-container {
       width: 90%;
       max-width: 1200px;
@@ -101,9 +125,7 @@
     .item4 { grid-row: span 3; }
     .item5 { grid-row: span 2; }
     .item6 { grid-row: span 3; }
-    .item7 { grid-row: span 2; }  /* Book row height */
-    .item8 { grid-row: span 3; }
-    .item9 { grid-row: span 2; }
+    .item7 { grid-row: span 2; }
 
     /* LIGHTBOX */
     .lightbox {
@@ -151,16 +173,19 @@
   </header>
 
   <div data-scroll-container>
+ <!-- INTRO PARAGRAPH -->
+    <p class="intro-text" data-scroll data-scroll-class="intro-in-view">
+    Created dynamic graphics for the Athletics Department in University of California, Los Angeles (UCLA). Work featured across the university’s official social media channels, and more.</p>
     <div class="grid-container">
 
-      <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="Graphic Design1.png" alt="1"></div>
-      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="soccerr.png" alt="2"></div>
-      <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="VotingRights.png" alt="3"></div>
-      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="Voting Rights2.png" alt="4"></div>
-      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="Graphic Design2.jpg" alt="5"></div>
-      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="graphic.png" alt="6"></div>
+      <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="Graphic Design1.png"></div>
+      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="soccerr.png"></div>
+      <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="VotingRights.png"></div>
+      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="Voting Rights2.png"></div>
+      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="Graphic Design2.jpg"></div>
+      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="graphic.png"></div>
 
-      <!-- RESPONSIVE ANYFLIP BOOK (behaves like image tile) -->
+      <!-- ANYFLIP EMBED -->
       <div class="grid-item item7" data-scroll data-scroll-class="in-view">
         <iframe
           src="https://online.anyflip.com/jzjop/pujh/index.html"
@@ -168,11 +193,7 @@
           scrolling="no">
         </iframe>
       </div>
-
-      <div class="grid-item item8" data-scroll data-scroll-class="in-view"><img src="your-image-8.png" alt="8"></div>
-      <div class="grid-item item9" data-scroll data-scroll-class="in-view"><img src="your-image-9.png" alt="9"></div>
-
-    </div>
+    
   </div>
 
   <div class="lightbox" id="lightbox">
@@ -191,6 +212,9 @@
           smooth: true,
           multiplier: 1
         });
+
+        /* FIX: ENSURE FULL SCROLL HEIGHT IS CALCULATED */
+        setTimeout(() => scroll.update(), 500);
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
