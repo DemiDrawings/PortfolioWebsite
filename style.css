@@ -503,3 +503,108 @@ body.page-exit {
   transition: opacity 0.32s ease, 
               transform 0.32s ease;
 }
+/* ===========================================
+   MOBILE RESPONSIVE FIXES
+   =========================================== */
+@media (max-width: 900px) {
+
+  /* ---- HEADER ---- */
+  header {
+    padding: 1.5rem 5%;
+  }
+
+  .logo-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  nav {
+    width: 60%;
+    top: 90px;
+    right: 0;
+    padding: 2rem;
+  }
+
+  nav a {
+    margin-left: 0;
+    margin: 2rem 0;
+    font-size: 1.8rem;
+  }
+
+
+  /* ---- HOME SECTION ---- */
+  .home {
+    flex-direction: column;
+    text-align: center;
+    gap: 4rem;
+  }
+
+  .home-img img {
+    width: 55vw;
+    max-width: 300px;
+  }
+
+  .home-content h1 {
+    font-size: 4rem;
+  }
+
+  .home-content h3 {
+    font-size: 2.8rem;
+  }
+
+  .home-content p {
+    font-size: 1.4rem;
+    padding: 0 1rem;
+  }
+
+
+  /* ---- TYPING TEXT ---- */
+  .typing-text span {
+    font-size: 2.2rem;
+  }
+
+  .typing-text::after {
+    width: 4px;
+  }
+
+
+  /* ---- SOCIAL ICONS ---- */
+  .social-icon a {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0.6rem;
+  }
+
+
+  /* ---- BUTTON ---- */
+  .btn {
+    font-size: 1.4rem;
+    padding: 0.9rem 2.2rem;
+  }
+
+
+  /* ---- GENERAL SECTION PADDING ---- */
+  section {
+    padding: 5rem 5% 5rem;
+  }
+}
+
+/* Even smaller screens (iPhone SE, older Androids) */
+@media (max-width: 500px) {
+
+  .home-img img {
+    width: 70vw;
+  }
+
+  .home-content h1 {
+    font-size: 3.4rem;
+  }
+
+  .home-content h3 {
+    font-size: 2.2rem;
+  }
+
+  .typing-text span {
+    font-size: 2rem;
+  }
+}
