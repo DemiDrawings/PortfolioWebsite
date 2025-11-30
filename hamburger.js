@@ -1,49 +1,21 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const hamMenu = document.querySelector('.ham-menu');
-  const offScreenMenu = document.querySelector('.off-screen-menu');
+const hamMenu = document.querySelector('.ham-menu');
+let mobileNav = document.querySelector('.mobile-nav');
 
-  if (!hamMenu || !offScreenMenu) {
-    console.warn('ham-menu or off-screen-menu element not found. Check class names.');
-    return;
-  }
+// If you don’t already have a mobile nav in HTML, create it dynamically from the desktop nav
+if (!mobileNav) {
+  mobileNav = document.createElement('nav');
+  mobileNav.classList.add('mobile-nav');
+  document.querySelector('header').appendChild(mobileNav);
 
-  // Toggle menu open/close
-  const toggleMenu = () => {
-    hamMenu.classList.toggle('active');
-    offScreenMenu.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-  };
-
-  hamMenu.addEventListener('click', (e) => {
-    e.stopPropagation(); // prevent click bubbling to document
-    toggleMenu();
+  // Copy links from desktop nav
+  document.querySelectorAll('.main-nav a').forEach(a => {
+    const link = a.cloneNode(true);
+    mobileNav.appendChild(link);
   });
+}
 
-  // Close when clicking any link inside the menu
-  offScreenMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamMenu.classList.remove('active');
-      offScreenMenu.classList.remove('active');
-      document.body.classList.remove('menu-open');
-    });
-  });
-
-  // Close when clicking/tapping outside the menu
-  document.addEventListener('click', (e) => {
-    if (!offScreenMenu.classList.contains('active')) return;
-    if (!offScreenMenu.contains(e.target) && !hamMenu.contains(e.target)) {
-      hamMenu.classList.remove('active');
-      offScreenMenu.classList.remove('active');
-      document.body.classList.remove('menu-open');
-    }
-  }, { passive: true });
-
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && offScreenMenu.classList.contains('active')) {
-      hamMenu.classList.remove('active');
-      offScreenMenu.classList.remove('active');
-      document.body.classList.remove('menu-open');
-    }
-  });
+// Toggle hamburger and mobile nav
+hamMenu.addEventListener('click', () => {
+  hamMenu.classList.toggle('active');
+  mobileNav.classList.toggle('active');
 });
