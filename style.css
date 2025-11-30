@@ -52,8 +52,8 @@ header {
 }
 
 .logo-icon {
-    width: 125px;
-    height: 125px;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
 }
 
@@ -814,4 +814,41 @@ nav {
     margin: 2rem 0;
     text-align: center;
   }
+}
+/* Go Up */
+.bottom-popup {
+  position: fixed;
+  bottom: -120px; /* hidden by default */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: bottom 0.5s ease;
+  z-index: 999;
+}
+
+.bottom-popup.show {
+  bottom: 30px; /* slides up */
+}
+
+.bottom-popup .popup-btn {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.bottom-popup .popup-btn:hover {
+  background: #fff;
+  color: #222;
 }
