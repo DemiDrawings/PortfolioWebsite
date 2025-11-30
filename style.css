@@ -661,14 +661,19 @@ nav {
   right: 0;
 }
 
-/* HAMBURGER */
+/* ==========================
+   HAMBURGER & MOBILE NAV
+   ========================== */
+
+/* Hamburger - hidden on desktop */
 .ham-menu {
+  display: none;
   height: 50px;
   width: 50px;
   margin-left: auto;
   position: relative;
   cursor: pointer;
-  z-index: 10000; /* on top */
+  z-index: 10000;
 }
 
 .ham-menu span {
@@ -679,18 +684,12 @@ nav {
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
-.ham-menu span:nth-child(1) {
-  top: 25%;
-}
-.ham-menu span:nth-child(2) {
-  top: 50%;
-}
-.ham-menu span:nth-child(3) {
-  top: 75%;
-}
+.ham-menu span:nth-child(1) { top: 25%; }
+.ham-menu span:nth-child(2) { top: 50%; }
+.ham-menu span:nth-child(3) { top: 75%; }
 
 /* X animation */
 .ham-menu.active span:nth-child(1) {
@@ -705,88 +704,18 @@ nav {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* ==========================
-   MOBILE HAMBURGER MENU FIX
-   ========================== */
-
-/* Hide hamburger by default (desktop) */
-.ham-menu {
-  display: none;
-  height: 50px;
-  width: 50px;
-  margin-left: auto;
-  position: relative;
-  cursor: pointer;
-  z-index: 10000; /* make sure it’s above everything */
-}
-
-.ham-menu span {
-  height: 5px;
-  width: 100%;
-  background-color: white;
-  border-radius: 25px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.3s ease;
-}
-
-.ham-menu span:nth-child(1) {
-  top: 25%;
-}
-.ham-menu span:nth-child(2) {
-  top: 50%;
-}
-.ham-menu span:nth-child(3) {
-  top: 75%;
-}
-
-/* X animation when active */
-.ham-menu.active span:nth-child(1) {
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.ham-menu.active span:nth-child(2) {
-  opacity: 0;
-}
-.ham-menu.active span:nth-child(3) {
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* Off-screen menu */
-.off-screen-menu {
-  background-color: rgb(34, 37, 49);
-  height: 100vh;
-  width: 100%;
-  max-width: 450px;
-  position: fixed;
-  top: 0;
-  right: -450px;
+/* Off-screen mobile nav */
+header nav {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 2rem;
-  transition: 0.3s ease;
-  z-index: 9999;
 }
 
-.off-screen-menu.active {
-  right: 0;
-}
-
-/* ==========================
-   SHOW HAMBURGER ONLY ON MOBILE
-   ========================== */
 @media (max-width: 995px) {
-  /* show hamburger */
+  /* Show hamburger on mobile */
   .ham-menu {
     display: block;
   }
 
-  /* hide original nav links until hamburger is clicked */
+  /* Hide desktop nav links by default */
   header nav {
     display: none;
     position: fixed;
@@ -804,51 +733,16 @@ nav {
     transition: 0.3s ease;
   }
 
+  /* Show nav when hamburger is active */
   header nav.active {
     display: flex;
   }
 
+  /* Nav links for mobile */
   header nav a {
     display: block;
     font-size: 2rem;
     margin: 2rem 0;
     text-align: center;
   }
-}
-/* Go Up */
-.bottom-popup {
-  position: fixed;
-  bottom: -120px; /* hidden by default */
-  left: 50%;
-  transform: translateX(-50%);
-  background: #222;
-  color: #fff;
-  padding: 20px 30px;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  transition: bottom 0.5s ease;
-  z-index: 999;
-}
-
-.bottom-popup.show {
-  bottom: 30px; /* slides up */
-}
-
-.bottom-popup .popup-btn {
-  background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-  border-radius: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-
-.bottom-popup .popup-btn:hover {
-  background: #fff;
-  color: #222;
 }
