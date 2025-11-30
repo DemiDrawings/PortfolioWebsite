@@ -1,21 +1,43 @@
-const hamMenu = document.querySelector('.ham-menu');
-let mobileNav = document.querySelector('.mobile-nav');
+// ===== HAMBURGER MENU =====
+const hamburger = document.querySelector('.ham-menu');
+const nav = document.querySelector('header nav');
 
-// If you don’t already have a mobile nav in HTML, create it dynamically from the desktop nav
-if (!mobileNav) {
-  mobileNav = document.createElement('nav');
-  mobileNav.classList.add('mobile-nav');
-  document.querySelector('header').appendChild(mobileNav);
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  nav.classList.toggle('active');
+});
 
-  // Copy links from desktop nav
-  document.querySelectorAll('.main-nav a').forEach(a => {
-    const link = a.cloneNode(true);
-    mobileNav.appendChild(link);
+// Optional: Close nav when a link is clicked (mobile)
+nav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    nav.classList.remove('active');
   });
+});
+
+// ===== BOTTOM POPUP =====
+// Select popup element
+const popup = document.querySelector('.bottom-popup');
+const popupBtn = popup ? popup.querySelector('.popup-btn') : null;
+
+// Function to show popup once scrolled to bottom
+function handleScrollPopup() {
+  const scrollY = window.scrollY || window.pageYOffset;
+  const windowHeight = window.innerHeight;
+  const bodyHeight = document.body.scrollHeight;
+
+  if (scrollY + windowHeight >= bodyHeight - 5) { // near bottom
+    popup.classList.add('show');
+  } else {
+    popup.classList.remove('show');
+  }
 }
 
-// Toggle hamburger and mobile nav
-hamMenu.addEventListener('click', () => {
-  hamMenu.classList.toggle('active');
-  mobileNav.classList.toggle('active');
-});
+window.addEventListener('scroll', handleScrollPopup);
+
+// Optional: hide popup when button clicked
+if (popupBtn) {
+  popupBtn.addEventListener('click', () => {
+    popup.classList.remove('show');
+  });
+}
