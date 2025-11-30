@@ -357,3 +357,126 @@ header nav {
   .home-content h3 { font-size: 2.2rem; }
   .typing-text span { font-size: 2rem; }
 }
+   body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #111;
+      overflow-x: hidden;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      color: #fff;
+    }
+
+    body.page-loaded { opacity: 1; transform: scale(1); }
+    body.page-exit { opacity: 0; transform: scale(0.9); }
+
+    img, .text-block, .grid-container, nav, header {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    body.page-loaded img,
+    body.page-loaded .grid-container,
+    body.page-loaded .text-block {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.2s;
+    }
+
+    body.page-loaded nav,
+    body.page-loaded header {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.45s;
+    }
+
+    [data-scroll-container] { width: 100%; }
+
+    .grid-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 100px auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 200px;
+      gap: 15px;
+    }
+
+    .grid-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+      cursor: pointer;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .grid-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .grid-item:hover img { transform: scale(1.05); }
+    .grid-item.in-view { opacity: 1; transform: translateY(0); }
+
+    .item1 { grid-row: span 3; }
+    .item2 { grid-row: span 2; }
+    .item3 { grid-row: span 2; }
+    .item4 { grid-row: span 3; }
+    .item5 { grid-row: span 2; }
+    .item6 { grid-row: span 3; }
+    .item7 { grid-row: span 2; }
+    .item8 { grid-row: span 3; }
+    .item9 { grid-row: span 2; }
+    .item10{ grid-row: span 3; }
+    .item11{ grid-row: span 2; }
+    .item12{ grid-row: span 3; }
+    .item13{ grid-row: span 2; }
+
+    .text-block {
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto 100px auto;
+      font-size: 20px;
+      line-height: 1.6;
+      text-align: center;
+      padding-top: 125px;
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
