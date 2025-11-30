@@ -480,3 +480,11 @@ header nav {
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
+
+    /* Fixes Locomotive; makes it stretch all the way to page size */
+    [data-scroll-container] {
+  min-height: 100vh; /* keep */
+  position: relative;
+  overflow: hidden; /* Locomotive handles scroll */
+  padding-bottom: 200px; /* extra space so you can reach bottom */
+}
