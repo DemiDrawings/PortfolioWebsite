@@ -1,6 +1,42 @@
 /* @import url(https://fontgoogleapis.com/css2?family=Pop) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rock+Salt&display=swap');
 
+/* Preloader covers the entire screen */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease; /* smooth fade */
+}
+
+/* Fullscreen GIF */
+.preloader-logo {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover; /* keeps aspect ratio while filling screen */
+}
+
+/* Main content initially hidden */
+#main-content {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none; /* allow clicks through after fade */
+}
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -215,67 +251,6 @@ span { color: #00FFB6; }
   25%, 75% { opacity: 0; }
 }
 
-/* Hide hamburger on desktop */
-.ham-menu {
-  display: none;
-}
-
-/* Mobile/iOS only */
-@media (max-width: 900px) {
-  .ham-menu {
-    display: flex;
-    width: 35px;
-    height: 30px;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    z-index: 2000; /* ensure tap priority */
-  }
-
-  .ham-menu span {
-    display: block;
-    height: 4px;
-    width: 100%;
-    background-color: #fff;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-  }
-
-  /* Hamburger animation when active */
-  .ham-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .ham-menu.active span:nth-child(2) {
-    opacity: 0;
-  }
-  .ham-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-  }
-
-  /* Nav links hidden by default on mobile */
-  .main-nav {
-    display: none;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    flex-direction: column;
-    background-color: #111;
-    padding: 20px;
-    border-radius: 10px;
-    gap: 15px;
-  }
-
-  /* Show nav when active */
-  .main-nav.active {
-    display: flex !important;
-  }
-
-  .main-nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-  }
-}
 
 /* ==========================
    HAMBURGER & MOBILE NAV

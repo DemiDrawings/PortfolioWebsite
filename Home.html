@@ -18,7 +18,7 @@
     /* PAGE TRANSITION */
     body {
       margin: 0;
-      background-color: #111;
+      background-color: #111111;
       font-family: Poppins, sans-serif;
       opacity: 0;
       transform: scale(1.03);
@@ -38,6 +38,14 @@
 </head>
 
 <body>
+
+  <div id="preloader">
+  <video class="preloader-video" autoplay muted playsinline>
+    <source src="c:\Users\demia\Downloads\Demi Logo_2.mp4" type="video/mp4">
+    <!-- Your browser does not support the video tag. -->
+  </video>
+</div>
+
 <header>
   <div class="logo">
     <img src="Demi Logo.png" alt="Logo" class="logo-icon">
@@ -173,6 +181,26 @@
   <footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
   © Demi Saleeb 2025
 </footer>
+<script>
+window.addEventListener('load', () => {
+  const preloader = document.getElementById('preloader');
+  const mainContent = document.getElementById('main-content');
+
+  setTimeout(() => {
+    // Add a class to fade out
+    preloader.classList.add('fade-out');
+
+    // Fade in main content
+    mainContent.style.opacity = '1';
+
+    // Remove preloader from DOM after transition
+    preloader.addEventListener('transitionend', () => {
+      preloader.remove();
+    });
+  }, 4000); // matches video duration
+});
+
+</script>
 
 </body>
 </html>
