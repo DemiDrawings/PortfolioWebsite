@@ -7,7 +7,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
   background-size: cover;
   background: black;
   display: flex;
@@ -18,22 +18,23 @@
   transition: opacity 1s ease; /* smooth fade */
 }
 
-/* Fullscreen GIF */
-.preloader-logo {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover; /* keeps aspect ratio while filling screen */
+/* Fullscreen video */
+.fullscreen-video {
+  width: 45vw;
+  height: 45vh;
+  object-fit: cover;   /* fills screen, crops if necessary */
 }
 
-/* Main content initially hidden */
+/* Hide main content initially */
 #main-content {
   opacity: 0;
   transition: opacity 1s ease;
 }
 
+/* Fade out preloader */
 #preloader.fade-out {
   opacity: 0;
-  pointer-events: none; /* allow clicks through after fade */
+  pointer-events: none;
 }
 
 
