@@ -3,7 +3,7 @@
 
 /* Preloader covers the entire screen */
 #preloader {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
@@ -159,7 +159,7 @@ span { color: #00FFB6; }
 
 .home-img img {
   position: relative;
-  width: 32vw;
+  width: 28vw;
   border-radius: 50%;
   box-shadow: 0 0 25px solid #00FFB6;
   cursor: pointer;
