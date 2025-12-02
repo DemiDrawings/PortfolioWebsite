@@ -4,8 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css" />
-<script src="popup.js"></script>
+
+<!-- Locomotive Scroll -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
 
 <title>Portfolio Website</title>
 
@@ -18,12 +19,15 @@
     margin: 0;
     font-family: Poppins, sans-serif;
     background-color: #111;
+
+    /* page transition start state */
     opacity: 0;
     transform: scale(1.03);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
+
   body.page-loaded { opacity: 1; transform: scale(1); }
-  body.page-exit { opacity: 0; transform: scale(0.92); transition: opacity 0.6s ease, transform 0.6s ease; }
+  body.page-exit   { opacity: 0; transform: scale(0.92); }
 
   nav a { text-decoration: none; transition: 0.3s; }
   nav a:hover { color: #00FFB6; }
@@ -34,7 +38,6 @@
     margin: 120px auto;
     display: grid;
     grid-template-columns: 1.3fr 1fr 1.3fr;
-    grid-auto-rows: auto;
     gap: 24px;
   }
 
@@ -47,13 +50,52 @@
     transition: all 0.8s ease-out;
     cursor: pointer;
   }
-  .grid-item img, .grid-item video { width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease; }
-  .grid-item:hover img, .grid-item:hover video { transform: scale(1.05); }
-  .grid-item.in-view { opacity: 1; transform: translateY(0); }
 
-  .grid-title { position: absolute; top: 12px; left: 12px; font-size: 32px; font-weight: 600; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-  .grid-caption { position: absolute; top: 48px; left: 12px; width: 100%; text-align: center; color: #fff; font-size: 18px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease-out; }
-  .grid-item.in-view .grid-caption { opacity: 1; transform: translateY(0); }
+  .grid-item img, .grid-item video {
+    width: 100%;
+    height: auto; /* keep image ratio */
+    display: block;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+  .grid-item:hover img,
+  .grid-item:hover video {
+    transform: scale(1.05);
+  }
+
+  .grid-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .grid-title {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  .grid-caption {
+    position: absolute;
+    top: 48px;
+    left: 12px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease-out;
+  }
+
+  .grid-item.in-view .grid-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   .item1 { grid-row: span 2; grid-column: span 2; }
   .item2 { grid-row: span 1; }
@@ -69,104 +111,120 @@
 <header>
   <div class="logo"><img src="Demi Logo.png" alt="Logo" class="logo-icon"></div>
   <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+
   <nav>
-    <a href="Home.html" class="active">About</a>
+    <a href="Home.html">About</a>
     <a href="VisualArt.html">Visual Art</a>
     <a href="Design.html">Design</a>
     <a href="Other.html">Projects</a>
   </nav>
 </header>
 
+<!-- Smooth scroll container -->
 <div data-scroll-container>
   <div class="grid-wrapper">
     <div class="grid-container">
+
       <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
-        <img src="sprout.png" alt="1">
+        <img src="sprout.png">
         <div class="grid-title">DREAMSCAPE</div>
         <div class="grid-caption">Digital Game</div>
       </div>
+
       <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
         <video autoplay loop muted><source src="sproutcover.mp4" type="video/mp4"></video>
         <div class="grid-title">SPROUTED</div>
         <div class="grid-caption">Stop-Motion Animation Film</div>
       </div>
+
       <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
-        <img src="San.gif" alt="3">
+        <img src="San.gif">
         <div class="grid-title">SCARAB</div>
         <div class="grid-caption">Digital Game</div>
       </div>
+
       <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
         <video autoplay loop muted><source src="FishyPromo.mp4" type="video/mp4"></video>
         <div class="grid-title">FISHY</div>
         <div class="grid-caption">Digital Game</div>
       </div>
+
       <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
-        <img src="card6.jpeg" alt="5">
+        <img src="card6.jpeg">
         <div class="grid-title">BOARD GAMES</div>
         <div class="grid-caption">Fabricated Games</div>
       </div>
+
       <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
-        <img src="destinationpromo.gif" alt="6">
+        <img src="destinationpromo.gif">
         <div class="grid-title">DESTINATION</div>
         <div class="grid-caption">Digital Game</div>
       </div>
+
     </div>
   </div>
 </div>
 
+<!-- Locomotive Scroll -->
 <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Fade in
-  requestAnimationFrame(() => document.body.classList.add("page-loaded"));
+  
+  /* Fade-in on load */
+  requestAnimationFrame(() => {
+    document.body.classList.add("page-loaded");
+  });
 
-  // Init Locomotive Scroll
+  /* Locomotive Scroll */
   const scroll = new LocomotiveScroll({
-    el: document.querySelector('[data-scroll-container]'),
+    el: document.querySelector("[data-scroll-container]"),
     smooth: true,
     multiplier: 1
   });
 
-  // Click grid items — fade out
-  document.querySelectorAll('.grid-item').forEach(item => {
-    item.addEventListener('click', e => {
-      const link = item.getAttribute('data-link');
+  /* Grid item navigation w/ fade-out */
+  document.querySelectorAll(".grid-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const link = item.getAttribute("data-link");
       if (!link) return;
 
-      e.preventDefault();
       document.body.classList.add("page-exit");
 
-      // Wait for fade-out then navigate
-      const duration = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
-      setTimeout(() => window.location.href = link, duration);
+      const d = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
+      setTimeout(() => window.location.href = link, d);
     });
   });
 
-  // Also handle normal nav links
-  document.querySelectorAll('nav a').forEach(link => {
-    if (link.target === "_blank") return;
-
-    link.addEventListener('click', e => {
+  /* Navigation links — fade-out */
+  document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", e => {
       e.preventDefault();
+      
       document.body.classList.add("page-exit");
-      const duration = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
-      setTimeout(() => window.location.href = link.href, duration);
+
+      const d = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
+      setTimeout(() => window.location.href = link.href, d);
     });
   });
 });
 </script>
- <!-- popup -->
-<div class="bottom-popup">
+
+<!-- Contact popup -->
+ <div class="bottom-popup">
   <div class="popup-left">
     <p>I'd love to talk! You can reach me at</p>
     <h2>demianas@outlook.com</h2>
   </div>
 
-  <button class="popup-btn">
-    back up ↑
-  </button>
+  <button class="popup-btn">back up ↑</button>
 </div>
- <footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
+
+<script src="popup.js"></script>
+
+<footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
   © Demi Saleeb 2025
+</footer>
+
 </body>
 </html>
