@@ -258,86 +258,68 @@ span { color: #00FFB6; }
    HAMBURGER & MOBILE NAV
    ========================== */
 
-/* Hamburger - hidden on desktop */
+/* Hamburger menu styles */
 .ham-menu {
-  display: none;
-  height: 50px;
-  width: 50px;
-  margin-left: auto;
-  position: relative;
+  display: none; /* hidden by default */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
   cursor: pointer;
-  z-index: 10000;
 }
 
 .ham-menu span {
-  height: 5px;
-  width: 100%;
-  background-color: white;
-  border-radius: 25px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.3s ease;
+  display: block;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: 0.3s;
 }
 
-.ham-menu span:nth-child(1) { top: 25%; }
-.ham-menu span:nth-child(2) { top: 50%; }
-.ham-menu span:nth-child(3) { top: 75%; }
-
-/* X animation */
-.ham-menu.active span:nth-child(1) {
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
+/* Navigation menu default (desktop) */
+.main-nav {
+  display: flex;
+  gap: 20px;
 }
-.ham-menu.active span:nth-child(2) {
+
+/* iOS/mobile styles */
+@media only screen and (max-width: 768px) {
+  .ham-menu {
+    display: flex; /* show hamburger on mobile */
+  }
+
+  .main-nav {
+    display: none; /* hide menu by default */
+    flex-direction: column;
+    position: absolute;
+    top: 70px; /* adjust based on header height */
+    right: 20px;
+    background-color: #111;
+    padding: 10px 20px;
+    border-radius: 8px;
+    z-index: 100;
+  }
+
+  .main-nav.show {
+    display: flex; /* show menu when hamburger clicked */
+  }
+
+  .main-nav a {
+    margin: 10px 0;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+.ham-menu.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.ham-menu.open span:nth-child(2) {
   opacity: 0;
 }
-.ham-menu.active span:nth-child(3) {
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
 
-/* Off-screen mobile nav */
-header nav {
-  display: flex;
-}
-
-@media (max-width: 995px) {
-  /* Show hamburger on mobile */
-  .ham-menu {
-    display: block;
-  }
-
-  /* Hide desktop nav links by default */
-  header nav {
-    display: none;
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 60%;
-    max-width: 450px;
-    background-color: rgb(34, 37, 49);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    z-index: 9998;
-    transition: 0.3s ease;
-  }
-
-  /* Show nav when hamburger is active */
-  header nav.active {
-    display: flex;
-  }
-
-  /* Nav links for mobile */
-  header nav a {
-    display: block;
-    font-size: 2rem;
-    margin: 2rem 0;
-    text-align: center;
-  }
+.ham-menu.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 
