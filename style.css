@@ -472,6 +472,8 @@ header nav {
       object-fit: contain;
       display: block;
       transition: transform 0.5s ease;
+      border-radius: 18px; /* this rounds the corners */
+
     }
 
     .grid-item:hover img { transform: scale(1.05); }
