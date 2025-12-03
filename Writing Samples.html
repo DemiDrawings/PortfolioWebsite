@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+  <title>Portfolio Website</title>
+
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    [data-scroll-container] {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #111;
+      overflow-x: hidden;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    body.page-loaded { opacity: 1; transform: scale(1); }
+    body.page-exit { opacity: 0; transform: scale(0.9); }
+
+    /* FULL-SCREEN GRID */
+    .grid-container {
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-auto-rows: 100vh; /* each grid item full viewport height */
+      gap: 30px;
+      padding: 0;
+      margin-top: 70px; /* space for fixed header */
+    }
+
+    .grid-item {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #222;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .sample-content {
+      text-align: center;
+      color: #fff;
+    }
+
+    .sample-content h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .pdf-btn {
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #00FFB6;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .pdf-btn:hover {
+      background-color: #ffffff;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="Demi Logo.png" alt="Logo" class="logo-icon">
+    </div>
+    <nav>
+      <a href="Home.html">About</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+      <a href="Writing Samples.html" class="active">Writing</a>
+    </nav>
+  </header>
+
+  <div data-scroll-container>
+    <div class="grid-container">
+
+      <!-- Storywriting Sample 1 -->
+      <div class="grid-item" data-scroll data-scroll-class="in-view">
+        <div class="sample-content">
+          <h2>Story Development Sample: Beat Sheet for UCLA Class Final</h2>
+          <a href="https://docs.google.com/document/d/1Byk6c4f2MLsfcEk0yG3PdEjFIrGAnI0Qb4l6vZqJaEA/edit?usp=sharing" target="_blank">
+            <button class="pdf-btn">View Script</button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Storywriting Sample 2 -->
+      <div class="grid-item" data-scroll data-scroll-class="in-view">
+        <div class="sample-content">
+          <h2>Fallen Script</h2>
+          <a href="https://docs.google.com/document/d/1j3mnYXhyJ5cBJB1hWrOy4SvrUTSlB-AD7PCXCIrZ6Uc/edit?usp=sharing" target="_blank">
+            <button class="pdf-btn">View Script</button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Storywriting Sample 3 -->
+      <div class="grid-item" data-scroll data-scroll-class="in-view">
+        <div class="sample-content">
+          <h2>Scarab Script</h2>
+          <a href="https://docs.google.com/document/d/1dK6F27IWqORorz60a5sP4iia9xhRnH1svFr5EhEJkvI/edit?usp=sharing" target="_blank">
+            <button class="pdf-btn">View Script</button>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      requestAnimationFrame(() => {
+        document.body.classList.add("page-loaded");
+        const scroll = new LocomotiveScroll({
+          el: document.querySelector('[data-scroll-container]'),
+          smooth: true,
+          multiplier: 1
+        });
+        setTimeout(() => scroll.update(), 500);
+      });
+    });
+  </script>
+<!-- popup -->
+<div class="bottom-popup">
+  <div class="popup-left">
+    <p>I'd love to talk! You can reach me at</p>
+    <h2>demianas@outlook.com</h2>
+  </div>
+
+  <button class="popup-btn">back up ↑</button>
+</div>
+
+<script src="popup.js"></script>
+ <footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
+  © Demi Saleeb 2025
+</body>
+</html>
