@@ -539,3 +539,10 @@ header nav {
   padding-bottom: 200px; /* extra space so you can reach bottom */
 }
 
+/* Writing Section */
+.blurb {
+  color: #ffffff;       /* makes text white */
+  margin: 15px 0;       /* adds space above and below the sentence */
+  font-size: 16px;      /* optional: adjust size */
+  line-height: 1.5;     /* optional: makes it easier to read */
+}
