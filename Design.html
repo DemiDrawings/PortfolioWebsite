@@ -47,7 +47,8 @@
     }
 
     body.page-loaded img,
-    body.page-loaded .grid-container {
+    body.page-loaded .grid-container,
+    body.page-loaded .featured-panels {
       opacity: 1;
       transform: translateY(0);
       transition-delay: 0.2s;
@@ -78,6 +79,148 @@
       transform: translateY(0) scale(1);
     }
 
+    /* FEATURED PANELS SECTION */
+    .featured-panels {
+      width: 90%;
+      max-width: 1200px;
+      margin: 100px auto 150px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
+
+    .featured-panels.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .featured-panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      height: auto;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      background: transparent;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .featured-panel:nth-child(2) {
+      height: auto;
+      margin-top: 0;
+    }
+
+    .featured-panel:hover {
+      transform: translateY(-10px) scale(1.03);
+      /* box-shadow: 0 20px 40px rgba(0, 255, 182, 0.2); */
+    }
+
+    .featured-panel:active {
+      transform: scale(1.08);
+      transition: transform 0.2s ease;
+    }
+
+    .featured-panel img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.5s ease;
+      border-radius: 20px;
+      background: #1a1a1a;
+    }
+
+    .featured-panel:hover img {
+      transform: scale(1.08);
+    }
+
+    .featured-panel iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      pointer-events: none;
+    }
+
+    .featured-panel.book-panel {
+      cursor: zoom-in;
+    }
+
+    /* .featured-panel.book-panel:hover { */
+      /* box-shadow: 0 20px 40px rgba(255, 200, 0, 0.3); */
+    /* } */
+
+    .featured-panel.book-panel:active {
+      transform: scale(1.08);
+    }
+
+    .panel-overlay {
+      position: relative;
+      background: transparent;
+      padding: 15px 0 0 0;
+      text-align: center;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .panel-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 8px 0;
+      display: block;
+    }
+
+    .panel-subtitle {
+      font-size: 14px;
+      color: #aaa;
+      margin: 0;
+      display: block;
+    }
+
+    /* TEXT SECTIONS */
+    .text-section {
+      width: 90%;
+      max-width: 900px;
+      margin: 80px auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .text-section.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-header {
+      font-size: 48px;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 16px 0;
+      letter-spacing: -1px;
+    }
+
+    .section-subheader {
+      font-size: 24px;
+      color: #00FFB6;
+      margin: 0 0 24px 0;
+      font-weight: 500;
+    }
+
+    .section-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #ccc;
+      margin: 0 0 20px 0;
+    }
+
     /* GRID STYLES */
     .grid-container {
       width: 90%;
@@ -97,22 +240,17 @@
       transform: translateY(50px);
       transition: all 0.8s ease-out;
       cursor: pointer;
-
     }
 
-    .grid-item img,
-    .grid-item iframe {
+    .grid-item img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       display: block;
-      border: 0;
       transition: transform 0.5s ease;
-      
     }
 
-    .grid-item:hover img,
-    .grid-item:hover iframe {
+    .grid-item:hover img {
       transform: scale(1.05);
     }
 
@@ -121,13 +259,10 @@
       transform: translateY(0);
     }
 
-    .item1 { grid-row: span 3; }
     .item2 { grid-row: span 2; }
-    .item3 { grid-row: span 2; }
     .item4 { grid-row: span 3; }
     .item5 { grid-row: span 2; }
     .item6 { grid-row: span 3; }
-    .item7 { grid-row: span 2; }
 
     /* LIGHTBOX */
     .lightbox {
@@ -136,7 +271,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.95);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -151,11 +286,49 @@
       pointer-events: auto;
     }
 
+    .lightbox-content {
+      width: 90%;
+      height: 90%;
+      max-width: 1400px;
+      max-height: 900px;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lightbox iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #00FFB6;
+      color: #111;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      background: #fff;
+      transform: rotate(90deg);
     }
   </style>
 </head>
@@ -176,31 +349,64 @@
   </header>
 
   <div data-scroll-container>
- <!-- INTRO PARAGRAPH -->
-    <p style= "color: #919191" class="intro-text" data-scroll data-scroll-class="intro-in-view">
-    <!-- Created dynamic graphics for the Athletics Department in University of California, Los Angeles (UCLA). Work featured across the university’s official social media channels, and more.</p> -->
-    <div class="grid-container">
+    <p style="color: #919191" class="intro-text" data-scroll data-scroll-class="intro-in-view">
+    </p>
 
-      <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="Graphic Design1.png"></div>
-      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="soccerr.png"></div>
-      <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="VotingRights.png"></div>
-      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="Voting Rights2.png"></div>
-      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="Graphic Design2.jpg"></div>
-      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="graphic.png"></div>
+    <!-- FEATURED PANELS -->
+    <div class="featured-panels" data-scroll data-scroll-class="in-view">
+      
+      <!-- Panel 1: Graphics Design -->
+      <div class="featured-panel" data-link="GraphicsProject.html">
+        <img src="Graphic Design1.png" alt="Graphics Design">
+        <div class="panel-overlay">
+          <h3 class="panel-title">UCLA Athletics</h3>
+          <p class="panel-subtitle">Dynamic Graphics</p>
+        </div>
+      </div>
 
-      <!-- ANYFLIP EMBED -->
-      <div class="grid-item item7" data-scroll data-scroll-class="in-view">
+      <!-- Panel 2: AnyFlip Book (expands only) -->
+      <div class="featured-panel book-panel" data-book="true">
         <iframe
           src="https://online.anyflip.com/jzjop/pujh/index.html"
-          allowfullscreen="true"
           scrolling="no">
         </iframe>
+        <div class="panel-overlay">
+          <h3 class="panel-title">Digital Publication</h3>
+          <p class="panel-subtitle">Click to expand</p>
+        </div>
       </div>
-    
-  </div>
 
+      <!-- Panel 3: Voting Rights -->
+      <div class="featured-panel" data-link="VotingRightsProject.html">
+        <img src="VotingRights.png" alt="Voting Rights">
+        <div class="panel-overlay">
+          <h3 class="panel-title">Voting Rights</h3>
+          <p class="panel-subtitle">Campaign Design</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION HEADER -->
+    <!-- <div class="section-divider" data-scroll data-scroll-class="in-view"> -->
+      <!-- <h2 class="section-header-text">More Work</h2> -->
+      <!-- <p class="section-subtext">Additional design projects and explorations</p> -->
+    <!-- </div> -->
+
+    <!-- ADDITIONAL GRID -->
+    <!-- <div class="grid-container">
+      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="placeholder1.jpg"></div>
+      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="placeholder2.jpg"></div>
+      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="placeholder3.jpg"></div>
+      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="placeholder4.jpg"></div>
+    </div>
+
+  </div> -->
+
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
-    <img src="" alt="Enlarged Image" id="lightbox-img">
+    <button class="close-btn" id="close-btn">×</button>
+    <div class="lightbox-content" id="lightbox-content"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
@@ -216,23 +422,50 @@
           multiplier: 1
         });
 
-        /* FIX: ENSURE FULL SCROLL HEIGHT IS CALCULATED */
         setTimeout(() => scroll.update(), 500);
 
         const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxContent = document.getElementById('lightbox-content');
+        const closeBtn = document.getElementById('close-btn');
 
+        // Featured panels click handlers
+        document.querySelectorAll('.featured-panel').forEach(panel => {
+          panel.addEventListener('click', () => {
+            const link = panel.getAttribute('data-link');
+            const isBook = panel.getAttribute('data-book');
+
+            if (isBook) {
+              // Expand book in lightbox
+              lightboxContent.innerHTML = '<iframe src="https://online.anyflip.com/jzjop/pujh/index.html" allowfullscreen="true" scrolling="no"></iframe>';
+              lightbox.classList.add('active');
+            } else if (link) {
+              // Navigate to project page
+              document.body.classList.add("page-exit");
+              setTimeout(() => window.location.href = link, 500);
+            }
+          });
+        });
+
+        // Grid items lightbox
         document.querySelectorAll('.grid-item img').forEach(img => {
           img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
+            lightboxContent.innerHTML = `<img src="${img.src}" alt="Enlarged Image">`;
             lightbox.classList.add('active');
           });
         });
 
-        lightbox.addEventListener('click', e => {
-          if(e.target !== lightboxImg) lightbox.classList.remove('active');
+        // Close lightbox
+        closeBtn.addEventListener('click', () => {
+          lightbox.classList.remove('active');
         });
 
+        lightbox.addEventListener('click', e => {
+          if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+          }
+        });
+
+        // Navigation links
         document.querySelectorAll("a[href]").forEach(link => {
           link.addEventListener("click", e => {
             const url = link.getAttribute("href");
@@ -242,21 +475,22 @@
             setTimeout(() => window.location.href = url, 500);
           });
         });
-
       });
     });
   </script>
+
   <div class="bottom-popup">
-  <div class="popup-left">
-    <p>I'd love to talk! You can reach me at</p>
-    <h2>demianas@outlook.com</h2>
+    <div class="popup-left">
+      <p>I'd love to talk! You can reach me at</p>
+      <h2>demianas@outlook.com</h2>
+    </div>
+    <button class="popup-btn">back up ↑</button>
   </div>
 
-  <button class="popup-btn">back up ↑</button>
-</div>
-
-<script src="popup.js"></script>
- <footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
-  © Demi Saleeb 2025
+  <script src="popup.js"></script>
+  
+  <footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
+    © Demi Saleeb 2025
+  </footer>
 </body>
 </html>
