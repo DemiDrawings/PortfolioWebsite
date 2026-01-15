@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link rel="stylesheet" href="style.css" />
-  <script src="hamburger.js"></script> 
 
   <title>Portfolio Website</title>
 
@@ -23,6 +22,7 @@
       opacity: 0;
       transform: scale(1.03);
       transition: opacity 0.6s ease, transform 0.6s ease;
+      -webkit-font-smoothing: antialiased;
     }
 
     body.page-loaded {
@@ -34,13 +34,17 @@
       opacity: 0;
       transform: scale(0.92);
     }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
   </style>
 </head>
 
 <body>
 
 <div id="preloader">
-    <video autoplay muted playsinline class="fullscreen-video">
+    <video autoplay muted playsinline webkit-playsinline class="fullscreen-video">
       <source src="DemiLoad.mp4" type="video/mp4">
     </video>
   </div>
@@ -51,21 +55,19 @@
   </div>
 
   <!-- Hamburger (mobile only) -->
-  <div class="ham-menu">
+  <div class="ham-menu" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
   </div>
 
-  <nav class="main-nav">
+  <nav class="main-nav" id="mainNav">
     <a href="Home.html" class="active">Home</a>
     <a href="VisualArt.html">Visual Art</a>
     <a href="Design.html">Design</a>
     <a href="Other.html">Projects</a>
     <a href="Writing Samples.html">Writing</a>
   </nav>
-
-  <script src="hamburger.js"></script>
 </header>
 
 
@@ -80,7 +82,7 @@
 
       <p>
         I'm a creative specializing in <strong>Production</strong> and <strong>Concept Art</strong>, with a B.A. in Design Media
-        Arts and emphasis in Film, Television & Digital Media from the University of California, Los Angeles. I’m drawn to stories about self-actualization and
+        Arts and emphasis in Film, Television & Digital Media from the University of California, Los Angeles. I'm drawn to stories about self-actualization and
         connection, and I aim to create worlds where everyone feels seen. In my free time, I enjoy animated shows,
         immersive games, community spaces, sketching, and the outdoors.
       </p>
@@ -179,29 +181,67 @@
 
     window.onload = typeEffect;
   </script>
+  
   <footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
-  © Demi Saleeb 2025
-</footer>
-<script>
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  const mainContent = document.getElementById('main-content');
+    © Demi Saleeb 2025
+  </footer>
 
-  setTimeout(() => {
-    // Add a class to fade out
-    preloader.classList.add('fade-out');
+  <!-- PRELOADER SCRIPT -->
+  <script>
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      const mainContent = document.getElementById('main-content');
 
-    // Fade in main content
-    mainContent.style.opacity = '1';
+      setTimeout(() => {
+        // Add a class to fade out
+        preloader.classList.add('fade-out');
 
-    // Remove preloader from DOM after transition
-    preloader.addEventListener('transitionend', () => {
-      preloader.remove();
+        // Fade in main content
+        if (mainContent) {
+          mainContent.style.opacity = '1';
+        }
+
+        // Remove preloader from DOM after transition
+        preloader.addEventListener('transitionend', () => {
+          preloader.remove();
+        });
+      }, 4000); // matches video duration
     });
-  }, 4000); // matches video duration
-});
+  </script>
 
-</script>
+  <!-- HAMBURGER MENU SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.getElementById('hamburger');
+      const mainNav = document.getElementById('mainNav');
+
+      if (hamburger && mainNav) {
+        hamburger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hamburger.classList.toggle('active');
+          mainNav.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        mainNav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mainNav.classList.remove('active');
+          });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (mainNav.classList.contains('active') && 
+              !mainNav.contains(e.target) && 
+              !hamburger.contains(e.target)) {
+            hamburger.classList.remove('active');
+            mainNav.classList.remove('active');
+          }
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
