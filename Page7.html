@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-size: cover;
+      background-position: center;
+      background: url("WebAnimation.gif") no-repeat center center fixed;
+      color: #00FFB6;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    body.page-loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    body.page-exit {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    .main-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+
+    .project-header {
+      text-align: center;
+      margin-bottom: 60px;
+      margin-top: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .project-header.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-header h1 {
+      font-size: 48px;
+      font-weight: 600;
+      color: #00FFB6;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    .project-meta span {
+      padding: 8px 16px;
+      /* background: rgba(0, 255, 182, 0.1); */
+      border-radius: 20px;
+      border: 2px solid #00FFB6;
+    }
+
+    .project-description {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 2px solid rgb(255, 255, 255);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-description p {
+      color: #bdbdbd;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 1.2em;
+    }
+
+    .project-description p:last-child {
+      margin-bottom: 0;
+    }
+
+    .credits {
+      font-size: 15px;
+      color: #888;
+      font-style: italic;
+      padding-top: 20px;
+      border-top: 1px solid rgb(255, 255, 255);
+      margin-top: 20px;
+    }
+
+    .media-showcase {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .media-item {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .media-item.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .media-container {
+      position: relative;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* border: 1px solid rgba(0, 255, 182, 0.2); */
+    }
+
+    .media-container:hover {
+      transform: translateY(-8px);
+      /* box-shadow: 0 15px 50px rgba(0, 255, 182, 0.2); */
+    }
+
+    .media-container.featured {
+      max-width: 100%;
+      aspect-ratio: 16/9;
+    }
+
+    .media-container.standard {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .media-container img,
+    .media-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    .media-caption {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #888;
+      font-style: italic;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 1024px) {
+      .project-header h1 {
+        font-size: 36px;
+      }
+
+      .main-section {
+        padding: 80px 40px;
+      }
+
+      .media-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 28px;
+      }
+
+      .project-meta {
+        gap: 15px;
+      }
+
+      .project-description {
+        padding: 30px 20px;
+      }
+
+      .project-description p {
+        font-size: 16px;
+      }
+
+      .main-section {
+        padding: 60px 20px;
+      }
+
+      .media-showcase {
+        gap: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="Demi Logo.png" alt="Logo" class="logo-icon">
+    </div>
+    <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+    <nav>
+      <a href="Home.html" class="active">Home</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+      <a href="Writing Samples.html">Writing</a>
+    </nav>
+  </header>
+
+  <section class="main-section">
+    <div class="project-header">
+      <h1>ExpressLaneLLC</h1>
+      <div class="project-meta">
+        <span>First-Person Shooter</span>
+        <span>Indie Studio Project</span>
+        <span>3D Character Artist</span>
+      </div>
+    </div>
+
+    <div class="project-description">
+      <p><strong>3D Character Artist Intern</strong> for ExpressLane, featuring a first-person shooting game. Responsible for creating in-game character designs, props and concepts under creative director.</p>
+      
+      <p>Get a deep dive into ExpressLane for the upcoming fast-paced, team-based extraction shooter set in a vibrant world of floating islands. Learn about the world, building your fortress, scavenging resources, preparing for battle, your objectives, and more. In ExpressLane, build your base, raid others, and extract with whatever you can carry. ExpressLane will be available on PC (Steam)</p>
+      
+      <div class="credits">
+      2D graphics & 3D assets by Demi Saleeb.
+    </div>
+
+    <div class="media-showcase">
+      <div class="media-item">
+        <div class="media-container featured">
+          <video controls loop preload="metadata">
+            <source src="expresslane.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-container standard">
+            <img src="gobbyy.png" alt="gobbyy">
+          </div>
+          <div class="media-caption">3D Goblin Character Model</div>
+        </div>
+
+        <div class="media-item">
+          <div class="media-container standard">
+            <img src="Stylized Glider Project.png" alt="Glider">
+          </div>
+          <div class="media-caption">3D Glider Model</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      requestAnimationFrame(() => document.body.classList.add("page-loaded"));
+      document.querySelectorAll("a[href]").forEach(link => {
+        link.addEventListener("click", e => {
+          const url = link.getAttribute("href");
+          if (!url || url.startsWith("#")) return;
+          e.preventDefault();
+          document.body.classList.add("page-exit");
+          setTimeout(() => window.location.href = url, 500);
+        });
+      });
+    });
+
+    window.addEventListener("pageshow", event => {
+      if (event.persisted) {
+        document.body.classList.remove("page-exit");
+        document.body.classList.add("page-loaded");
+      }
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".project-header, .project-description, .media-item").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

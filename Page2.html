@@ -12,7 +12,6 @@
       background-size: cover;
       background-position: center;
       background: url("WebAnimation.gif") no-repeat center center fixed;
-      background-repeat: no-repeat;
       color: #00FFB6;
       opacity: 0;
       transform: scale(1.03);
@@ -30,128 +29,253 @@
     }
 
     .main-section {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      padding: 80px;
-      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 60px;
     }
-  
-    /* Text column */
-    .text-column {
-      flex: 1 1 400px;
-      min-width: 300px;
-      padding: 50px;
-      border-radius: 12px;
-      color: #525252;
-      font-size: 18px;
+
+    .project-header {
+      text-align: center;
+      margin-bottom: 60px;
+      margin-top: 60px;
       opacity: 0;
-      transform: scale(0.95) translateY(50px); /* Small pop-down start */
+      transform: translateY(30px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-          p {
-        margin-bottom: 1em; /* Adjust the value as needed (e.g., 16px, 1.5rem) */
-    }
     }
 
-    .text-column.in-view {
+    .project-header.in-view {
       opacity: 1;
-      transform: scale(1) translateY(0); /* Pop to normal size & position */
+      transform: translateY(0);
     }
 
-    /* Grid column */
-    .grid-column {
-      flex: 1 1 400px;
-      display: grid;
-      grid-template-rows: 550px 400px 400px;
-      gap: 100px;
-      min-width: 300px;
+    .project-header h1 {
+      font-size: 48px;
+      font-weight: 600;
+      color: #00FFB6;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
     }
 
-    .grid-item {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease-out, transform 0.8s ease-out;
+    .project-meta {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    .project-meta span {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid #00FFB6;
+    }
+
+    .project-description {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 2px solid rgb(255, 255, 255);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-description p {
+      color: #bdbdbd;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 1.2em;
+    }
+
+    .project-description p:last-child {
+      margin-bottom: 0;
+    }
+
+    .credits {
+      font-size: 15px;
+      color: #888;
+      font-style: italic;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 255, 182, 0.1);
+      margin-top: 20px;
+    }
+
+    .media-showcase {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .media-item {
       opacity: 0;
-      transform: scale(0.95) translateY(50px);
+      transform: translateY(50px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    .grid-item.in-view {
+    .media-item.in-view {
       opacity: 1;
-      transform: scale(1) translateY(0);
+      transform: translateY(0);
     }
 
-    .grid-item:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    .media-container {
+      position: relative;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .grid-item img,
-    .grid-item video {
+    .media-container:hover {
+      transform: translateY(-8px);
+    }
+
+    .media-container.featured {
+      max-width: 100%;
+      aspect-ratio: 16/9;
+    }
+
+    .media-container.standard {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .media-container img,
+    .media-container video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
+      background: #000;
     }
 
-    @media (max-width: 900px) {
-      .main-section {
-        flex-direction: column;
+    .media-caption {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #888;
+      font-style: italic;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 1024px) {
+      .project-header h1 {
+        font-size: 36px;
       }
-      .grid-column {
-        grid-template-rows: 300px 200px 200px;
-        gap: 100px;
+
+      .main-section {
+        padding: 80px 40px;
+      }
+
+      .media-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 28px;
+      }
+
+      .project-meta {
+        gap: 15px;
+      }
+
+      .project-description {
+        padding: 30px 20px;
+      }
+
+      .project-description p {
+        font-size: 16px;
+      }
+
+      .main-section {
+        padding: 60px 20px;
+      }
+
+      .media-showcase {
+        gap: 40px;
       }
     }
   </style>
 </head>
 <body>
-   <header>
-      <div class="logo">
-        <img src="Demi Logo.png" alt="Logo" class="logo-icon">
-      </div>
-
-      <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
-
-      <nav>
-        <a href="Home.html" class="active">Home</a>
-        <a href="VisualArt.html">Visual Art</a>
-        <a href="Design.html">Design</a>
-        <a href="Other.html">Projects</a>
-      </nav>
-    </header>
+  <header>
+    <div class="logo">
+      <img src="Demi Logo.png" alt="Logo" class="logo-icon">
+    </div>
+    <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
+    <nav>
+      <a href="Home.html" class="active">Home</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Other.html">Projects</a>
+      <a href="Writing Samples.html">Writing</a>
+    </nav>
+  </header>
 
   <section class="main-section">
-    <div class="text-column">
-      <h2> SPROUTED, STOP MOTION ANIMATION (2025)</h2>
-      <p class="caption">Puppet, concept, storyboard, editing, animation and film entirely made by Demi Saleeb.</p>
-      <p>Sprout, our protagonist, is having a nightmare. Waking into unending oblivion, all seems doomed until they stumble upon a single star fragment…</p>
-      <p>Fabricated and filmed at the School of Film & Television at the University of California, Los Angeles (UCLA). This is a 30 second film made within the Stop Motion Animation, upper division, graduate course.Within the span of 10 weeks, I learned to design, rig, animate and bring my own puppet to life.  </p>
+    <div class="project-header">
+      <h1>SPROUTED</h1>
+      <div class="project-meta">
+        <span>Stop Motion Animation</span>
+        <span>2025</span>
+        <span>UCLA</span>
+      </div>
     </div>
 
-    <div class="grid-column">
-      <div class="grid-item">
-        <video controls autoplay loop muted>
-          <source src="Sprouted.mp4" type="video/mp4">
-        </video>
+    <div class="project-description">
+      <p>Sprout, our protagonist, is having a nightmare. Waking into unending oblivion, all seems doomed until they stumble upon a single star fragment…</p>
+      
+      <p>Fabricated and filmed at the School of Film & Television at the University of California, Los Angeles (UCLA). This is a 30 second film made within the Stop Motion Animation, upper division, graduate course. Within the span of 10 weeks, I learned to design, rig, animate and bring my own puppet to life.</p>
+      
+      <div class="credits">
+        Puppet, concept, storyboard, editing, animation and film entirely made by Demi Saleeb.
+      </div>
+    </div>
+
+    <div class="media-showcase">
+      <div class="media-item">
+        <div class="media-container featured">
+          <video controls loop preload="metadata">
+            <source src="Sprouted.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
 
-      <div class="grid-item">
-        <img src="SproutPup.jpg" alt="Small Project 1">
-      </div>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-container standard">
+            <img src="SproutPup.jpg" alt="Sprout Puppet">
+          </div>
+          <div class="media-caption">Finished Sprout Puppet</div>
+        </div>
 
-      <div class="grid-item">
-        <img src="spork.jpg" alt="Small Project 2">
+        <div class="media-item">
+          <div class="media-container standard">
+            <img src="spork.jpg" alt="Animation Scene">
+          </div>
+          <div class="media-caption">Puppet Wireframe & Process</div>
+        </div>
       </div>
     </div>
   </section>
 
   <script>
-    // === PAGE TRANSITIONS ===
     document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(() => document.body.classList.add("page-loaded"));
-
       document.querySelectorAll("a[href]").forEach(link => {
         link.addEventListener("click", e => {
           const url = link.getAttribute("href");
@@ -170,7 +294,6 @@
       }
     });
 
-    // === SCROLL POP-UP OBSERVER ===
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -179,7 +302,7 @@
       });
     }, { threshold: 0.2 });
 
-    document.querySelectorAll(".text-column, .grid-item").forEach(el => observer.observe(el));
+    document.querySelectorAll(".project-header, .project-description, .media-item").forEach(el => observer.observe(el));
   </script>
 </body>
 </html>

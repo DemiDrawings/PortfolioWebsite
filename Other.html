@@ -12,15 +12,13 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rock+Salt&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
 <style>
   body {
     margin: 0;
     font-family: Poppins, sans-serif;
     background-color: #111;
-
-    /* page transition start state */
     opacity: 0;
     transform: scale(1.03);
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -34,9 +32,9 @@
 
   /* Demo Reel Section */
   .demo-reel-section {
-    width: 92%;
-    max-width: 1400px;
-    margin: 100px auto 60px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 200px auto 60px;
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease-out;
@@ -47,27 +45,22 @@
     transform: translateY(0);
   }
 
-  .reel-title {
-    font-size: 48px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 12px;
-    text-align: center;
-  }
-
   .reel-subtitle {
-    font-size: 18px;
-    color: #999;
-    margin-bottom: 32px;
+    font-size: 20px;
+    color: #bdbdbd;
+    margin-bottom: 40px;
     text-align: center;
-    padding: 75px;
+    padding: 0 20px;
+    line-height: 1.6;
   }
 
   .video-box {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border-radius: 24px;
-    padding: 32px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 24px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
   }
@@ -78,7 +71,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 2px;
     background: linear-gradient(90deg, #00FFB6, #00D9FF, #00FFB6);
     background-size: 200% 100%;
     animation: shimmer 3s linear infinite;
@@ -92,7 +85,7 @@
   .video-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     background: #000;
     border-radius: 16px;
     overflow: hidden;
@@ -108,36 +101,79 @@
   }
 
   .grid-container {
-    width: 92%;
+    width: 90%;
     max-width: 1400px;
-    margin: 120px auto;
+    margin: 80px auto 120px;
     display: grid;
-    grid-template-columns: 1.3fr 1fr 1.3fr;
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    grid-auto-flow: dense;
   }
+
+  @media (max-width: 1100px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .item1 { grid-column: span 2; grid-row: span 2; }
+  .item2 { grid-column: span 1; grid-row: span 1; }
+  .item3 { grid-column: span 1; grid-row: span 2; }
+  .item4 { grid-column: span 2; grid-row: span 1; }
+  .item5 { grid-column: span 1; grid-row: span 2; }
+  .item6 { grid-column: span 1; grid-row: span 1; }
+  .item7 { grid-column: span 2; grid-row: span 1; }
 
   .grid-item {
     position: relative;
     overflow: hidden;
-    border-radius: 18px;
+    border-radius: 16px;
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.8s ease-out;
     cursor: pointer;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .grid-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .grid-item:hover::before {
+    opacity: 1;
+  }
+
+  .grid-media-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
   }
 
   .grid-item img, .grid-item video {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover;
     transition: transform 0.5s ease;
-    border-radius: 18px;
   }
 
   .grid-item:hover img,
   .grid-item:hover video {
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 
   .grid-item.in-view {
@@ -145,40 +181,58 @@
     transform: translateY(0);
   }
 
-  .grid-title {
+  .grid-text-overlay {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    font-size: 32px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    z-index: 2;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.95) 50%);
+  }
+
+  .grid-title {
+    font-size: 28px;
     font-weight: 600;
-    color: #fff;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    color: #00FFB6;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    letter-spacing: 0.5px;
   }
 
   .grid-caption {
-    position: absolute;
-    top: 48px;
-    left: 12px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    font-size: 18px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.5s ease-out;
+    font-size: 15px;
+    color: #bdbdbd;
+    font-style: italic;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
   }
 
-  .grid-item.in-view .grid-caption {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  @media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
 
-  .item1 { grid-row: span 2; grid-column: span 2; }
-  .item2 { grid-row: span 1; }
-  .item3 { grid-row: span 2; }
-  .item4 { grid-row: span 1; grid-column: span 2; }
-  .item5 { grid-row: span 2; }
-  .item6 { grid-row: span 1; }
+    .grid-item {
+      min-height: 280px;
+    }
+
+    .grid-media-container {
+      min-height: 280px;
+    }
+
+    .grid-title {
+      font-size: 24px;
+    }
+
+    .grid-caption {
+      font-size: 14px;
+    }
+
+    .reel-subtitle {
+      font-size: 18px;
+    }
+  }
 </style>
 </head>
 
@@ -197,17 +251,13 @@
   </nav>
 </header>
 
-<!-- Smooth scroll container -->
 <div data-scroll-container>
   
-  <!-- Demo Reel Section -->
   <div class="demo-reel-section" data-scroll data-scroll-class="in-view">
-    <!-- <h1 class="reel-title">Demo Reel</h1> -->
     <p class="reel-subtitle">A compilation of my most recent work, you can find my individual projects below!</p>
     <div class="video-box">
       <div class="video-wrapper">
-      <video controls autoplay muted>   <!-- THIS LINE -->
-        <!-- <video controls> -->
+        <video controls autoplay muted>
           <source src="DemoReelComp.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -219,64 +269,94 @@
     <div class="grid-container">
 
       <div class="grid-item item1" data-link="Page1.html" data-scroll data-scroll-class="in-view">
-        <img src="sprout.png">
-        <div class="grid-title">DREAMSCAPE</div>
-        <div class="grid-caption">Digital Game</div>
+        <div class="grid-media-container">
+          <img src="sprout.png" alt="Dreamscape">
+        </div>
+        <div class="grid-text-overlay">
+          <div class="grid-title">DREAMSCAPE</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
       </div>
 
       <div class="grid-item item2" data-link="Page2.html" data-scroll data-scroll-class="in-view">
-        <video autoplay loop muted><source src="sproutcover.mp4" type="video/mp4"></video>
-        <div class="grid-title">SPROUTED</div>
-        <div class="grid-caption">Stop-Motion Animation Film</div>
+        <div class="grid-media-container">
+          <video autoplay loop muted><source src="sproutcover.mp4" type="video/mp4"></video>
+        </div>
+        <div class="grid-text-overlay">
+          <div class="grid-title">SPROUTED</div>
+          <div class="grid-caption">Stop-Motion Animation Film</div>
+        </div>
       </div>
 
       <div class="grid-item item3" data-link="Page3.html" data-scroll data-scroll-class="in-view">
-        <img src="San.gif">
-        <div class="grid-title">SCARAB</div>
-        <div class="grid-caption">Digital Game</div>
+        <div class="grid-media-container">
+          <img src="San.gif" alt="Scarab">
+        </div>
+        <div class="grid-text-overlay">
+          <div class="grid-title">SCARAB</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
       </div>
 
       <div class="grid-item item4" data-link="Page4.html" data-scroll data-scroll-class="in-view">
-        <video autoplay loop muted><source src="FishyPromo.mp4" type="video/mp4"></video>
-        <div class="grid-title">FISHY</div>
-        <div class="grid-caption">Digital Game</div>
+        <div class="grid-media-container">
+          <video autoplay loop muted><source src="FishyPromo.mp4" type="video/mp4"></video>
+        </div>
+        <div class="grid-text-overlay">
+          <div class="grid-title">FISHY</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
       </div>
 
       <div class="grid-item item5" data-link="Page5.html" data-scroll data-scroll-class="in-view">
-        <img src="card6.jpeg">
-        <div class="grid-title">BOARD GAMES</div>
-        <div class="grid-caption">Fabricated Games</div>
+        <div class="grid-media-container">
+          <img src="card6.jpeg" alt="Board Games">
+        </div>
+        <div class="grid-text-overlay">
+          <div class="grid-title">BOARD GAMES</div>
+          <div class="grid-caption">Fabricated Games</div>
+        </div>
       </div>
 
       <div class="grid-item item6" data-link="Page6.html" data-scroll data-scroll-class="in-view">
-        <img src="destinationpromo.gif">
-        <div class="grid-title">DESTINATION</div>
-        <div class="grid-caption">Digital Game</div>
+        <div class="grid-media-container">
+          <img src="destinationpromo.gif" alt="Destination">
+        </div>
+        <div class="grid-text-overlay">
+          <div class="grid-title">DESTINATION</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
+      </div>
+
+      <div class="grid-item item7" data-link="Page7.html" data-scroll data-scroll-class="in-view">
+        <div class="grid-media-container">
+          <img src="gobbyy.png" alt="ExpressLaneLLC">
+        </div>
+        <div class="grid-text-overlay">
+          <div class="grid-title">EXPRESSLANE LLC</div>
+          <div class="grid-caption">First-Person Shooting Game</div>
+        </div>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- Locomotive Scroll -->
 <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   
-  /* Fade-in on load */
   requestAnimationFrame(() => {
     document.body.classList.add("page-loaded");
   });
 
-  /* Locomotive Scroll */
   const scroll = new LocomotiveScroll({
     el: document.querySelector("[data-scroll-container]"),
     smooth: true,
     multiplier: 1
   });
 
-  /* Grid item navigation w/ fade-out */
   document.querySelectorAll(".grid-item").forEach(item => {
     item.addEventListener("click", () => {
       const link = item.getAttribute("data-link");
@@ -289,7 +369,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* Navigation links — fade-out */
   document.querySelectorAll("nav a").forEach(link => {
     link.addEventListener("click", e => {
       e.preventDefault();
@@ -303,8 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<!-- Contact popup -->
- <div class="bottom-popup">
+<div class="bottom-popup">
   <div class="popup-left">
     <p>I'd love to talk! You can reach me at</p>
     <h2>demianas@outlook.com</h2>

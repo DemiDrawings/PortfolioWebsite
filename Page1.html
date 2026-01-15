@@ -29,98 +29,186 @@
     }
 
     .main-section {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      padding: 80px;
-      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 60px;
     }
 
-    .text-column {
-      flex: 1 1 400px;
-      min-width: 300px;
-      padding: 50px;
-      border-radius: 12px;
-      color: #bdbdbd;
-      font-size: 18px;
+    .project-header {
+      text-align: center;
+      margin-bottom: 60px;
+      margin-top: 60px;
       opacity: 0;
-      transform: scale(0.95) translateY(50px);
+      transform: translateY(30px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    .text-column p {
-      margin-bottom: 1em;
-    }
-
-    .text-column.in-view {
+    .project-header.in-view {
       opacity: 1;
-      transform: scale(1) translateY(0);
+      transform: translateY(0);
     }
 
-    .grid-column {
-      flex: 1 1 450px;
-      display: grid;
-      grid-template-rows: repeat(3, 400px);
+    .project-header h1 {
+      font-size: 48px;
+      font-weight: 600;
+      color: #00FFB6;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    .project-meta span {
+      padding: 8px 16px;
+      background: rgba(0, 255, 182, 0.1);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 255, 182, 0.2);
+    }
+
+    .project-description {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(0, 255, 182, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-description p {
+      color: #bdbdbd;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 1.2em;
+    }
+
+    .project-description p:last-child {
+      margin-bottom: 0;
+    }
+
+    .credits {
+      font-size: 15px;
+      color: #888;
+      font-style: italic;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0, 255, 182, 0.1);
+      margin-top: 20px;
+    }
+
+    .media-showcase {
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
       gap: 60px;
-      justify-items: center;
-      min-width: 300px;
     }
 
-    .grid-item {
-      background: #000; /* black background for empty space */
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease-out, transform 0.8s ease-out;
+    .media-item {
       opacity: 0;
-      transform: scale(0.95) translateY(50px);
-      width: 100%;
-      max-width: 500px;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    .grid-item.in-view {
+    .media-item.in-view {
       opacity: 1;
-      transform: scale(1) translateY(0);
+      transform: translateY(0);
     }
 
-    .grid-item img,
-    .grid-item video {
+    .media-container {
+      position: relative;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(0, 255, 182, 0.2);
+    }
+
+    .media-container:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 50px rgba(0, 255, 182, 0.2);
+    }
+
+    .media-container.featured {
+      max-width: 100%;
+      aspect-ratio: 16/9;
+    }
+
+    .media-container.standard {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .media-container img,
+    .media-container video {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* ensures full media fits without cropping */
+      object-fit: contain;
       display: block;
       background: #000;
     }
 
-    .grid-caption {
+    .media-caption {
       text-align: center;
-      margin-top: 20px;
-      font-size: 16px;
-      color: #bdbdbd;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #888;
+      font-style: italic;
     }
 
-    .grid-item:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
+      .project-header h1 {
+        font-size: 36px;
+      }
+
       .main-section {
-        flex-direction: column;
+        padding: 80px 40px;
       }
-      .grid-column {
-        grid-template-rows: repeat(3, 300px);
+
+      .media-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .project-header h1 {
+        font-size: 28px;
+      }
+
+      .project-meta {
+        gap: 15px;
+      }
+
+      .project-description {
+        padding: 30px 20px;
+      }
+
+      .project-description p {
+        font-size: 16px;
+      }
+
+      .main-section {
+        padding: 60px 20px;
+      }
+
+      .media-showcase {
         gap: 40px;
-      }
-      .grid-item img,
-      .grid-item video {
-        height: 300px;
-      }
-      .grid-caption {
-        max-width: 100%;
       }
     }
   </style>
@@ -136,33 +224,55 @@
       <a href="VisualArt.html">Visual Art</a>
       <a href="Design.html">Design</a>
       <a href="Other.html">Projects</a>
+      <a href="Writing Samples.html">Writing</a>
     </nav>
   </header>
 
   <section class="main-section">
-    <div class="text-column">
-      <h2>SENIOR UG EXHIBITION 2025: DREAMSCAPE (2025)</h2>
-      <p>All 2D & 3D art, animations, and programming created by Demi Saleeb. VO by Sebastian Waverly. Music by Victor Kim. Debugging by Nicolette Bond.</p>
-      <p>Featured within the DMA Senior Undergraduate Exhibition at the University of California, Los Angeles (UCLA), Dreamscape was a point-click videogame installation, allowing guests to interact with Sprout’s room and memories.</p>
-      <p>Trapped in the Dreamscape—a surreal realm shaped by fractured memories and trauma—Sprout, a depressed teen, must reconstruct their reality to break a cycle of self-harm and the only known reset: suicide.</p>
+    <div class="project-header">
+      <h1>DREAMSCAPE</h1>
+      <div class="project-meta">
+        <span>Senior UG Exhibition 2025</span>
+        <span>Interactive Installation</span>
+        <span>UCLA DMA</span>
+      </div>
     </div>
 
-    <div class="grid-column">
-      <div class="grid-item">
-        <video controls autoplay loop muted>
-          <source src="DreamscapeGameplay.mp4" type="video/mp4">
-        </video>
+    <div class="project-description">
+      <p>Trapped in the Dreamscape—a surreal realm shaped by fractured memories and trauma—Sprout, a depressed teen, must reconstruct their reality to break a cycle of self-harm and the only known reset: suicide.</p>
+      
+      <p>Featured within the DMA Senior Undergraduate Exhibition at the University of California, Los Angeles (UCLA), Dreamscape was a point-click videogame installation, allowing guests to interact with Sprout's room and memories.</p>
+      
+      <div class="credits">
+        All 2D & 3D art, animations, and programming created by Demi Saleeb. VO by Sebastian Waverly. Music by Victor Kim. Debugging by Nicolette Bond.
+      </div>
+    </div>
+
+    <div class="media-showcase">
+      <div class="media-item">
+        <div class="media-container featured">
+          <video controls loop preload="metadata">
+            <source src="DreamscapeGameplay.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
 
-      <div class="grid-item">
-        <img src="sprout.png" alt="Small Project 1">
-      </div>
+      <div class="media-grid">
+        <div class="media-item">
+          <div class="media-container standard">
+            <img src="sprout.png" alt="Sprout Character Design">
+          </div>
+          <div class="media-caption">Caption text here</div>
+        </div>
 
-      <div class="grid-item">
-        <img src="r1.jpg" alt="Small Project 2">
+        <div class="media-item">
+          <div class="media-container standard">
+            <img src="r1.jpg" alt="Dreamscape Environment">
+          </div>
+          <div class="media-caption">Caption text here</div>
+        </div>
       </div>
-
-      <!-- <div class="grid-caption">Made by [blank]</div> -->
     </div>
   </section>
 
@@ -195,7 +305,7 @@
       });
     }, { threshold: 0.2 });
 
-    document.querySelectorAll(".text-column, .grid-item").forEach(el => observer.observe(el));
+    document.querySelectorAll(".project-header, .project-description, .media-item").forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
