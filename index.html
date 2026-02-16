@@ -220,6 +220,13 @@
           e.stopPropagation();
           hamburger.classList.toggle('active');
           mainNav.classList.toggle('active');
+          
+          // Lock/unlock body scroll
+          if (mainNav.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+          } else {
+            document.body.style.overflow = '';
+          }
         });
 
         // Close menu when clicking on a link
@@ -227,6 +234,7 @@
           link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             mainNav.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
           });
         });
 
@@ -237,10 +245,12 @@
               !hamburger.contains(e.target)) {
             hamburger.classList.remove('active');
             mainNav.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
           }
         });
       }
     });
+  </script>
   </script>
 
 </body>
