@@ -565,3 +565,21 @@ header nav {
   line-height: 1.5;     /* optional: makes it easier to read */
 }
 
+/* Desktop - keep footer fixed at bottom */
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+  padding: 5px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Mobile - make footer relative so it doesn't conflict with iOS nav bar */
+@media (max-width: 995px) {
+  footer {
+    position: relative;
+    margin-top: 50px; /* Add space above footer */
+  }
+}
