@@ -218,23 +218,36 @@
       if (hamburger && mainNav) {
         hamburger.addEventListener('click', (e) => {
           e.stopPropagation();
-          hamburger.classList.toggle('active');
-          mainNav.classList.toggle('active');
           
-          // Lock/unlock body scroll
           if (mainNav.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-          } else {
+            // Closing
+            mainNav.classList.remove('active');
+            mainNav.classList.add('closing');
+            hamburger.classList.remove('active');
             document.body.style.overflow = '';
+            
+            setTimeout(() => {
+              mainNav.classList.remove('closing');
+            }, 300); // Match animation duration
+          } else {
+            // Opening
+            hamburger.classList.add('active');
+            mainNav.classList.add('active');
+            document.body.style.overflow = 'hidden';
           }
         });
 
         // Close menu when clicking on a link
         mainNav.querySelectorAll('a').forEach(link => {
           link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
             mainNav.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scroll
+            mainNav.classList.add('closing');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+              mainNav.classList.remove('closing');
+            }, 300);
           });
         });
 
@@ -243,13 +256,19 @@
           if (mainNav.classList.contains('active') && 
               !mainNav.contains(e.target) && 
               !hamburger.contains(e.target)) {
-            hamburger.classList.remove('active');
             mainNav.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scroll
+            mainNav.classList.add('closing');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+              mainNav.classList.remove('closing');
+            }, 300);
           }
         });
       }
     });
+  </script>
   </script>
   </script>
 
