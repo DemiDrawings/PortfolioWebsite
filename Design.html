@@ -501,7 +501,7 @@
     © Demi Saleeb 2025
   </footer>
 
-  <!-- HAMBURGER MENU SCRIPT -->
+<!-- HAMBURGER MENU SCRIPT -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
@@ -513,49 +513,32 @@
         
         if (mainNav.classList.contains('active')) {
           // Closing
-          mainNav.classList.remove('active');
-          mainNav.classList.add('closing');
-          hamburger.classList.remove('active');
-          document.body.style.overflow = '';
-          
-          setTimeout(() => {
-            mainNav.classList.remove('closing');
-          }, 300);
+          closeMenu();
         } else {
-          // Opening
+          // Opening - lock scroll
+          document.body.style.overflow = 'hidden';
+          hamburger.classList.remove('active');
+          void hamburger.offsetWidth; // Trigger reflow
           hamburger.classList.add('active');
           mainNav.classList.add('active');
-          document.body.style.overflow = 'hidden';
         }
       });
 
+      function closeMenu() {
+        hamburger.classList.remove('active');
+        mainNav.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Unlock scroll
+      }
+
       // Close menu when clicking on a link
       mainNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mainNav.classList.remove('active');
-          mainNav.classList.add('closing');
-          hamburger.classList.remove('active');
-          document.body.style.overflow = '';
-          
-          setTimeout(() => {
-            mainNav.classList.remove('closing');
-          }, 300);
-        });
+        link.addEventListener('click', closeMenu);
       });
 
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (mainNav.classList.contains('active') && 
-            !mainNav.contains(e.target) && 
-            !hamburger.contains(e.target)) {
-          mainNav.classList.remove('active');
-          mainNav.classList.add('closing');
-          hamburger.classList.remove('active');
-          document.body.style.overflow = '';
-          
-          setTimeout(() => {
-            mainNav.classList.remove('closing');
-          }, 300);
+      // Close menu when clicking backdrop
+      mainNav.addEventListener('click', (e) => {
+        if (e.target === mainNav) {
+          closeMenu();
         }
       });
     }

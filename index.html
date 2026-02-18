@@ -186,6 +186,9 @@
 
  <!-- PRELOADER SCRIPT -->
 <script>
+  // Prevent scrolling during preload
+  document.body.style.overflow = 'hidden';
+
   window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     const mainContent = document.getElementById('main-content');
@@ -211,65 +214,49 @@
 </script>
 
 <!-- HAMBURGER MENU SCRIPT -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const hamburger = document.getElementById('hamburger');
-      const mainNav = document.getElementById('mainNav');
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const mainNav = document.getElementById('mainNav');
 
-      if (hamburger && mainNav) {
-        hamburger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          
-          if (mainNav.classList.contains('active')) {
-            // Closing
-            mainNav.classList.remove('active');
-            mainNav.classList.add('closing');
-            hamburger.classList.remove('active');
-            document.body.style.overflow = '';
-            
-            setTimeout(() => {
-              mainNav.classList.remove('closing');
-            }, 300); // Match animation duration
-          } else {
-            // Opening
-            hamburger.classList.add('active');
-            mainNav.classList.add('active');
-            document.body.style.overflow = 'hidden';
-          }
-        });
+    if (hamburger && mainNav) {
+      hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        if (mainNav.classList.contains('active')) {
+          // Closing
+          closeMenu();
+        } else {
+          // Opening - lock scroll
+          document.body.style.overflow = 'hidden';
+          hamburger.classList.remove('active');
+          void hamburger.offsetWidth; // Trigger reflow
+          hamburger.classList.add('active');
+          mainNav.classList.add('active');
+        }
+      });
 
-        // Close menu when clicking on a link
-        mainNav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            mainNav.classList.remove('active');
-            mainNav.classList.add('closing');
-            hamburger.classList.remove('active');
-            document.body.style.overflow = '';
-            
-            setTimeout(() => {
-              mainNav.classList.remove('closing');
-            }, 300);
-          });
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-          if (mainNav.classList.contains('active') && 
-              !mainNav.contains(e.target) && 
-              !hamburger.contains(e.target)) {
-            mainNav.classList.remove('active');
-            mainNav.classList.add('closing');
-            hamburger.classList.remove('active');
-            document.body.style.overflow = '';
-            
-            setTimeout(() => {
-              mainNav.classList.remove('closing');
-            }, 300);
-          }
-        });
+      function closeMenu() {
+        hamburger.classList.remove('active');
+        mainNav.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Unlock scroll
       }
-    });
-    </script>
+
+      // Close menu when clicking on a link
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Close menu when clicking backdrop
+      mainNav.addEventListener('click', (e) => {
+        if (e.target === mainNav) {
+          closeMenu();
+        }
+      });
+    }
+  });
+  
+</script>
 
 </body>
 </html>
