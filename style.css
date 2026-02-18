@@ -318,8 +318,10 @@ header nav {
     bottom: 0;
     margin: auto;
     height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for iOS */
+    min-height: -webkit-fill-available; /* Safari fallback */
     width: 100%;
-    background-color: rgba(34, 37, 49, 100%);
+    background-color: rgba(34, 37, 49, 0.95);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -357,7 +359,6 @@ header nav {
     text-align: center;
   }
 }
-
 
 /* ===================================
    BOTTOM POPUP
