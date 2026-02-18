@@ -1,61 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const popup = document.querySelector('.bottom-popup');
-  const popupBtn = document.querySelector('.popup-btn');
-
-  function updatePopup(show) {
-    if (show) popup.classList.add('show');
-    else popup.classList.remove('show');
-  }
-
-  // Smooth scroll to top
-  popupBtn.addEventListener('click', () => {
-    if (window.LocoScrollInstance) {
-      window.LocoScrollInstance.scrollTo(0, { duration: 800 });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+document.addEventListener('DOMContentLoaded', function() {
+  var popup = document.getElementById('bottomPopup');
+  var backToTopBtn = document.getElementById('backToTop');
+  
+  // Back to top button
+  backToTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-
-  // Wait until Locomotive Scroll is initialized
-  function initPopupWithLoco(locoScroll) {
-    window.LocoScrollInstance = locoScroll;
-
-    locoScroll.on('scroll', (obj) => {
-      const scrollY = obj.scroll.y;
-      const limitY = obj.limit.y;
-      const threshold = 50;
-
-      if (scrollY >= limitY - threshold) {
-        updatePopup(true);
-      } else {
-        updatePopup(false);
-      }
-    });
-  }
-
-  // Check if Locomotive Scroll exists
-  if (typeof LocomotiveScroll !== 'undefined') {
-    const scrollEl = document.querySelector('[data-scroll-container]');
-    if (scrollEl) {
-      const locoScroll = new LocomotiveScroll({
-        el: scrollEl,
-        smooth: true
-      });
-      initPopupWithLoco(locoScroll);
+  
+  // Check scroll position
+  function checkScroll() {
+    var scrollPosition = window.scrollY + window.innerHeight;
+    var pageHeight = document.documentElement.scrollHeight;
+    
+    // Show popup only when within 100px of bottom
+    if (pageHeight - scrollPosition <= 100) {
+      popup.classList.add('show');
+    } else {
+      popup.classList.remove('show');
     }
-  } else {
-    // Fallback for normal scroll
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = window.innerHeight;
-      const threshold = 50;
-
-      if (scrollY + clientHeight >= scrollHeight - threshold) {
-        updatePopup(true);
-      } else {
-        updatePopup(false);
-      }
-    });
   }
+  
+  // Listen to scroll
+  window.addEventListener('scroll', checkScroll);
+  
+  // Check on load
+  checkScroll();
 });

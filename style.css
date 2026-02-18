@@ -437,43 +437,6 @@ header nav {
     50% { background-position: 100% 100%; }
   }
 }
-/* ===================================
-   BOTTOM POPUP
-   =================================== */
-.bottom-popup {
-  position: fixed;
-  bottom: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #222;
-  color: #fff;
-  padding: 20px 30px;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  transition: bottom 0.5s ease;
-  z-index: 999;
-}
-
-.bottom-popup.show { bottom: 30px; }
-
-.bottom-popup .popup-btn {
-  background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-  border-radius: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-
-.bottom-popup .popup-btn:hover {
-  background: #fff;
-  color: #222;
-}
 
 /* ===== MOBILE RESPONSIVE ===== */
 @media (max-width: 900px) {
