@@ -184,28 +184,31 @@
   © Demi Saleeb 2025
 </footer>
 
-  <!-- PRELOADER SCRIPT -->
-  <script>
-    window.addEventListener('load', () => {
-      const preloader = document.getElementById('preloader');
-      const mainContent = document.getElementById('main-content');
+ <!-- PRELOADER SCRIPT -->
+<script>
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    const mainContent = document.getElementById('main-content');
 
-      setTimeout(() => {
-        // Add a class to fade out
-        preloader.classList.add('fade-out');
+    setTimeout(() => {
+      // Add a class to fade out
+      preloader.classList.add('fade-out');
 
-        // Fade in main content
-        if (mainContent) {
-          mainContent.style.opacity = '1';
-        }
+      // Re-enable scrolling
+      document.body.style.overflow = 'auto';
 
-        // Remove preloader from DOM after transition
-        preloader.addEventListener('transitionend', () => {
-          preloader.remove();
-        });
-      }, 4000); // matches video duration
-    });
-  </script>
+      // Fade in main content
+      if (mainContent) {
+        mainContent.style.opacity = '1';
+      }
+
+      // Remove preloader from DOM after transition
+      preloader.addEventListener('transitionend', () => {
+        preloader.remove();
+      });
+    }, 4000); // matches video duration
+  });
+</script>
 
 <!-- HAMBURGER MENU SCRIPT -->
   <script>
