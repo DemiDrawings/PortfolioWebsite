@@ -262,8 +262,8 @@ span { color: #00FFB6; }
 /* Hamburger - hidden on desktop */
 .ham-menu {
   display: none;
-  width: 100px;
-  height: 100px;
+  width: 125px;
+  height: 125px;
   margin-left: auto;
   position: relative;
   cursor: pointer;
@@ -441,7 +441,7 @@ header nav {
 /* ===== MOBILE RESPONSIVE ===== */
 @media (max-width: 900px) {
   header { padding: 1.5rem 5%; }
-  .logo-icon { width: 150px; height: 150px; }
+  .logo-icon { width: 100px; height: 100px; }
 
   nav { width: 60%; top: 90px; right: 0; padding: 2rem; }
   nav a { margin-left: 0; margin: 2rem 0; font-size: 1.8rem; }
