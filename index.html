@@ -1,262 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
+<title>Portfolio Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-  <title>Portfolio Website</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Poppins, sans-serif;
+    background-color: #111;
+    color: #fff;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
 
-  <!-- FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rock+Salt&display=swap" rel="stylesheet" />
+  body.page-loaded { opacity: 1; transform: scale(1); }
+  body.page-exit   { opacity: 0; transform: scale(0.92); }
 
+  nav a { text-decoration: none; transition: 0.3s; }
+  nav a:hover { color: #00FFB6; }
 
-  <style>
-    /* PAGE TRANSITION */
-    body {
-      margin: 0;
-      background-color: #111111;
-      font-family: Poppins, sans-serif;
-      opacity: 0;
-      transform: scale(1.03);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      -webkit-font-smoothing: antialiased;
-    }
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 9% 80px;
+  }
 
-    body.page-loaded {
-      opacity: 1;
-      transform: scale(1);
-    }
+  .hero-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #00FFB6;
+    margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.8s;
+  }
+  body.page-loaded .hero-label { opacity: 1; }
 
-    body.page-exit {
-      opacity: 0;
-      transform: scale(0.92);
-    }
+  /* ── SLIDE IN for hero name ── */
+  .hero-name {
+    font-size: clamp(48px, 9vw, 120px);
+    font-weight: 600;
+    line-height: 1;
+    margin: 0 0 24px;
+    overflow: hidden;
+  }
 
-    * {
-      -webkit-tap-highlight-color: transparent;
-    }
-  </style>
+  .hero-name .name-inner {
+    display: inline-block;
+    color: #fff;
+    transform: translateX(-110%);
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.0s,
+                opacity 0.4s ease 1.0s;
+  }
+
+  body.page-loaded .hero-name .name-inner {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .hero-blurb {
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.7;
+    color: #bdbdbd;
+    max-width: 500px;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease 1.2s, transform 0.6s ease 1.2s;
+  }
+  body.page-loaded .hero-blurb { opacity: 1; transform: translateY(0); }
+
+  /* ── REEL ── */
+  [data-scroll-container] { width: 100%; }
+
+  .demo-reel-section {
+    width: 88%;
+    max-width: 1280px;
+    margin: 80px auto;
+  }
+
+  .reel-subtitle {
+    font-size: 16px;
+    color: #bdbdbd;
+    margin-bottom: 24px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .video-box {
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    padding: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00FFB6, #00D9FF, #00FFB6);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .video-wrapper video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    width: 88%;
+    max-width: 1280px;
+    margin: 80px auto 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #00FFB6;
+    white-space: nowrap;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .grid-wrap {
+    width: 88%;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .grid-row {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    cursor: pointer;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.07);
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease;
+  }
+
+  .grid-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .grid-item:hover { border-color: rgba(0,255,182,0.3); }
+
+  .grid-item img,
+  .grid-item video {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+  }
+
+  .grid-item:hover img,
+  .grid-item:hover video { transform: scale(1.03); }
+
+  .grid-text-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 22px 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .grid-item:hover .grid-text-overlay { opacity: 1; }
+
+  /* Title text hidden below, fades up on hover */
+  .grid-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #00FFB6;
+    margin-bottom: 3px;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.35s ease 0.05s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  }
+
+  .grid-caption {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.35s ease 0.1s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+
+  .grid-item:hover .grid-title,
+  .grid-item:hover .grid-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Always-visible overlays (row3 banner) keep titles shown */
+  .grid-text-overlay[style*="opacity:1"] .grid-title,
+  .grid-text-overlay[style*="opacity: 1"] .grid-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .grid-text-overlay[style*="opacity:1"] .grid-caption,
+  .grid-text-overlay[style*="opacity: 1"] .grid-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .row1 { align-items: flex-start; }
+  .row1 .item-feature { flex: 0 0 60%; }
+  .row1 .col-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .row1 .col-right .grid-item { flex: 1; min-height: 180px; }
+  .row1 .col-right .grid-item img,
+  .row1 .col-right .grid-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .row2 .grid-item { flex: 1; }
+
+  .row3 .grid-item {
+    flex: 1;
+    max-height: 320px;
+    overflow: hidden;
+  }
+  .row3 .grid-item img,
+  .row3 .grid-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  .row3 .grid-title { font-size: 20px; }
+  .row3 .grid-text-overlay { opacity: 1; }
+
+  footer {
+    position: static !important;
+    text-align: center;
+    font-size: 12px;
+    color: #8a8a8a;
+    padding: 24px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 800px) {
+    .row1 { flex-direction: column; }
+    .row1 .item-feature { flex: 1 1 auto; }
+    .row1 .col-right { flex-direction: row; gap: 16px; }
+    .row2 { flex-wrap: wrap; }
+    .row2 .grid-item { flex: 0 0 calc(50% - 6px); }
+  }
+
+  @media (max-width: 500px) {
+    .hero { padding: 110px 5% 60px; }
+    .row1 .col-right { flex-direction: column; }
+    .row2 .grid-item { flex: 1 1 100%; }
+  }
+</style>
 </head>
-
 <body>
-
-<div id="preloader">
-    <video autoplay muted playsinline webkit-playsinline class="fullscreen-video">
-      <source src="DemiLoad.mp4" type="video/mp4">
-    </video>
-  </div>
 
 <header>
   <a href="index.html" class="logo">
     <img src="Demi Logo.png" alt="Logo" class="logo-icon">
   </a>
-
-<!-- Hamburger (mobile only) -->
-<div class="ham-menu" id="hamburger">
-  <img src="Star Icon.png" alt="Menu">
-</div>
-
+  <div class="ham-menu" id="hamburger">
+    <img src="Star Icon.png" alt="Menu">
+  </div>
   <nav class="main-nav" id="mainNav">
-    <a href="index.html" class="active">About</a>
+    <a href="index.html" class="active">Projects</a>
     <a href="VisualArt.html">Visual Art</a>
     <a href="Design.html">Design</a>
-    <a href="Other.html">Projects</a>
     <a href="Writing Samples.html">Writing</a>
+    <a href="Other.html">About</a>
   </nav>
 </header>
 
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-label">Artist &nbsp;·&nbsp; Producer &nbsp;·&nbsp; Creator</p>
+  <h1 class="hero-name">
+    <span class="name-inner">Demi Saleeb</span>
+  </h1>
+  <p class="hero-blurb">A <strong> Visual Artist </strong> and <strong> Creative Producer </strong> who loves stories, animation, and games!</p>
+</section>
 
-  <section class="home">
-    <div class="home-img">
-      <img src="Demi Saleeb Profile Image.jpg" alt="">
-    </div>
+<div data-scroll-container>
 
-    <div class="home-content">
-      <h1>Hi, It's <span>DEMI</span></h1>
-      <h3 class="typing-text">I'm a <span></span></h3>
-
-      <p>
-        I'm an artist specializing in <strong>Creative Production</strong>, with a <strong> B.A. in Design Media
-        Arts </strong> and emphasis in <strong> Film, Television & Digital Media </strong> from the <strong> University of California, Los Angeles </strong>. I'm drawn to stories about self-actualization and
-        connection, and I aim to create worlds where everyone feels seen. In my free time, I enjoy animated shows,
-        immersive games, community spaces, sketching, and the outdoors. ⋆⭒˚.⋆
-      </p>
-
-      <div class="social-icon">
-        <a href="https://www.linkedin.com/in/demidraws" target="_blank" class="social-btn">
-          <img src="linkedin.png" alt="LinkedIn">
-        </a>
-
-        <a href="https://www.instagram.com/demi_saleeb/" target="_blank" class="social-btn">
-          <img src="insta.png" alt="Instagram">
-        </a>
-
-        <a href="mailto:demianas@outlook.com" class="social-btn">
-          <img src="mail.png" alt="Email">
-        </a>
+  <!-- Demo reel -->
+  <div class="demo-reel-section">
+    <div class="video-box">
+      <div class="video-wrapper">
+        <video controls autoplay muted>
+          <source src="DemoReelComp.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
-
-      <a href="https://drive.google.com/file/d/10J9VrvQLt491nk2i1QlT5xOxhmyEiV8W/view?usp=sharing" class="btn">RESUME</a>
     </div>
-  </section>
+  </div>
 
-  
+  <!-- Projects label -->
+  <div class="section-label"><span>Projects</span></div>
 
-  <!-- PAGE TRANSITION JS -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+  <!-- Grid -->
+  <div class="grid-wrap">
 
-      // PAGE ENTER — fade + zoom in
-      requestAnimationFrame(() => {
-        document.body.classList.add("page-loaded");
-      });
+    <div class="grid-row row1">
+      <div class="grid-item item-feature" data-link="Page1.html">
+        <img src="sprout.png" alt="Dreamscape">
+        <div class="grid-text-overlay">
+          <div class="grid-title" style="font-size:22px;">DREAMSCAPE</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
+      </div>
+      <div class="col-right">
+        <div class="grid-item" data-link="Page2.html">
+          <video autoplay loop muted playsinline><source src="sproutcover.mp4" type="video/mp4"></video>
+          <div class="grid-text-overlay">
+            <div class="grid-title">SPROUTED</div>
+            <div class="grid-caption">Stop-Motion Animation Film</div>
+          </div>
+        </div>
+        <div class="grid-item" data-link="Page3.html">
+          <img src="San.gif" alt="Scarab">
+          <div class="grid-text-overlay">
+            <div class="grid-title">SCARAB</div>
+            <div class="grid-caption">Digital Game</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      // PAGE EXIT — fade + zoom out
-      document.querySelectorAll("a[href]").forEach(link => {
-        const url = link.getAttribute("href");
-        if (!url || url.startsWith("#") || url.startsWith("javascript")) return;
+    <div class="grid-row row2">
+      <div class="grid-item" data-link="Page4.html">
+        <video autoplay loop muted playsinline><source src="FishyPromo.mp4" type="video/mp4"></video>
+        <div class="grid-text-overlay">
+          <div class="grid-title">FISHY</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
+      </div>
+      <div class="grid-item" data-link="Page5.html">
+        <img src="card6.jpeg" alt="Board Games">
+        <div class="grid-text-overlay">
+          <div class="grid-title">BOARD GAMES</div>
+          <div class="grid-caption">Fabricated Games</div>
+        </div>
+      </div>
+      <div class="grid-item" data-link="Page6.html">
+        <img src="destinationpromo.gif" alt="Destination">
+        <div class="grid-text-overlay">
+          <div class="grid-title">DESTINATION</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
+      </div>
+    </div>
 
-        link.addEventListener("click", e => {
-          // external links + new tab links behave normally
-          if (link.target === "_blank") return;
+    <div class="grid-row row3">
+      <div class="grid-item" data-link="Page7.html">
+        <img src="gobbyy.png" alt="ExpressLaneLLC">
+        <div class="grid-text-overlay">
+          <div class="grid-title">EXPRESSLANE LLC</div>
+          <div class="grid-caption">First-Person Shooting Game</div>
+        </div>
+      </div>
+    </div>
 
-          e.preventDefault();
-          document.body.classList.add("page-exit");
+  </div>
 
-          setTimeout(() => {
-            window.location.href = url;
-          }, 350);
-        });
-      });
+  <footer>© Demi Saleeb 2025</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  requestAnimationFrame(() => {
+    document.body.classList.add("page-loaded");
+  });
+
+  const gridObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = parseFloat(el.dataset.delay || 0);
+        setTimeout(() => el.classList.add("visible"), delay);
+        gridObserver.unobserve(el);
+      }
     });
-  </script>
+  }, { threshold: 0.1 });
 
+  document.querySelectorAll(".grid-item").forEach((item) => {
+    const row = item.closest(".grid-row");
+    const siblings = row ? [...row.querySelectorAll(".grid-item")] : [item];
+    const indexInRow = siblings.indexOf(item);
+    item.dataset.delay = indexInRow * 130;
+    gridObserver.observe(item);
+  });
 
-  <!-- TYPING EFFECT -->
-  <script>
-    const roles = [
-      "CONCEPT ARTIST",
-      "DESIGNER",
-      "PRODUCER",
-      "GAME DEVELOPER",
-      "STORYTELLER"
-    ];
+  const scroll = new LocomotiveScroll({
+    el: document.querySelector("[data-scroll-container]"),
+    smooth: true,
+    multiplier: 1
+  });
 
-    let part = 0;
-    let textIndex = 0;
-    let isDeleting = false;
-    const speed = 100;
-    const span = document.querySelector(".typing-text span");
+  document.querySelectorAll(".grid-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const link = item.getAttribute("data-link");
+      if (!link) return;
+      document.body.classList.add("page-exit");
+      const d = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
+      setTimeout(() => window.location.href = link, d);
+    });
+  });
 
-    function typeEffect() {
-      const current = roles[part];
-      let delay = speed;
+  document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      document.body.classList.add("page-exit");
+      const d = parseFloat(getComputedStyle(document.body).transitionDuration) * 1000;
+      setTimeout(() => window.location.href = link.href, d);
+    });
+  });
+});
+</script>
 
-      if (!isDeleting) {
-        textIndex++;
-        span.textContent = current.substring(0, textIndex);
-        if (textIndex === current.length) {
-          isDeleting = true;
-          delay = 1000;
-        }
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const mainNav   = document.getElementById('mainNav');
+
+  if (hamburger && mainNav) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (mainNav.classList.contains('active')) {
+        closeMenu();
       } else {
-        textIndex--;
-        span.textContent = current.substring(0, textIndex);
-        if (textIndex === 0) {
-          isDeleting = false;
-          part = (part + 1) % roles.length;
-          delay = 300;
-        } else {
-          delay = 50;
-        }
-      }
-
-      setTimeout(typeEffect, delay);
-    }
-
-    window.onload = typeEffect;
-  </script>
-  
-  <footer>
-  © Demi Saleeb 2025
-</footer>
-
- <!-- PRELOADER SCRIPT -->
-<script>
-  // Prevent scrolling during preload
-  document.body.style.overflow = 'hidden';
-
-  window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    const mainContent = document.getElementById('main-content');
-
-    setTimeout(() => {
-      // Add a class to fade out
-      preloader.classList.add('fade-out');
-
-      // Re-enable scrolling
-      document.body.style.overflow = 'auto';
-
-      // Fade in main content
-      if (mainContent) {
-        mainContent.style.opacity = '1';
-      }
-
-      // Remove preloader from DOM after transition
-      preloader.addEventListener('transitionend', () => {
-        preloader.remove();
-      });
-    }, 4000); // matches video duration
-  });
-</script>
-
-<!-- HAMBURGER MENU SCRIPT -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.getElementById('hamburger');
-    const mainNav = document.getElementById('mainNav');
-
-    if (hamburger && mainNav) {
-      hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        if (mainNav.classList.contains('active')) {
-          // Closing
-          closeMenu();
-        } else {
-          // Opening - lock scroll
-          document.body.style.overflow = 'hidden';
-          hamburger.classList.remove('active');
-          void hamburger.offsetWidth; // Trigger reflow
-          hamburger.classList.add('active');
-          mainNav.classList.add('active');
-        }
-      });
-
-      function closeMenu() {
+        document.body.style.overflow = 'hidden';
         hamburger.classList.remove('active');
-        mainNav.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Unlock scroll
+        void hamburger.offsetWidth;
+        hamburger.classList.add('active');
+        mainNav.classList.add('active');
       }
+    });
 
-      // Close menu when clicking on a link
-      mainNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-      });
-
-      // Close menu when clicking backdrop
-      mainNav.addEventListener('click', (e) => {
-        if (e.target === mainNav) {
-          closeMenu();
-        }
-      });
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      mainNav.classList.remove('active');
+      document.body.style.overflow = 'auto';
     }
-  });
-</script>
 
+    mainNav.querySelectorAll('a').forEach(l => l.addEventListener('click', closeMenu));
+    mainNav.addEventListener('click', e => { if (e.target === mainNav) closeMenu(); });
+  }
+});
+</script>
+<!-- <script src="social-bar.js"></script> -->
 
 </body>
 </html>
