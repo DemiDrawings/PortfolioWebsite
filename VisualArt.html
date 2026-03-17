@@ -4,339 +4,487 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
-  <title>Portfolio Website</title>
+  <title>Visual Art — Demi Saleeb</title>
 
   <style>
+    /* ─── BASE ─────────────────────────────────── */
     body {
       margin: 0;
-      font-family: sans-serif;
-      background: #111;
+      background: #0a0a0f;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
       opacity: 0;
-      transform: scale(1.03);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      color: #fff;
+      transition: opacity 0.6s ease;
     }
+    body.page-loaded { opacity: 1; }
+    body.page-exit   { opacity: 0; transform: scale(0.98); transition: opacity 0.4s ease, transform 0.4s ease; }
 
-    body.page-loaded { opacity: 1; transform: scale(1); }
-    body.page-exit { opacity: 0; transform: scale(0.9); }
-
-    img, .text-block, .grid-container, nav, header {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    body.page-loaded img,
-    body.page-loaded .grid-container,
-    body.page-loaded .text-block {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.2s;
-    }
-
-    body.page-loaded nav,
-    body.page-loaded header {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.45s;
-    }
-
-    [data-scroll-container] { width: 100%; }
-
-    .grid-container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 100px auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 200px;
-      gap: 15px;
-    }
-
-    .grid-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease-out;
-      cursor: pointer;
+    /* ─── HEADER ───────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      padding: 1rem 9%;
       background: transparent;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-    }
-
-    .grid-item img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .grid-item:hover img { transform: scale(1.05); }
-    .grid-item.in-view { opacity: 1; transform: translateY(0); }
-
-    .item1 { grid-row: span 3; }
-    .item2 { grid-row: span 2; }
-    .item3 { grid-row: span 2; }
-    .item4 { grid-row: span 3; }
-    .item5 { grid-row: span 2; }
-    .item6 { grid-row: span 3; }
-    .item7 { grid-row: span 2; }
-    .item8 { grid-row: span 3; }
-    .item9 { grid-row: span 2; }
-    .item10{ grid-row: span 3; }
-    .item11{ grid-row: span 2; }
-    .item12{ grid-row: span 3; }
-    .item13{ grid-row: span 2; }
-
-    .text-block {
-      width: 90%;
-      max-width: 900px;
-      margin: 100px auto 100px auto;
-      font-size: 20px;
-      line-height: 1.6;
-      text-align: center;
-      padding-top: 125px;
-    }
-
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      z-index: 100;
       opacity: 0;
-      pointer-events: none;
+      transform: translateY(-14px);
+      transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+    }
+    body.page-loaded header { opacity: 1; transform: translateY(0); }
+/* 
+    .logo { display: flex; align-items: center;  }
+    .logo-icon { width: 100px; height: 100px; object-fit: contain; transition: filter 0.3s; }
+    .logo:hover .logo-icon {
+      animation: pulse 1s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px #00FFB6);
+    } */
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+    nav a {
+      font-size: 1.8rem;
+      color: rgba(255,255,255,0.7);
+      margin-left: 4rem;
+      font-weight: 500;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.3s;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: #00FFB6;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s;
+    }
+    nav a:hover, nav a.active { color: #00FFB6; }
+    nav a:hover::after, nav a.active::after { transform: scaleX(1); }
+
+    /* ─── HAMBURGER ─────────────────────────────── */
+    .ham-menu { display: none; width: 60px; height: 60px;  z-index: 10000; }
+    .ham-menu img { width: 100%; height: 100%; transition: filter 0.3s, transform 0.3s; }
+    .ham-menu.active img {
+      animation: twirl 0.6s cubic-bezier(0.68,-0.55,0.265,1.55) forwards;
+      filter: drop-shadow(0 0 8px #00FFB6);
+    }
+    @keyframes twirl { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+    @media (max-width: 995px) {
+      .ham-menu { display: block; }
+      header nav {
+        display: flex;
+        position: fixed; inset: 0;
+        height: 100dvh; width: 100vw;
+        background: linear-gradient(135deg,rgba(10,10,15,0.97),rgba(10,15,30,0.97));
+        backdrop-filter: blur(20px);
+        flex-direction: column; justify-content: center; align-items: center;
+        clip-path: circle(0% at 100% 0%);
+        transition: clip-path 0.6s cubic-bezier(0.65,0,0.35,1);
+        z-index: 9998;
+      }
+      header nav.active { clip-path: circle(150% at 100% 0%); }
+      header nav a { font-size: 2.4rem; margin: 1.5rem 0; opacity: 0; transform: translateY(20px); transition: opacity 0.4s, transform 0.4s; }
+      header nav.active a { opacity: 1; transform: translateY(0); }
+      header nav.active a:nth-child(1){transition-delay:.15s}
+      header nav.active a:nth-child(2){transition-delay:.25s}
+      header nav.active a:nth-child(3){transition-delay:.35s}
+      header nav.active a:nth-child(4){transition-delay:.45s}
+      header nav.active a:nth-child(5){transition-delay:.55s}
+    }
+
+    /* ─── PAGE HERO ─────────────────────────────── */
+    .page-hero {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 46vh;
+      text-align: center;
+      padding: 160px 9% 50px;
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.9s ease 0.5s, transform 0.9s ease 0.5s;
+    }
+    body.page-loaded .page-hero { opacity: 1; transform: translateY(0); }
+
+    .page-hero .eyebrow {
+      font-size: 1.1rem; font-weight: 600;
+      letter-spacing: 0.38em; text-transform: uppercase;
+      color: #00FFB6;
+      text-shadow: 0 0 14px rgba(0,255,182,0.6);
+      margin-bottom: 1.4rem;
+    }
+    .page-hero h1 {
+      font-size: clamp(5rem, 9vw, 12rem);
+      font-weight: 800; line-height: 1; color: #fff;
+    }
+    .page-hero h1 span {
+      color: #00FFB6;
+      text-shadow: 0 0 40px rgba(0,255,182,0.35), 0 0 80px rgba(0,255,182,0.15);
+    }
+    .page-hero .sub {
+      margin-top: 2rem; font-size: 1.2rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .page-hero .sub span { color: #00FFB6; margin: 0 0.8rem; font-size: 0.8rem; }
+
+    /* ─── SECTION LABEL ─────────────────────────── */
+    .section-label {
+      width: 90%; max-width: 1200px;
+      margin: 90px auto 0;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+      border-bottom: 1px solid rgba(0,255,182,0.18);
+      padding-bottom: 16px;
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .section-label.in-view { opacity: 1; transform: translateY(0); }
+    .section-label h2 {
+      font-size: clamp(3.2rem, 5vw, 5.5rem);
+      font-weight: 800; line-height: 1; color: #fff;
+    }
+    .section-label h2 span { color: #00FFB6; text-shadow: 0 0 20px rgba(0,255,182,0.3); }
+    .label-meta { text-align: right; }
+    .label-index {
+      display: block; font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.22em; color: #00FFB6; margin-bottom: 4px;
+    }
+    .label-meta p {
+      font-size: 1.1rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); line-height: 1.8;
+    }
+
+    /* ─── MASONRY GRID ──────────────────────────── */
+    /*
+      Each image sits in a card that is ONLY as tall as the image itself.
+      We use a CSS columns layout so images never get cropped or padded.
+    */
+    .photo-grid {
+      width: 90%; max-width: 1200px;
+      margin: 32px auto 0;
+      columns: 3;
+      column-gap: 14px;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .photo-grid.in-view { opacity: 1; transform: translateY(0); }
+
+    .photo-card {
+      break-inside: avoid;
+      margin-bottom: 14px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      position: relative;
+      
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease,
+                  border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .photo-card.in-view { opacity: 1; transform: translateY(0); }
+
+    /* stagger */
+    .photo-card:nth-child(1){transition-delay:.03s}
+    .photo-card:nth-child(2){transition-delay:.08s}
+    .photo-card:nth-child(3){transition-delay:.13s}
+    .photo-card:nth-child(4){transition-delay:.18s}
+    .photo-card:nth-child(5){transition-delay:.23s}
+    .photo-card:nth-child(6){transition-delay:.28s}
+    .photo-card:nth-child(7){transition-delay:.33s}
+    .photo-card:nth-child(8){transition-delay:.38s}
+    .photo-card:nth-child(9){transition-delay:.43s}
+
+    .photo-card:hover {
+      border-color: rgba(0,255,182,0.4);
+      box-shadow: 0 0 0 1px rgba(0,255,182,0.15),
+                  0 0 28px rgba(0,255,182,0.1),
+                  0 16px 40px rgba(0,0,0,0.55);
+      z-index: 2;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;          /* ← key: natural aspect ratio, zero crop */
+      display: block;
+      transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.4s ease;
+      opacity: 0;
+    }
+    .photo-card img.loaded { opacity: 1; }
+    .photo-card:hover img  { transform: scale(1.04); }
+
+    /* zoom icon */
+    .zoom-hint {
+      position: absolute; bottom: 10px; right: 10px;
+      width: 26px; height: 26px;
+      border: 1.5px solid rgba(0,255,182,0.6);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.5);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none; z-index: 3;
+    }
+    .zoom-hint svg { width: 11px; height: 11px; stroke: #00FFB6; fill: none; stroke-width: 1.8; }
+    .photo-card:hover .zoom-hint { opacity: 1; transform: scale(1); }
+
+    /* ─── LIGHTBOX ──────────────────────────────── */
+    /* Mounted on <html> so body transforms never affect it */
+    #lb-portal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(4,4,10,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0; pointer-events: none;
       transition: opacity 0.3s ease;
-      z-index: 1000;
+      z-index: 10000;
+    }
+    #lb-portal.active { opacity: 1; pointer-events: auto; }
+
+    #lb-portal .lightbox-inner {
+      position: relative;
+      max-width: 90vw; max-height: 90vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #lb-portal .lightbox-inner img {
+      max-width: 90vw; max-height: 90vh;
+      width: auto; height: auto;
+      border-radius: 14px;
+      box-shadow: 0 0 60px rgba(0,255,182,0.1), 0 30px 80px rgba(0,0,0,0.8);
+      transform: scale(0.92); opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+      pointer-events: none;
+    }
+    #lb-portal.active .lightbox-inner img { transform: scale(1); opacity: 1; }
+
+    #lb-portal .lb-close {
+      position: absolute; top: -44px; right: 0;
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(0,255,182,0.4); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    #lb-portal .lb-close:hover { border-color: #00FFB6; background: rgba(0,255,182,0.08); box-shadow: 0 0 14px rgba(0,255,182,0.3); }
+    #lb-portal .lb-close svg { width: 14px; height: 14px; stroke: #00FFB6; fill: none; stroke-width: 1.8; }
+
+    /* ─── FOOTER ────────────────────────────────── */
+    footer {
+      position: relative !important;
+      margin-top: 110px;
+      padding: 26px 9%;
+      border-top: 1px solid rgba(0,255,182,0.12);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 1.1rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      z-index: 1;
     }
 
-    .lightbox.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
+    /* ─── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 900px)  { .photo-grid { columns: 2; } }
+    @media (max-width: 500px)  { .photo-grid { columns: 1; } .section-label { flex-direction: column; align-items: flex-start; } .label-meta { text-align: left; } }
   </style>
 </head>
 <body>
- <header>
-  <a href="index.html" class="logo">
-    <img src="Demi Logo.png" alt="Logo" class="logo-icon">
-  </a>
 
-<!-- Hamburger (mobile only) -->
-<div class="ham-menu" id="hamburger">
-  <img src="Star Icon.png" alt="Menu">
-</div>
-
-  <nav class="main-nav" id="mainNav">
-    <a href="index.html" class="active">Projects</a>
-    <a href="VisualArt.html">Visual Art</a>
-    <a href="Design.html">Design</a>
-    <a href="Writing Samples.html">Writing</a>
-    <a href="Other.html">About</a>
-  </nav>
-</header>
-
-  <div data-scroll-container>
-
-        <!-- PARAGRAPH BETWEEN GRIDS -->
-    <div class="text-block" data-scroll data-scroll-class="in-view">
-      <p><strong>ILLUSTRATION</strong></p>
-      <p>Visual Art, Concept Art, and 3D Work! </p>
-    
-       <!-- <p>ILLUSTRATION</p> -->
-      </p>
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="Demi Logo.png" alt="Logo" class="logo-icon">
+    </a>
+    <div class="ham-menu" id="hamburger">
+      <img src="Star Icon.png" alt="Menu">
     </div>
+    <nav id="mainNav">
+      <a href="index.html">Projects</a>
+      <a href="VisualArt.html" class="active">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Writing Samples.html">Writing</a>
+      <a href="Other.html">About</a>
+    </nav>
+  </header>
 
-    <!-- FIRST GRID (FILLED) -->
-    <div class="grid-container">
-      <div class="grid-item item1" data-scroll data-scroll-class="in-view"><img src="Astarion.png" alt="1"></div>
-      <!-- <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="Athena.png" alt="2"></div> -->
-      <div class="grid-item item3" data-scroll data-scroll-class="in-view"><img src="BLM.png" alt="3"></div>
-      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="Fallen.jpg" alt="4"></div>
-      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="Hands.jpg" alt="5"></div>
-      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="Kaeya.png" alt="6"></div>
-      <!-- <div class="grid-item item7" data-scroll data-scroll-class="in-view"><img src="" alt="7"></div> -->
-      <div class="grid-item item8" data-scroll data-scroll-class="in-view"><img src="mountt.png" alt="8"></div>
-      <div class="grid-item item9" data-scroll data-scroll-class="in-view"><img src="Sprout pose6j6.png" alt="9"></div>
-      <!-- <div class="grid-item item10" data-scroll data-scroll-class="in-view"><img src="" alt="10"></div> -->
-        <!-- <div class="grid-item item11" data-scroll data-scroll-class="in-view"><img src="" alt="11"></div> -->
-          <div class="grid-item item12" data-scroll data-scroll-class="in-view"><img src="Hands.png" alt="12"></div>
-
-    </div>
-
-    <!-- PARAGRAPH BETWEEN GRIDS -->
-    <div class="text-block" data-scroll data-scroll-class="in-view">
-      <p> <strong>  CONCEPT ART </strong></p>
-      <!-- <p> Characters, props, and more!</p> -->
-    </div>
-
-    <!-- SECOND GRID (FILLED FOR DEMO) -->
-    <div class="grid-container">
-      <div class="grid-item item14" data-scroll data-scroll-class="in-view"><img src="aris.png" alt="14"></div>
-      <div class="grid-item item15" data-scroll data-scroll-class="in-view"><img src="qamaar.png" alt="15"></div>
-      <div class="grid-item item16" data-scroll data-scroll-class="in-view"><img src="nomadca.png" alt="16"></div>
-      
-      <!-- <div class="grid-item item15" data-scroll data-scroll-class="in-view"><img src="" alt="15"></div> -->
-            <div class="grid-item item18" data-scroll data-scroll-class="in-view"><img src="weapon.png" alt="18"></div>
-            <div class="grid-item item19" data-scroll data-scroll-class="in-view"><img src="chibisprout.gif" alt="19"></div>
-            <div class="grid-item item20" data-scroll data-scroll-class="in-view"><img src="sproutcd.png" alt="20"></div>
-
-
-      <!-- <div class="grid-item item13" data-scroll data-scroll-class="in-view"><img src="g2.png" alt="13"></div> -->
-    </div>
-
-     <!-- PARAGRAPH BETWEEN GRIDS -->
-    <div class="text-block" data-scroll data-scroll-class="in-view">
-      <p> <strong> SKETCHES </strong></p>
-      <p> </p>
-    </div>
-
-    <!-- THIRD GRID (Sketches) -->
-    <div class="grid-container">
-      <div class="grid-item item16" data-scroll data-scroll-class="in-view"><img src="sketch1.jpg" alt="16"></div>
-      <div class="grid-item item17" data-scroll data-scroll-class="in-view"><img src="sketch2.jpg" alt="17"></div>
-      <div class="grid-item item18" data-scroll data-scroll-class="in-view"><img src="sketch3.jpg" alt="18"></div>
-      <div class="grid-item item19" data-scroll data-scroll-class="in-view"><img src="sketch4.jpg" alt="19"></div>
-      <div class="grid-item item20" data-scroll data-scroll-class="in-view"><img src="sketchy.png" alt="20"></div>
-      <div class="grid-item item21" data-scroll data-scroll-class="in-view"><img src="handy.jpg" alt="21"></div>
-      <div class="grid-item item22" data-scroll data-scroll-class="in-view"><img src="body.jpg" alt="22"></div>
-      <div class="grid-item item23" data-scroll data-scroll-class="in-view"><img src="owls2.png" alt="23"></div>
-      <!-- <div class="grid-item item24" data-scroll data-scroll-class="in-view"><img src="caravan.png" alt="24"></div> -->
-      <!-- <div class="grid-item item25" data-scroll data-scroll-class="in-view"><img src="sketch 6.jpg" alt="25"></div> -->
-      <!-- <div class="grid-item item26" data-scroll data-scroll-class="in-view"><img src="sketch7.jpg" alt="26"></div> -->
-      <!-- <div class="grid-item item27" data-scroll data-scroll-class="in-view"><img src="sketch8.jpg" alt="27"></div> -->
-
-
-
-    </div>
-
-      <!-- PARAGRAPH BETWEEN GRIDS -->
-    <div class="text-block" data-scroll data-scroll-class="in-view">
-      <p> <strong>  3D </strong></p>
-      <p> </p>
-    </div>
-
-<!-- FOURTH GRID (3D Art) -->
-    <div class="grid-container">
-      <div class="grid-item item28" data-scroll data-scroll-class="in-view"><img src="ruinsp.png" alt="28"></div>
-      <div class="grid-item item29" data-scroll data-scroll-class="in-view"><img src="sprout 3d.png" alt="29"></div>
-      <div class="grid-item item30" data-scroll data-scroll-class="in-view"><img src="g1.png" alt="30"></div>
-      <div class="grid-item item31" data-scroll data-scroll-class="in-view"><img src="r1.jpg" alt="31"></div>
-      <div class="grid-item item32" data-scroll data-scroll-class="in-view"><img src="gobbyy.png" alt="32"></div>
-            <div class="grid-item item32" data-scroll data-scroll-class="in-view"><img src="gobster.jpg" alt="32"></div>
-
-      
-    </div>
-
+  <!-- Hero -->
+  <div class="page-hero">
+    <p class="eyebrow">Portfolio — Visual Work</p>
+    <h1>Visual <span>Art</span></h1>
+    <p class="sub">Illustration <span>✦</span> Concept Art <span>✦</span> Sketches <span>✦</span> 3D</p>
   </div>
 
-  <div class="lightbox" id="lightbox">
-    <img src="" alt="Enlarged Image" id="lightbox-img">
+  <!-- ═══ ILLUSTRATION ═══ -->
+  <div class="section-label" id="sl1">
+    <h2>Illust<span>ration</span></h2>
+    <div class="label-meta">
+      <span class="label-index">01 / 04</span>
+      <p>Digital art &amp; paintings</p>
+    </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+  <div class="photo-grid" id="pg1">
+    <div class="photo-card"><img src="Astarion.png"        alt="Astarion"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="BLM.png"             alt="BLM"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="Fallen.jpg"          alt="Fallen"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="Hands.jpg"           alt="Hands"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="Kaeya.png"           alt="Kaeya"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="mountt.png"          alt="Mountain"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="Sprout pose6j6.png"  alt="Sprout"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="Hands.png"           alt="Hands 2"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div>
+
+  <!-- ═══ CONCEPT ART ═══ -->
+  <div class="section-label" id="sl2">
+    <h2>Concept <span>Art</span></h2>
+    <div class="label-meta">
+      <span class="label-index">02 / 04</span>
+      <p>Characters &amp; props</p>
+    </div>
+  </div>
+
+  <div class="photo-grid" id="pg2">
+    <div class="photo-card"><img src="aris.png"        alt="Aris"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="qamaar.png"      alt="Qamaar"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="nomadca.png"     alt="Nomad"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="weapon.png"      alt="Weapon"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="chibisprout.gif" alt="Chibi Sprout"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="sproutcd.png"    alt="Sprout CD"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div>
+
+  <!-- ═══ SKETCHES ═══ -->
+  <div class="section-label" id="sl3">
+    <h2><span>Sketches</span></h2>
+    <div class="label-meta">
+      <span class="label-index">03 / 04</span>
+      <p>Studies &amp; gestures</p>
+    </div>
+  </div>
+
+  <div class="photo-grid" id="pg3">
+    <div class="photo-card"><img src="sketch1.jpg" alt="Sketch 1"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="sketch2.jpg" alt="Sketch 2"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="sketch3.jpg" alt="Sketch 3"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="sketch4.jpg" alt="Sketch 4"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="sketchy.png" alt="Sketchy"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="handy.jpg"   alt="Hand Study"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="body.jpg"    alt="Body Study"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="owls2.png"   alt="Owls"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div>
+
+  <!-- ═══ 3D ═══ -->
+  <div class="section-label" id="sl4">
+    <h2>3<span>D</span></h2>
+    <div class="label-meta">
+      <span class="label-index">04 / 04</span>
+      <p>Models &amp; renders</p>
+    </div>
+  </div>
+
+  <div class="photo-grid" id="pg4">
+    <div class="photo-card"><img src="ruinsp.png"    alt="Ruins"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="sprout 3d.png" alt="Sprout 3D"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="g1.png"        alt="3D 1"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="r1.jpg"        alt="Render 1"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="gobbyy.png"    alt="Goblin"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="photo-card"><img src="gobster.jpg"   alt="Gobster"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div>
+
+  <!-- Lightbox is injected onto <html> via JS to escape body transform -->
+
+  <!-- Footer -->
+  <footer>
+    <span>© Demi Saleeb 2025</span>
+    <span>Visual Art &amp; Design</span>
+  </footer>
+
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      requestAnimationFrame(() => {
-        document.body.classList.add("page-loaded");
+  document.addEventListener("DOMContentLoaded", () => {
+    requestAnimationFrame(() => {
+      document.body.classList.add("page-loaded");
 
-        const scroll = new LocomotiveScroll({
-          el: document.querySelector('[data-scroll-container]'),
-          smooth: true,
-          multiplier: 1
-        });
+      // ── Scroll reveal ──
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+      }, { threshold: 0.05 });
 
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        document.querySelectorAll('.grid-item img').forEach(img => {
-          img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
-            lightbox.classList.add('active');
-          });
-        });
-        lightbox.addEventListener('click', e => {
-          if(e.target !== lightboxImg) lightbox.classList.remove('active');
-        });
+      document.querySelectorAll('.section-label, .photo-grid, .photo-card').forEach(el => io.observe(el));
 
-        document.querySelectorAll("a[href]").forEach(link => {
-          link.addEventListener("click", e => {
-            const url = link.getAttribute("href");
-            if(url.startsWith("#") || link.hasAttribute("data-lightbox")) return;
-            e.preventDefault();
-            document.body.classList.add("page-exit");
-            setTimeout(() => window.location.href = url, 500);
-          });
+      // ── Image fade-in ──
+      document.querySelectorAll('.photo-card img').forEach(img => {
+        if (img.complete) img.classList.add('loaded');
+        else img.addEventListener('load', () => img.classList.add('loaded'));
+      });
+
+      // ── Lightbox (portaled onto <html> to escape body transforms) ──
+      const portal = document.createElement('div');
+      portal.id = 'lb-portal';
+      portal.innerHTML = `
+        <div class="lightbox-inner">
+          <div class="lb-close" id="lbClose">
+            <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/></svg>
+          </div>
+          <img src="" alt="" id="lightbox-img">
+        </div>`;
+      document.documentElement.appendChild(portal);
+
+      const lbImg   = portal.querySelector('#lightbox-img');
+      const lbClose = portal.querySelector('#lbClose');
+
+      document.querySelectorAll('.photo-card img').forEach(img => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+          lbImg.src = img.src;
+          portal.classList.add('active');
+        });
+      });
+
+      const closeLB = () => {
+        portal.classList.remove('active');
+        setTimeout(() => { lbImg.src = ''; }, 320);
+      };
+
+      lbClose.addEventListener('click', e => { e.stopPropagation(); closeLB(); });
+      portal.addEventListener('click', closeLB);
+      portal.querySelector('.lightbox-inner').addEventListener('click', e => e.stopPropagation());
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+
+      // ── Page transitions ──
+      document.querySelectorAll("a[href]").forEach(link => {
+        link.addEventListener("click", e => {
+          const url = link.getAttribute("href");
+          if (url.startsWith("#")) return;
+          e.preventDefault();
+          document.body.classList.add("page-exit");
+          setTimeout(() => window.location.href = url, 420);
         });
       });
     });
+  });
   </script>
 
- <footer>
-  © Demi Saleeb 2025
-</footer>
-
- <!-- HAMBURGER MENU SCRIPT -->
-<script>
+  <script>
   document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
-    const mainNav = document.getElementById('mainNav');
-
-    if (hamburger && mainNav) {
-      hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        if (mainNav.classList.contains('active')) {
-          // Closing
-          closeMenu();
-        } else {
-          // Opening - lock scroll
-          document.body.style.overflow = 'hidden';
-          hamburger.classList.remove('active');
-          void hamburger.offsetWidth; // Trigger reflow
-          hamburger.classList.add('active');
-          mainNav.classList.add('active');
-        }
-      });
-
-      function closeMenu() {
-        hamburger.classList.remove('active');
-        mainNav.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Unlock scroll
-      }
-
-      // Close menu when clicking on a link
-      mainNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-      });
-
-      // Close menu when clicking backdrop
-      mainNav.addEventListener('click', (e) => {
-        if (e.target === mainNav) {
-          closeMenu();
-        }
-      });
-    }
+    const mainNav   = document.getElementById('mainNav');
+    if (!hamburger || !mainNav) return;
+    hamburger.addEventListener('click', e => {
+      e.stopPropagation();
+      if (mainNav.classList.contains('active')) closeMenu();
+      else { document.body.style.overflow = 'hidden'; hamburger.classList.add('active'); mainNav.classList.add('active'); }
+    });
+    function closeMenu() { hamburger.classList.remove('active'); mainNav.classList.remove('active'); document.body.style.overflow = ''; }
+    mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    mainNav.addEventListener('click', e => { if (e.target === mainNav) closeMenu(); });
   });
-</script>
-  
+  </script>
+
 </body>
-
 </html>
-
