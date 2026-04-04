@@ -280,8 +280,8 @@ span { color: #00FFB6; }
 /* Hamburger - hidden on desktop */
 .ham-menu {
   display: none;
-  width: 125px;
-  height: 125px;
+  width: 85px;
+  height: 85px;
   margin-left: auto;
   position: relative;
   cursor: pointer;
@@ -296,7 +296,7 @@ span { color: #00FFB6; }
 
 /* Twirl animation when active */
 .ham-menu.active img {
-  animation: twirl 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: twirl 1s cubic-bezier(0.38, -0.55, 0.265, 1.55) forwards;
   filter: drop-shadow(0 0 10px #00FFB6) brightness(1.2);
 }
 
@@ -307,7 +307,7 @@ span { color: #00FFB6; }
 
 /* Hover effect */
 .ham-menu:hover img {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .ham-menu.active:hover img {
@@ -741,3 +741,26 @@ footer {
   }
   .social-bar-text { font-size: 1.3rem; white-space: normal; }
 }
+
+/* Pills */
+ .pills { display: center; flex-wrap: wrap; gap: 25px; }
+
+    .pill {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12rem;
+      text-transform: uppercase;
+      color: #fff;
+      border: 2.5px solid rgba(255,255,255,0.12);
+      padding: 8px 18px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      margin: 2.5px;
+    
+    }
+
+    .pill:hover {
+      border-color: #00FFB6;
+      color: #00FFB6;
+      box-shadow: 0 0 14px rgba(0,255,182,0.25);
+    }

@@ -3,546 +3,806 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <title>Design — Demi Saleeb</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
-  <title>Portfolio Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
 
   <style>
-    /* REQUIRED FOR LOCOMOTIVE SCROLL */
-    html, body {
-      height: 100%;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      text-decoration: none;
+      border: none; outline: none;
     }
 
-    [data-scroll-container] {
-      min-height: 100vh;
-      position: relative;
-    }
+    html { font-size: 62.5%; }
 
-    /* BODY & PAGE TRANSITIONS */
     body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #111;
+      font-family: 'Poppins', sans-serif;
+      /* background: url("WebAnimation.gif") no-repeat center center fixed; */
+      background-size: cover;
+      background-color: #111;
+      color: #fff;
       overflow-x: hidden;
       opacity: 0;
       transform: scale(1.03);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    body.page-loaded {
-      opacity: 1;
-      transform: scale(1);
+    body.page-loaded { opacity: 1; transform: scale(1); }
+    body.page-exit   { opacity: 0; transform: scale(0.9); }
+
+    [data-scroll-container] {
+      min-height: 100vh;
+      position: relative;
     }
 
-    body.page-exit {
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 9% 80px;
+      position: relative;
+    }
+
+    .hero-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 100%;
+      gap: 4rem;
+    }
+
+    .hero-left {
       opacity: 0;
-      transform: scale(0.9);
+      transform: translateY(30px);
+      transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
     }
 
-    /* ELEMENT STAGGER */
-    img, .text-block, .grid-container, nav, header {
+    body.page-loaded .hero-left { opacity: 1; transform: translateY(0); }
+
+    .hero-eyebrow {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.3rem;
+      text-transform: uppercase;
+      color: #00FFB6;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-shadow: 0 0 10px rgba(0,255,182,0.5);
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px; height: 2px;
+      background: #00FFB6;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px #00FFB6;
+    }
+
+    .hero-title {
+      font-size: clamp(5rem, 10vw, 12rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+
+    .hero-title .dim { color: rgba(255,255,255,0.15); }
+    .hero-title .accent { color: #00FFB6; }
+
+    .hero-right {
+      text-align: right;
+      padding-bottom: 8px;
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.8s ease 0.55s, transform 0.8s ease 0.55s;
     }
 
-    body.page-loaded img,
-    body.page-loaded .grid-container,
-    body.page-loaded .featured-panels {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.2s;
+    body.page-loaded .hero-right { opacity: 1; transform: translateY(0); }
+
+    .hero-desc {
+      font-size: 1.6rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+      max-width: 340px;
+      margin-left: auto;
+      margin-bottom: 2rem;
     }
 
-    body.page-loaded nav,
-    body.page-loaded header {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.45s;
+    .hero-count {
+      font-size: 1.1rem;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
     }
 
-    /* INTRO PARAGRAPH ANIMATION */
-    .intro-text {
-      width: 90%;
-      max-width: 900px;
-      margin: 120px auto 60px auto;
-      font-size: 12px;
-      line-height: 1.7;
-      color: #ddd;
-      opacity: 0;
-      transform: translateY(30px) scale(0.95);
-      transition: all 0.8s ease-out;
+    .hero-divider {
+      position: absolute;
+      bottom: 0; left: 9%; right: 9%;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
     }
 
-    .intro-in-view {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* FEATURED PANELS SECTION */
-    .featured-panels {
-      width: 90%;
-      max-width: 1200px;
-      margin: 100px auto 150px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease-out;
-    }
-
-    .featured-panels.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .featured-panel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      height: auto;
-      cursor: pointer;
-      transition: all 0.5s ease;
-      background: transparent;
-      margin-bottom: 20px;
+    /* ── SECTION LABEL ── */
+    .section-label {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 40px;
+      padding: 0 9%;
     }
 
-    .featured-panel:nth-child(2) {
-      height: auto;
-      margin-top: 0;
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      max-width: 80px;
     }
 
-    .featured-panel:hover {
-      transform: translateY(-10px) scale(1.03);
-      /* box-shadow: 0 20px 40px rgba(0, 255, 182, 0.2); */
+    /* ── FILM STRIP SECTION ── */
+    .filmstrip-section {
+      padding-top: 100px;
+      padding-bottom: 0;
     }
 
-    .featured-panel:active {
-      transform: scale(1.08);
-      transition: transform 0.2s ease;
+    /* The scrollable track — bleeds edge to edge */
+    .filmstrip-track-wrap {
+      overflow-x: auto;
+      overflow-y: visible;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 20px 9% 20px;
     }
 
-    .featured-panel img {
+    .filmstrip-track-wrap::-webkit-scrollbar { display: none; }
+    .filmstrip-track-wrap.dragging { cursor: grabbing; }
+
+    .filmstrip-track {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      width: max-content;
+    }
+
+    /* Alternate card heights for film-strip rhythm */
+    .project-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.4s ease;
+      background: rgba(22,22,22,0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+      width: 360px;
+    }
+
+    /* Tall / short alternation */
+    .project-card:nth-child(odd)  { margin-top: 0; }
+    .project-card:nth-child(even) { margin-top: 60px; }
+
+    .project-card.in-view { opacity: 1; transform: translateY(0); }
+
+    .project-card:hover {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,255,182,0.2);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    /* Keep even cards from jumping too far on hover */
+    .project-card:nth-child(even):hover {
+      transform: translateY(52px) scale(1.02);
+    }
+
+    .card-media {
       width: 100%;
-      height: auto;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+      background: rgba(18,18,18,0.95);
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       display: block;
-      transition: transform 0.5s ease;
-      border-radius: 20px;
-      background: #1a1a1a;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .featured-panel:hover img {
-      transform: scale(1.08);
-    }
+    .project-card:hover .card-media img { transform: scale(1.05); }
 
-    .featured-panel iframe {
+    .card-media iframe {
       width: 100%;
       height: 100%;
       border: 0;
-      display: block;
       pointer-events: none;
+      position: absolute;
+      inset: 0;
     }
 
-    .featured-panel.book-panel {
-      cursor: zoom-in;
-    }
-
-    /* .featured-panel.book-panel:hover { */
-      /* box-shadow: 0 20px 40px rgba(255, 200, 0, 0.3); */
-    /* } */
-
-    .featured-panel.book-panel:active {
-      transform: scale(1.08);
-    }
-
-    .panel-overlay {
-      position: relative;
-      background: transparent;
-      padding: 15px 0 0 0;
-      text-align: center;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .panel-title {
-      font-size: 24px;
-      font-weight: 600;
-      color: #fff;
-      margin: 0 0 8px 0;
-      display: block;
-    }
-
-    .panel-subtitle {
-      font-size: 14px;
-      color: #aaa;
-      margin: 0;
-      display: block;
-    }
-
-    /* TEXT SECTIONS */
-    .text-section {
-      width: 90%;
-      max-width: 900px;
-      margin: 80px auto;
-      text-align: center;
+    .card-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
     }
 
-    .text-section.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .project-card:hover .card-hover-overlay { opacity: 1; }
 
-    .section-header {
-      font-size: 48px;
-      font-weight: 600;
-      color: #fff;
-      margin: 0 0 16px 0;
-      letter-spacing: -1px;
-    }
-
-    .section-subheader {
-      font-size: 24px;
+    .hover-cta {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.2rem;
+      text-transform: uppercase;
       color: #00FFB6;
-      margin: 0 0 24px 0;
-      font-weight: 500;
+      text-shadow: 0 0 12px #00FFB6;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .section-text {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #ccc;
-      margin: 0 0 20px 0;
+    .hover-cta::after { content: '→'; transition: transform 0.3s ease; }
+    .project-card:hover .hover-cta::after { transform: translateX(5px); }
+
+
+
+    .card-info {
+      padding: 18px 20px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
     }
 
-    /* GRID STYLES */
-    .grid-container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 100px auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 200px;
-      gap: 15px;
+    .card-index {
+      font-size: 1rem;
+      color: #00FFB6;
+      letter-spacing: 0.15rem;
+      margin-bottom: 4px;
+      font-weight: 600;
+      text-shadow: 0 0 8px rgba(0,255,182,0.4);
     }
 
-    .grid-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 18px;
+    .card-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .card-sub { font-size: 1.2rem; color: rgba(255,255,255,0.4); }
+
+    .card-tag {
+      font-size: 1rem;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 14px;
+      border-radius: 30px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: center;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover .card-tag {
+      border-color: rgba(0,255,182,0.4);
+      color: #00FFB6;
+      box-shadow: 0 0 10px rgba(0,255,182,0.2);
+    }
+
+    /* Drag hint arrow */
+    .drag-hint {
+      padding: 0 9%;
+      margin-top: 8px;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.1rem;
+      letter-spacing: 0.15rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
       opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease-out;
-      cursor: pointer;
+      transition: opacity 0.6s ease 1s;
     }
 
-    .grid-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.5s ease;
+    body.page-loaded .drag-hint { opacity: 1; }
+
+    .drag-hint::before {
+      content: '← scroll →';
+      color: rgba(0,255,182,0.4);
+      letter-spacing: 0.2rem;
     }
 
-    .grid-item:hover img {
-      transform: scale(1.05);
+    /* ── STATEMENT ── */
+    .statement-section {
+      padding: 80px 9% 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
-    .grid-item.in-view {
-      opacity: 1;
-      transform: translateY(0);
+    .statement-text {
+      font-size: clamp(2.8rem, 3.5vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #fff;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.9s ease;
     }
 
-    .item2 { grid-row: span 2; }
-    .item4 { grid-row: span 3; }
-    .item5 { grid-row: span 2; }
-    .item6 { grid-row: span 3; }
+    .statement-text.in-view { opacity: 1; transform: translateX(0); }
+    .statement-text .dim { color: rgba(255,255,255,0.15); }
+    .statement-text .accent { color: #00FFB6; }
 
-    /* LIGHTBOX */
+    .statement-aside {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.9s ease 0.15s;
+    }
+
+    .statement-aside.in-view { opacity: 1; transform: translateX(0); }
+
+    .statement-desc {
+      font-size: 1.6rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+
+    /* ── PILLS ── */
+    .pills-diagonal {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14rem;
+      text-transform: uppercase;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.14);
+      padding: 10px 22px;
+      border-radius: 30px;
+      transition: all 0.35s ease;
+      position: relative;
+    }
+
+    .pill:hover {
+      border-color: #00FFB6;
+      color: #00FFB6;
+      box-shadow: 0 0 18px rgba(0,255,182,0.25);
+      transform: scale(1.04);
+    }
+
+    .pill::before {
+      content: '✦';
+      font-size: 0.7rem;
+      color: #00FFB6;
+      margin-right: 10px;
+      opacity: 0.6;
+      vertical-align: middle;
+    }
+
+    /* ── LIGHTBOX ── */
     .lightbox {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
       background: rgba(0,0,0,0.95);
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease;
       z-index: 1000;
     }
 
-    .lightbox.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
 
-    .lightbox-content {
-      width: 90%;
-      height: 90%;
-      max-width: 1400px;
-      max-height: 900px;
-      background: #fff;
-      border-radius: 15px;
+    .lightbox-inner {
+      width: 92%; height: 90%;
+      max-width: 1400px; max-height: 900px;
+      background: #111;
+      border-radius: 18px;
       overflow: hidden;
-      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.4s ease;
+      border: 1px solid rgba(0,255,182,0.15);
     }
 
-    .lightbox iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
+    .lightbox.active .lightbox-inner { transform: scale(1); }
+    .lightbox-inner iframe { width: 100%; height: 100%; border: 0; }
 
     .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #00FFB6;
-      color: #111;
-      border: none;
-      width: 40px;
-      height: 40px;
+      position: fixed;
+      top: 24px; right: 28px;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      color: #fff;
+      width: 44px; height: 44px;
       border-radius: 50%;
-      font-size: 24px;
+      font-size: 2rem;
       cursor: pointer;
       z-index: 1001;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .close-btn:hover {
-      background: #fff;
+      border-color: #00FFB6;
+      color: #00FFB6;
+      box-shadow: 0 0 16px rgba(0,255,182,0.3);
       transform: rotate(90deg);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #555;
+      padding: 20px;
+      position: relative;
+      width: 100%;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 995px) {
+      .ham-menu { display: block; }
+
+      header nav {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        height: 100vh; width: 100vw;
+        background: linear-gradient(135deg, rgba(17,17,17,0.98), rgba(10,20,18,0.98));
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9998;
+        clip-path: circle(0% at 100% 0%);
+        transition: clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+      }
+
+      header nav.active { clip-path: circle(150% at 100% 0%); }
+
+      header nav a {
+        display: block;
+        font-size: 2.8rem;
+        margin: 1.5rem 0;
+        margin-left: 0;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px) scale(0.8);
+        transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      header nav.active a { opacity: 1; transform: translateY(0) scale(1); }
+      header nav.active a:nth-child(1) { transition-delay: 0.15s; }
+      header nav.active a:nth-child(2) { transition-delay: 0.25s; }
+      header nav.active a:nth-child(3) { transition-delay: 0.35s; }
+      header nav.active a:nth-child(4) { transition-delay: 0.45s; }
+      header nav.active a:nth-child(5) { transition-delay: 0.55s; }
+
+      .hero { min-height: 100vh; padding: 130px 5% 60px; align-items: flex-start; }
+      .hero-inner { flex-direction: column; align-items: flex-start; gap: 3rem; }
+      .hero-right { text-align: left; }
+      .hero-desc { margin-left: 0; }
+
+      .filmstrip-track-wrap { padding: 20px 5% 40px; }
+      .project-card { width: 280px; }
+      .project-card:nth-child(even) { margin-top: 40px; }
+      .project-card:nth-child(even):hover { transform: translateY(32px) scale(1.02); }
+
+      .statement-section { grid-template-columns: 1fr; padding: 80px 5%; gap: 48px; }
+
+
+
+      footer { position: relative; margin-top: 40px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 5rem; }
+      .project-card { width: 240px; }
     }
   </style>
 </head>
 <body>
+
   <header>
-  <a href="index.html" class="logo">
-    <img src="Demi Logo.png" alt="Logo" class="logo-icon">
-  </a>
-
-  <!-- Hamburger (mobile only) -->
-<div class="ham-menu" id="hamburger">
-  <img src="Star Icon.png" alt="Menu">
-</div>
-
-  <nav class="main-nav" id="mainNav">
-    <a href="index.html" class="active">Projects</a>
-    <a href="VisualArt.html">Visual Art</a>
-    <a href="Design.html">Design</a>
-    <a href="Writing Samples.html">Writing</a>
-    <a href="Other.html">About</a>
-  </nav>
-</header>
+    <a href="index.html" class="logo">
+      <img src="Demi Logo.png" alt="Demi Saleeb" class="logo-icon">
+    </a>
+    <div class="ham-menu" id="hamburger">
+      <img src="Star Icon.png" alt="Menu">
+    </div>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Projects</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html" class="active">Design</a>
+      <a href="Writing Samples.html">Writing</a>
+      <a href="Other.html">About</a>
+    </nav>
+  </header>
 
   <div data-scroll-container>
-    <p style="color: #919191" class="intro-text" data-scroll data-scroll-class="intro-in-view">
-    </p>
 
-    <!-- FEATURED PANELS -->
-    <div class="featured-panels" data-scroll data-scroll-class="in-view">
-      
-      <!-- Panel 1: Graphics Design -->
-      <div class="featured-panel" data-link="GraphicsProject.html">
-        <img src="Graphic Design1.png" alt="Graphics Design">
-        <div class="panel-overlay">
-          <h3 class="panel-title">UCLA Athletics</h3>
-          <p class="panel-subtitle">Dynamic Graphics</p>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <p class="hero-eyebrow">Design Work</p>
+          <h1 class="hero-title">
+            Design<br>
+            <!-- <span class="dim">&amp;</span><br>
+            Design -->
+          </h1>
+        </div>
+        <div class="hero-right">
+          <p class="hero-desc">
+           I love creating meaningful, interactive and unique designs, where imaginary meets reality!
+          </p>
+          <p class="hero-count">03 Selected Projects</p>
+        </div>
+      </div>
+      <div class="hero-divider"></div>
+    </section>
+
+    <!-- FILM STRIP -->
+    <section class="filmstrip-section">
+      <div class="section-label">Selected Work</div>
+
+      <div class="filmstrip-track-wrap" id="filmstrip">
+        <div class="filmstrip-track">
+
+          <!-- Card 1 -->
+          <div class="project-card" data-link="GraphicsProject.html">
+            <div class="card-media">
+              <img src="Graphic Design1.png" alt="UCLA Athletics">
+              <div class="card-hover-overlay"><span class="hover-cta">View Project</span></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <p class="card-index">01</p>
+                <h2 class="card-title">UCLA Athletics</h2>
+                <p class="card-sub">Dynamic Graphics</p>
+              </div>
+              <span class="card-tag">Motion</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="project-card" data-book="true">
+            <div class="card-media">
+              <iframe src="https://online.anyflip.com/jzjop/pujh/index.html" scrolling="no"></iframe>
+              <div class="card-hover-overlay"><span class="hover-cta">Expand</span></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <p class="card-index">02</p>
+                <h2 class="card-title">Digital Publication</h2>
+                <p class="card-sub">Editorial Design</p>
+              </div>
+              <span class="card-tag">Print</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="project-card" data-link="VotingRightsProject.html">
+            <div class="card-media">
+              <img src="VRBuisness cards.png" alt="Voting Rights">
+              <div class="card-hover-overlay"><span class="hover-cta">View Project</span></div>
+            </div>
+            <div class="card-info">
+              <div class="card-meta">
+                <p class="card-index">03</p>
+                <h2 class="card-title">Voting Rights</h2>
+                <p class="card-sub">Campaign Design</p>
+              </div>
+              <span class="card-tag">Campaign</span>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- Panel 2: AnyFlip Book (expands only) -->
-      <div class="featured-panel book-panel" data-book="true">
-        <iframe
-          src="https://online.anyflip.com/jzjop/pujh/index.html"
-          scrolling="no">
-        </iframe>
-        <div class="panel-overlay">
-          <h3 class="panel-title">Digital Publication</h3>
-          <p class="panel-subtitle">Click to expand</p>
+      <p class="drag-hint"></p>
+    </section>
+
+    <!-- STATEMENT -->
+    <section class="statement-section">
+      <div class="statement-text">
+        I was a Graphic Design Artist for the <span class="accent"> University of California, Los Angeles (UCLA), </span> — with over 4+ years of experience. 
+      </div>
+      <div class="statement-aside">
+        <p class="statement-desc">
+         Having designed products for UCLA's First Thursdays, the VRP at the Luskin School of Public Affairs and more, I am excited to bring your vision to life.
+        </p>
+        <div class="pills-diagonal">
+          <span class="pill">Adobe Suite</span>
+          <span class="pill">Web Development</span>
+          <span class="pill">Graphic Design</span>
+          <span class="pill">UI/UX</span>
+          <span class="pill">Digital Media</span>
         </div>
       </div>
+    </section>
 
-      <!-- Panel 3: Voting Rights -->
-      <div class="featured-panel" data-link="VotingRightsProject.html">
-        <img src="VRBuisness cards.png" alt="Voting Rights">
-        <div class="panel-overlay">
-          <h3 class="panel-title">Voting Rights</h3>
-          <p class="panel-subtitle">Campaign Design</p>
-        </div>
-      </div>
+  <footer>© Demi Saleeb 2025</footer>
 
-       <!-- Panel 4: Voting Rights; add link of website: https://dailybruin.com/2022/03/05/westwood-celebrates-community-through-inaugural-first-thursdays-event -->
-      <!-- <div class="featured-panel" data-link="FirstThursdays.html">
-        <img src="VRBuisness cards.png" alt="Thursday">
-        <div class="panel-overlay">
-          <h3 class="panel-title">UCLA First Thursdays</h3>
-          <p class="panel-subtitle">Campaign Design</p>
-        </div>
-      </div> -->
-
-    </div>
-
-    <!-- ADDITIONAL GRID --> 
-    <!-- <div class="grid-container">
-      <div class="grid-item item2" data-scroll data-scroll-class="in-view"><img src="placeholder1.jpg"></div>
-      <div class="grid-item item4" data-scroll data-scroll-class="in-view"><img src="placeholder2.jpg"></div>
-      <div class="grid-item item5" data-scroll data-scroll-class="in-view"><img src="placeholder3.jpg"></div>
-      <div class="grid-item item6" data-scroll data-scroll-class="in-view"><img src="placeholder4.jpg"></div>
-    </div>
-
-  </div> -->
+  </div>
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
-    <button class="close-btn" id="close-btn">×</button>
-    <div class="lightbox-content" id="lightbox-content"></div>
+    <button class="close-btn" id="closeBtn">✕</button>
+    <div class="lightbox-inner" id="lightboxInner"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
-
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => {
-        document.body.classList.add("page-loaded");
+        document.body.classList.add('page-loaded');
 
+        // Locomotive
         const scroll = new LocomotiveScroll({
           el: document.querySelector('[data-scroll-container]'),
           smooth: true,
           multiplier: 1
         });
+        setTimeout(() => scroll.update(), 300);
+        setTimeout(() => scroll.update(), 800);
 
-        setTimeout(() => scroll.update(), 500);
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add('in-view'), Number(entry.target.dataset.delay || 0));
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
 
+        document.querySelectorAll('.project-card').forEach((el, i) => {
+          el.dataset.delay = i * 140;
+          observer.observe(el);
+        });
+
+        document.querySelectorAll('.statement-text, .statement-aside').forEach(el => observer.observe(el));
+
+        // ── DRAG TO SCROLL (film strip) ──
+        const strip = document.getElementById('filmstrip');
+        let isDown = false, startX, scrollLeft;
+
+        strip.addEventListener('mousedown', e => {
+          isDown = true;
+          strip.classList.add('dragging');
+          startX = e.pageX - strip.offsetLeft;
+          scrollLeft = strip.scrollLeft;
+        });
+
+        strip.addEventListener('mouseleave', () => { isDown = false; strip.classList.remove('dragging'); });
+        strip.addEventListener('mouseup',    () => { isDown = false; strip.classList.remove('dragging'); });
+
+        strip.addEventListener('mousemove', e => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - strip.offsetLeft;
+          strip.scrollLeft = scrollLeft - (x - startX) * 1.4;
+        });
+
+        // ── LIGHTBOX ──
         const lightbox = document.getElementById('lightbox');
-        const lightboxContent = document.getElementById('lightbox-content');
-        const closeBtn = document.getElementById('close-btn');
+        const lightboxInner = document.getElementById('lightboxInner');
+        const closeBtn = document.getElementById('closeBtn');
 
-        // Featured panels click handlers
-        document.querySelectorAll('.featured-panel').forEach(panel => {
-          panel.addEventListener('click', () => {
-            const link = panel.getAttribute('data-link');
-            const isBook = panel.getAttribute('data-book');
-
+        document.querySelectorAll('.project-card').forEach(card => {
+          card.addEventListener('click', () => {
+            if (strip.classList.contains('dragging')) return;
+            const link = card.dataset.link;
+            const isBook = card.dataset.book;
             if (isBook) {
-              // Expand book in lightbox
-              lightboxContent.innerHTML = '<iframe src="https://online.anyflip.com/jzjop/pujh/index.html" allowfullscreen="true" scrolling="no"></iframe>';
+              lightboxInner.innerHTML = '<iframe src="https://online.anyflip.com/jzjop/pujh/index.html" allowfullscreen scrolling="no"></iframe>';
               lightbox.classList.add('active');
             } else if (link) {
-              // Navigate to project page
-              document.body.classList.add("page-exit");
+              document.body.classList.add('page-exit');
               setTimeout(() => window.location.href = link, 500);
             }
           });
         });
 
-        // Grid items lightbox
-        document.querySelectorAll('.grid-item img').forEach(img => {
-          img.addEventListener('click', () => {
-            lightboxContent.innerHTML = `<img src="${img.src}" alt="Enlarged Image">`;
-            lightbox.classList.add('active');
-          });
-        });
-
-        // Close lightbox
         closeBtn.addEventListener('click', () => {
           lightbox.classList.remove('active');
+          setTimeout(() => lightboxInner.innerHTML = '', 400);
         });
 
         lightbox.addEventListener('click', e => {
           if (e.target === lightbox) {
             lightbox.classList.remove('active');
+            setTimeout(() => lightboxInner.innerHTML = '', 400);
           }
         });
 
-        // Navigation links
-        document.querySelectorAll("a[href]").forEach(link => {
-          link.addEventListener("click", e => {
-            const url = link.getAttribute("href");
-            if(url.startsWith("#")) return;
+        // Nav transitions
+        document.querySelectorAll('a[href]').forEach(link => {
+          link.addEventListener('click', e => {
+            const url = link.getAttribute('href');
+            if (url.startsWith('#')) return;
             e.preventDefault();
-            document.body.classList.add("page-exit");
+            document.body.classList.add('page-exit');
             setTimeout(() => window.location.href = url, 500);
           });
         });
+
+        // Hamburger
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('mainNav');
+
+        if (hamburger && mainNav) {
+          hamburger.addEventListener('click', e => {
+            e.stopPropagation();
+            const isOpen = mainNav.classList.contains('active');
+            if (isOpen) {
+              mainNav.classList.remove('active');
+              hamburger.classList.remove('active');
+              document.body.style.overflow = '';
+            } else {
+              mainNav.classList.add('active');
+              hamburger.classList.remove('active');
+              void hamburger.offsetWidth;
+              hamburger.classList.add('active');
+              document.body.style.overflow = 'hidden';
+            }
+          });
+
+          mainNav.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+              mainNav.classList.remove('active');
+              hamburger.classList.remove('active');
+              document.body.style.overflow = '';
+            });
+          });
+        }
       });
     });
-    
   </script>
-
-  <!-- <div class="bottom-popup">
-    <div class="popup-left">
-      <p>I'd love to talk! You can reach me at</p>
-      <h2>demianas@outlook.com</h2>
-    </div>
-    <button class="popup-btn">back up ↑</button>
-  </div>
-
-  <script src="popup.js"></script> -->
-  
-  <footer style="text-align:center; font-size:12px; color:#555; padding:5px; position:fixed; bottom:0; width:100%;">
-    © Demi Saleeb 2025
-  </footer>
-
-<!-- HAMBURGER MENU SCRIPT -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.getElementById('hamburger');
-    const mainNav = document.getElementById('mainNav');
-
-    if (hamburger && mainNav) {
-      hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        if (mainNav.classList.contains('active')) {
-          // Closing
-          closeMenu();
-        } else {
-          // Opening - lock scroll
-          document.body.style.overflow = 'hidden';
-          hamburger.classList.remove('active');
-          void hamburger.offsetWidth; // Trigger reflow
-          hamburger.classList.add('active');
-          mainNav.classList.add('active');
-        }
-      });
-
-      function closeMenu() {
-        hamburger.classList.remove('active');
-        mainNav.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Unlock scroll
-      }
-
-      // Close menu when clicking on a link
-      mainNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-      });
-
-      // Close menu when clicking backdrop
-      mainNav.addEventListener('click', (e) => {
-        if (e.target === mainNav) {
-          closeMenu();
-        }
-      });
-    }
-  });
-</script>
 </body>
 </html>
