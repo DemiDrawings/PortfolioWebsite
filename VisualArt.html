@@ -202,6 +202,14 @@
     .zoom-hint svg { width: 11px; height: 11px; stroke: #00FFB6; fill: none; stroke-width: 1.8; }
     .photo-card:hover .zoom-hint { opacity: 1; transform: scale(1); }
 
+  footer {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #555;
+      padding: 20px;
+      position: relative;
+      width: 100%;
+    }
     /* ─── LIGHTBOX ──────────────────────────────── */
     /* Mounted on <html> so body transforms never affect it */
     #lb-portal {
@@ -244,19 +252,6 @@
     }
     #lb-portal .lb-close:hover { border-color: #00FFB6; background: rgba(0,255,182,0.08); box-shadow: 0 0 14px rgba(0,255,182,0.3); }
     #lb-portal .lb-close svg { width: 14px; height: 14px; stroke: #00FFB6; fill: none; stroke-width: 1.8; }
-
-    /* ─── FOOTER ────────────────────────────────── */
-    footer {
-      position: relative !important;
-      margin-top: 110px;
-      padding: 26px 9%;
-      border-top: 1px solid rgba(0,255,182,0.12);
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 1.1rem; font-weight: 500;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
-      z-index: 1;
-    }
 
     /* ─── RESPONSIVE ────────────────────────────── */
     @media (max-width: 900px)  { .photo-grid { columns: 2; } }
@@ -367,12 +362,6 @@
 
   <!-- Lightbox is injected onto <html> via JS to escape body transform -->
 
-  <!-- Footer -->
-  <footer>
-    <span>© Demi Saleeb 2025</span>
-    <span>Visual Art &amp; Design</span>
-  </footer>
-
   <script>
   document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(() => {
@@ -436,6 +425,8 @@
       });
     });
   });
+
+  
   </script>
 
   <script>
@@ -454,5 +445,7 @@
   });
   </script>
 
+<footer>© Demi Saleeb 2025</footer>
 </body>
+
 </html>
