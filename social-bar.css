@@ -1,0 +1,144 @@
+/* ============================================================
+   SOCIAL ICON BAR — scroll-triggered, drop into any page
+   Add class="social-bar-trigger" to any element you want
+   to act as the scroll threshold, OR it auto-triggers when
+   the page is scrolled past 80% of the viewport height.
+   ============================================================ */
+
+/* Import a clean icon font (Boxicons) */
+@import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
+
+/* ── Design tokens — override these to match your brand ── */
+:root {
+  --sb-bg:           #111214;
+  --sb-border:       rgba(255, 255, 255, 0.08);
+  --sb-icon-color:   #a8aab2;
+  --sb-icon-hover:   #ffffff;
+  --sb-accent:       #6c63ff;          /* pill glow + hover accent */
+  --sb-radius:       56px;
+  --sb-size:         44px;             /* individual icon button size */
+  --sb-gap:          6px;
+  --sb-bottom:       28px;             /* distance from bottom of viewport */
+  --sb-shadow:       0 8px 32px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.3);
+  --sb-transition:   .28s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── Wrapper pill ── */
+.social-bar {
+  position: fixed;
+  bottom: var(--sb-bottom);
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(100% + var(--sb-bottom) + 20px));
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: var(--sb-gap);
+  padding: 6px;
+
+  background: var(--sb-bg);
+  border: 1px solid var(--sb-border);
+  border-radius: var(--sb-radius);
+  box-shadow: var(--sb-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform .45s cubic-bezier(.34,1.4,.64,1),
+    opacity   .35s ease;
+}
+
+/* ── Visible state (toggled by JS) ── */
+.social-bar.is-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Individual icon buttons ── */
+.social-bar__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:  var(--sb-size);
+  height: var(--sb-size);
+  border-radius: 50%;
+  color: var(--sb-icon-color);
+  text-decoration: none;
+  font-size: 1.25rem;
+  position: relative;
+  transition: color var(--sb-transition), background var(--sb-transition), transform var(--sb-transition);
+}
+
+.social-bar__link:hover {
+  color: var(--sb-icon-hover);
+  background: rgba(255,255,255,.07);
+  transform: scale(1.15);
+}
+
+/* Per-platform accent on hover */
+.social-bar__link[data-platform="twitter"]:hover   { color: #1d9bf0; }
+.social-bar__link[data-platform="instagram"]:hover { color: #e1306c; }
+.social-bar__link[data-platform="youtube"]:hover   { color: #ff0000; }
+.social-bar__link[data-platform="linkedin"]:hover  { color: #0a66c2; }
+.social-bar__link[data-platform="github"]:hover    { color: #f0f6fc; }
+.social-bar__link[data-platform="tiktok"]:hover    { color: #69c9d0; }
+.social-bar__link[data-platform="facebook"]:hover  { color: #1877f2; }
+.social-bar__link[data-platform="discord"]:hover   { color: #5865f2; }
+
+/* ── Tooltip ── */
+.social-bar__link::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #1a1b1f;
+  color: #e8e9ec;
+  font-family: system-ui, sans-serif;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  padding: 4px 9px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.1);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.social-bar__link:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Divider between icon groups ── */
+.social-bar__divider {
+  width: 1px;
+  height: 22px;
+  background: var(--sb-border);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+/* ── Entrance stagger for each icon ── */
+.social-bar.is-visible .social-bar__link:nth-child(1)  { transition-delay: .02s; }
+.social-bar.is-visible .social-bar__link:nth-child(2)  { transition-delay: .04s; }
+.social-bar.is-visible .social-bar__link:nth-child(3)  { transition-delay: .06s; }
+.social-bar.is-visible .social-bar__link:nth-child(4)  { transition-delay: .08s; }
+.social-bar.is-visible .social-bar__link:nth-child(5)  { transition-delay: .10s; }
+.social-bar.is-visible .social-bar__link:nth-child(6)  { transition-delay: .12s; }
+.social-bar.is-visible .social-bar__link:nth-child(7)  { transition-delay: .14s; }
+.social-bar.is-visible .social-bar__link:nth-child(8)  { transition-delay: .16s; }
+
+/* ── Reduced-motion respect ── */
+@media (prefers-reduced-motion: reduce) {
+  .social-bar,
+  .social-bar__link,
+  .social-bar__link::after {
+    transition: none !important;
+  }
+}
