@@ -6,26 +6,19 @@
 <link rel="stylesheet" href="style.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.css">
 <title>Portfolio Website</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
 
 <style>
+  /* Page transition only — all other body/nav/header styles come from style.css */
   body {
-    margin: 0;
-    font-family: Poppins, sans-serif;
-    background-color: #111;
-    color: #fff;
     opacity: 0;
     transform: scale(1.03);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
-
   body.page-loaded { opacity: 1; transform: scale(1); }
   body.page-exit   { opacity: 0; transform: scale(0.92); }
 
-  nav a { text-decoration: none; transition: 0.3s; }
-  nav a:hover { color: #00FFB6; }
+
 
   /* ── HERO ── */
   .hero {
@@ -48,7 +41,6 @@
   }
   body.page-loaded .hero-label { opacity: 1; }
 
-  /* ── SLIDE IN for hero name ── */
   .hero-name {
     font-size: clamp(48px, 9vw, 120px);
     font-weight: 600;
@@ -166,19 +158,48 @@
     background: rgba(255,255,255,0.08);
   }
 
+  /* ── GRID ── */
   .grid-wrap {
     width: 88%;
     max-width: 1280px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
   }
 
-  .grid-row {
+  /* Row 1: Feature (wider) + 2 equal beside it */
+  .grid-row.row1 {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-rows: 300px;
+    gap: 16px;
+  }
+
+  /* Row 2: 3 equal columns */
+  .grid-row.row2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 240px;
+    gap: 16px;
+  }
+
+  /* Row 3: Centered contained card — prevents GIF upscaling */
+  .grid-row.row3 {
     display: flex;
-    gap: 24px;
-    align-items: stretch;
+    justify-content: center;
+  }
+
+  .grid-row.row3 .grid-item {
+    width: 100%;
+    max-width: 520px;
+    height: 240px;
+  }
+
+  .grid-row.row3 .grid-item img {
+    object-fit: contain;
+    object-position: center;
+    background: #111;
   }
 
   .grid-item {
@@ -189,7 +210,7 @@
     background: #1a1a1a;
     border: 1px solid rgba(255,255,255,0.07);
     opacity: 0;
-    transform: translateY(60px);
+    transform: translateY(50px);
     transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.3s ease;
@@ -199,26 +220,30 @@
     opacity: 1;
     transform: translateY(0);
   }
+
   .grid-item:hover { border-color: rgba(0,255,182,0.3); }
 
   .grid-item img,
   .grid-item video {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.5s ease;
   }
 
   .grid-item:hover img,
-  .grid-item:hover video { transform: scale(1.03); }
+  .grid-item:hover video { transform: scale(1.04); }
 
+  /* Overlay */
   .grid-text-overlay {
     position: absolute;
     inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 22px 24px;
+    padding: 20px 22px;
     background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -227,23 +252,26 @@
 
   .grid-item:hover .grid-text-overlay { opacity: 1; }
 
-  /* Title text hidden below, fades up on hover */
+  /* Row 3 overlay always visible */
+  .row3 .grid-text-overlay { opacity: 1; }
+
   .grid-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: #00FFB6;
-    margin-bottom: 3px;
-    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(12px);
     transition: opacity 0.35s ease 0.05s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
   }
 
   .grid-caption {
     font-size: 12px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.5);
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
     transition: opacity 0.35s ease 0.1s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
   }
 
@@ -253,50 +281,18 @@
     transform: translateY(0);
   }
 
-  /* Always-visible overlays (row3 banner) keep titles shown */
-  .grid-text-overlay[style*="opacity:1"] .grid-title,
-  .grid-text-overlay[style*="opacity: 1"] .grid-title {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .grid-text-overlay[style*="opacity:1"] .grid-caption,
-  .grid-text-overlay[style*="opacity: 1"] .grid-caption {
+  /* Row 3 title/caption always visible */
+  .row3 .grid-title,
+  .row3 .grid-caption {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .row1 { align-items: flex-start; }
-  .row1 .item-feature { flex: 0 0 60%; }
-  .row1 .col-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .row1 .col-right .grid-item { flex: 1; min-height: 180px; }
-  .row1 .col-right .grid-item img,
-  .row1 .col-right .grid-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  /* Feature card (row1 first item) larger title */
+  .item-feature .grid-title { font-size: 20px; }
 
-  .row2 .grid-item { flex: 1; }
-
-  .row3 .grid-item {
-    flex: 1;
-    max-height: 320px;
-    overflow: hidden;
-  }
-  .row3 .grid-item img,
-  .row3 .grid-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-  }
-  .row3 .grid-title { font-size: 20px; }
-  .row3 .grid-text-overlay { opacity: 1; }
+  /* Row 3 banner larger title */
+  .row3 .grid-title { font-size: 18px; }
 
   footer {
     position: static !important;
@@ -304,21 +300,39 @@
     font-size: 12px;
     color: #8a8a8a;
     padding: 24px;
-    margin-top: 40px;
+    margin-top: 60px;
   }
 
-  @media (max-width: 800px) {
-    .row1 { flex-direction: column; }
-    .row1 .item-feature { flex: 1 1 auto; }
-    .row1 .col-right { flex-direction: row; gap: 16px; }
-    .row2 { flex-wrap: wrap; }
-    .row2 .grid-item { flex: 0 0 calc(50% - 6px); }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .grid-row.row1 {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 220px 220px;
+    }
+    .grid-row.row1 .item-feature {
+      grid-column: 1 / -1;
+    }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     .hero { padding: 110px 5% 60px; }
-    .row1 .col-right { flex-direction: column; }
-    .row2 .grid-item { flex: 1 1 100%; }
+
+    .grid-row.row1,
+    .grid-row.row2 {
+      grid-template-columns: 1fr;
+      grid-template-rows: unset;
+    }
+    .grid-row.row1 .grid-item,
+    .grid-row.row2 .grid-item {
+      height: 220px;
+    }
+    .grid-row.row3 {
+      grid-template-rows: 180px;
+    }
+    .grid-row.row1 .item-feature {
+      grid-column: unset;
+      height: 260px;
+    }
   }
 </style>
 </head>
@@ -346,7 +360,7 @@
   <h1 class="hero-name">
     <span class="name-inner">Projects</span>
   </h1>
-  <p class="hero-blurb">A <strong> Visual Artist </strong> and <strong> Creative Producer </strong> who loves stories, animation, and games! With professional experience at <strong>The Walt Disney Company</strong>, <strong>ExpressLaneLLC</strong>, and <strong>UCLA</strong>, I am excited to bring your vision to life.</p>
+  <p class="hero-blurb">A <strong>Visual Artist</strong> and <strong>Creative Producer</strong> who loves stories, animation, and games! With professional experience at <strong>The Walt Disney Company</strong>, <strong>ExpressLaneLLC</strong>, and <strong>UCLA</strong>, I am excited to bring your vision to life.</p>
 </section>
 
 <div data-scroll-container>
@@ -369,64 +383,79 @@
   <!-- Grid -->
   <div class="grid-wrap">
 
+    <!-- Row 1: Feature card + 2 equal cards -->
     <div class="grid-row row1">
+
       <div class="grid-item item-feature" data-link="Page1.html">
         <img src="sprout.png" alt="Dreamscape">
         <div class="grid-text-overlay">
-          <div class="grid-title" style="font-size:22px;">DREAMSCAPE</div>
+          <div class="grid-title">Dreamscape</div>
           <div class="grid-caption">Digital Game</div>
         </div>
       </div>
-      <div class="col-right">
-        <div class="grid-item" data-link="Page2.html">
-          <video autoplay loop muted playsinline><source src="sproutcover.mp4" type="video/mp4"></video>
-          <div class="grid-text-overlay">
-            <div class="grid-title">SPROUTED</div>
-            <div class="grid-caption">Stop-Motion Animation Film</div>
-          </div>
-        </div>
-        <div class="grid-item" data-link="Page3.html">
-          <img src="San.gif" alt="Scarab">
-          <div class="grid-text-overlay">
-            <div class="grid-title">SCARAB</div>
-            <div class="grid-caption">Digital Game</div>
-          </div>
+
+      <div class="grid-item" data-link="Page2.html">
+        <video autoplay loop muted playsinline>
+          <source src="sproutcover.mp4" type="video/mp4">
+        </video>
+        <div class="grid-text-overlay">
+          <div class="grid-title">Sprouted</div>
+          <div class="grid-caption">Stop-Motion Animation Film</div>
         </div>
       </div>
+
+      <div class="grid-item" data-link="Page3.html">
+        <img src="San.gif" alt="Scarab">
+        <div class="grid-text-overlay">
+          <div class="grid-title">Scarab</div>
+          <div class="grid-caption">Digital Game</div>
+        </div>
+      </div>
+
     </div>
 
+    <!-- Row 2: 3 equal cards -->
     <div class="grid-row row2">
+
       <div class="grid-item" data-link="Page4.html">
-        <video autoplay loop muted playsinline><source src="FishyPromo.mp4" type="video/mp4"></video>
+        <video autoplay loop muted playsinline>
+          <source src="FishyPromo.mp4" type="video/mp4">
+        </video>
         <div class="grid-text-overlay">
-          <div class="grid-title">FISHY</div>
+          <div class="grid-title">Fishy</div>
           <div class="grid-caption">Digital Game</div>
         </div>
       </div>
+
       <div class="grid-item" data-link="Page5.html">
         <img src="card6.jpeg" alt="Board Games">
         <div class="grid-text-overlay">
-          <div class="grid-title">BOARD GAMES</div>
+          <div class="grid-title">Board Games</div>
           <div class="grid-caption">Fabricated Games</div>
         </div>
       </div>
+
       <div class="grid-item" data-link="Page6.html">
         <img src="destinationpromo.gif" alt="Destination">
         <div class="grid-text-overlay">
-          <div class="grid-title">DESTINATION</div>
+          <div class="grid-title">Destination</div>
           <div class="grid-caption">Digital Game</div>
         </div>
       </div>
+
     </div>
 
+    <!-- Row 3: Full-width banner -->
     <div class="grid-row row3">
+
       <div class="grid-item" data-link="Page7.html">
-        <img src="gobbyy.png" alt="ExpressLaneLLC">
-        <div class="grid-text-overlay">
-          <div class="grid-title">EXPRESSLANE LLC</div>
+        <img src="ExpressLanePromo.gif" alt="ExpressLaneLLC" style="object-position: center 30%;">
+        <div class="grid-text-overlay" style="padding: 24px 28px;">
+          <div class="grid-title">ExpressLane LLC</div>
           <div class="grid-caption">First-Person Shooting Game</div>
         </div>
       </div>
+
     </div>
 
   </div>
@@ -518,7 +547,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-<!-- <script src="social-bar.js"></script> -->
 
 </body>
 </html>
