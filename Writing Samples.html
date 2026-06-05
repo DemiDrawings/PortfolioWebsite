@@ -8,6 +8,8 @@
   <title>Portfolio Website</title>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
     html, body {
       height: 100%;
     }
@@ -30,113 +32,471 @@
     body.page-loaded { opacity: 1; transform: scale(1); }
     body.page-exit { opacity: 0; transform: scale(0.9); }
 
-    /* FULL-SCREEN GRID */
-    .grid-container {
-      width: 100%;
-      min-height: 100vh;
+    /* PAGE LAYOUT */
+    .writing-page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 120px 40px 100px;
+    }
+
+    /* SECTION HEADER */
+    .writing-header {
+      margin-bottom: 64px;
+    }
+
+    .writing-header .eyebrow {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #00FFB6;
+      margin: 0 0 16px;
+    }
+
+    .writing-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: clamp(36px, 6vw, 64px);
+      color: #fff;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .writing-header h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: #aaa;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: #00FFB6;
+      margin: 32px 0 0;
+    }
+
+    /* CARD GRID */
+    .cards-grid {
       display: grid;
       grid-template-columns: 1fr;
-      grid-auto-rows: 100vh;
-      gap: 30px;
-      padding: 0;
-      margin-top: 70px;
+      gap: 2px;
     }
 
-    .grid-item {
+    /* INDIVIDUAL CARD */
+    .writing-card {
       position: relative;
-      display: flex;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: center;
-      background: #222;
-      border-radius: 12px;
-      overflow: hidden;
+      gap: 32px;
+      padding: 36px 0;
+      border-bottom: 1px solid #2a2a2a;
+      text-decoration: none;
+      transition: border-color 0.3s ease;
+      cursor: default;
     }
 
-    .sample-content {
-      text-align: center;
+    .writing-card:first-child {
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .writing-card:hover {
+      border-bottom-color: #444;
+    }
+
+    .writing-card:hover .card-index {
+      color: #00FFB6;
+    }
+
+    .writing-card:hover .pdf-btn {
+      background: #00FFB6;
+      color: #111;
+    }
+
+    .writing-card:hover .card-title {
       color: #fff;
     }
 
-    .sample-content h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
+    /* CARD INDEX */
+    .card-index {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: #444;
+      letter-spacing: 0.1em;
+      margin: 0 0 12px;
+      transition: color 0.3s ease;
     }
 
+    /* CARD CONTENT */
+    .card-body {
+      flex: 1;
+    }
+
+    .card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 600;
+      color: #ccc;
+      margin: 0 0 10px;
+      line-height: 1.2;
+      transition: color 0.3s ease;
+    }
+
+    .card-blurb {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+      line-height: 1.7;
+      max-width: 520px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+    }
+
+    /* TAG CHIPS */
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      border: 1px solid #2a2a2a;
+      border-radius: 3px;
+      padding: 3px 8px;
+    }
+
+    /* CTA BUTTON */
     .pdf-btn {
-      padding: 12px 30px;
-      font-size: 16px;
-      background-color: #00FFB6;
-      border: none;
-      border-radius: 8px;
+      flex-shrink: 0;
+      padding: 10px 22px;
+      font-size: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: transparent;
+      color: #00FFB6;
+      border: 1px solid #00FFB6;
+      border-radius: 4px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+      transition: background 0.25s ease, color 0.25s ease;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .pdf-btn:hover {
-      background-color: #ffffff;
+      background: #00FFB6;
+      color: #111;
     }
 
+    /* FOOTER COUNT */
+    .writing-footer {
+      margin-top: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .writing-footer span {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: #444;
+      letter-spacing: 0.15em;
+    }
+
+    .writing-footer .line {
+      flex: 1;
+      height: 1px;
+      background: #2a2a2a;
+    }
+
+    /* POETRY SECTION */
+    .poetry-section {
+      margin-top: 100px;
+    }
+
+    .poetry-section .section-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #00FFB6;
+      margin: 0 0 24px;
+    }
+
+    .poetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .poem-card {
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 36px 32px;
+      transition: border-color 0.3s ease;
+    }
+
+    .poem-card:hover { border-color: #444; }
+    .poem-card:hover .poem-title { color: #fff; }
+
+    .poem-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ccc;
+      margin: 0 0 6px;
+      transition: color 0.3s ease;
+    }
+
+    .poem-meta {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #444;
+      margin: 0 0 24px;
+    }
+
+    .poem-body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: #777;
+      line-height: 2;
+      white-space: pre-line;
+      margin: 0;
+      max-height: 180px;
+      overflow: hidden;
+      mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+      transition: max-height 0.6s ease;
+      text-align: center;
+    }
+
+    .poem-card.expanded .poem-body {
+      max-height: 2000px;
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+
+    .poem-toggle {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #00FFB6;
+      background: none;
+      border: none;
+      padding: 16px 0 0;
+      cursor: pointer;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+
+    .poem-toggle:hover { opacity: 0.7; }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .writing-page { padding: 100px 20px 80px; }
+      .writing-card { grid-template-columns: 1fr; gap: 20px; }
+      .pdf-btn { width: fit-content; }
+      .poetry-grid { grid-template-columns: 1fr; }
+      .poem-card { padding: 28px 20px; }
+    }
   </style>
 </head>
 <body>
- <header>
+
+<header>
   <a href="index.html" class="logo">
     <img src="Demi Logo.png" alt="Logo" class="logo-icon">
   </a>
-
-<!-- Hamburger (mobile only) -->
-<div class="ham-menu" id="hamburger">
-  <img src="Star Icon.png" alt="Menu">
-</div>
-
+  <div class="ham-menu" id="hamburger">
+    <img src="Star Icon.png" alt="Menu">
+  </div>
   <nav class="main-nav" id="mainNav">
-    <a href="index.html" class="active">About</a>
-    <a href="VisualArt.html">Visual Art</a>
-    <a href="Design.html">Design</a>
-    <a href="Writing Samples.html">Writing</a>
-    <a href="Other.html">Projects</a>
+      <a href="index.html">About</a>
+      <a href="Other.html">Projects</a>
+      <a href="VisualArt.html">Visual Art</a>
+      <a href="Design.html">Design</a>
+      <a href="Writing Samples.html" class="active">Writing</a>
   </nav>
 </header>
 
-  <div data-scroll-container>
-    <div class="grid-container">
+<div data-scroll-container>
+  <div class="writing-page">
 
-      <!-- Storywriting Sample 1 -->
-      <div class="grid-item" data-scroll data-scroll-class="in-view">
-        <div class="sample-content">
-          <h2>Story Development Sample: Beat Sheet</h2>
-          <p class="blurb">Beat Sheet for the Feature Film Development course at the University of California, Los Angeles. </p>
-          <a href="Script Notes Final, Producing 1 .pdf" target="_blank">
-            <button class="pdf-btn">View Script</button>
-          </a>
+    <div class="writing-header" data-scroll data-scroll-class="in-view">
+      <p class="eyebrow">Selected Works</p>
+      <h1>Writing <em>&amp; Story</em></h1>
+      <div class="divider"></div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- Card 1 -->
+      <div class="writing-card" data-scroll data-scroll-class="in-view">
+        <div class="card-body">
+          <p class="card-index">01</p>
+          <h2 class="card-title">Story Development Sample: Beat Sheet</h2>
+          <p class="card-blurb">Beat Sheet for the Feature Film Development course at the University of California, Los Angeles.</p>
+          <div class="card-tags">
+            <span class="tag">Feature Film</span>
+            <span class="tag">UCLA</span>
+            <span class="tag">Development</span>
+          </div>
         </div>
+        <a href="Script Notes Final, Producing 1 .pdf" target="_blank" class="pdf-btn">View Script</a>
       </div>
 
-      <!-- Storywriting Sample 2 -->
-      <div class="grid-item" data-scroll data-scroll-class="in-view">
-        <div class="sample-content">
-          <h2>Fallen</h2>
-          <a href="Film _ TV, Fallen.pdf" target="_blank">
-            <p class="blurb">Original horror and adventure sample screenwrite.</p>
-            <button class="pdf-btn">View Script</button>
-          </a>
+      <!-- Card 2 -->
+      <div class="writing-card" data-scroll data-scroll-class="in-view">
+        <div class="card-body">
+          <p class="card-index">02</p>
+          <h2 class="card-title">Fallen</h2>
+          <p class="card-blurb">Original horror and adventure sample screenplay.</p>
+          <div class="card-tags">
+            <span class="tag">Screenplay</span>
+            <span class="tag">Horror</span>
+            <span class="tag">Adventure</span>
+          </div>
         </div>
+        <a href="Film _ TV, Fallen.pdf" target="_blank" class="pdf-btn">View Script</a>
       </div>
 
-      <!-- Storywriting Sample 3 -->
-      <div class="grid-item" data-scroll data-scroll-class="in-view">
-        <div class="sample-content">
-          <h2>Scarab</h2>
-          <p class="blurb">Draft for self-led indie game, Scarab. Written by Anthony Nash, Akemi Webster, & Demi Saleeb.</p>
-          <a href="Demi Saleeb, SCARAB SCREENWRITING.pdf" target="_blank">
-            <button class="pdf-btn">View Script</button>
-          </a>
+      <!-- Card 3 -->
+      <div class="writing-card" data-scroll data-scroll-class="in-view">
+        <div class="card-body">
+          <p class="card-index">03</p>
+          <h2 class="card-title">Scarab</h2>
+          <p class="card-blurb">Draft for self-led indie game, Scarab. Written by Anthony Nash, Akemi Webster, &amp; Demi Saleeb.</p>
+          <div class="card-tags">
+            <span class="tag">Indie Game</span>
+            <span class="tag">Collaborative</span>
+            <span class="tag">Narrative</span>
+          </div>
         </div>
+        <a href="Demi Saleeb, SCARAB SCREENWRITING.pdf" target="_blank" class="pdf-btn">View Script</a>
       </div>
 
     </div>
+
+    <div class="writing-footer">
+      <span>3 Works</span>
+      <div class="line"></div>
+    </div>
+
+    <!-- POETRY SECTION -->
+    <div class="poetry-section" data-scroll data-scroll-class="in-view">
+      <p class="section-label">Poetry</p>
+
+      <div class="poetry-grid">
+
+        <!-- Poem 1 — replace title, meta, and paste poem text inside the <p class="poem-body"> tag -->
+        <div class="poem-card" data-scroll data-scroll-class="in-view">
+          <h3 class="poem-title">Transcendence</h3>
+          <p class="poem-meta">2022 &mdash; Lyric</p>
+          <p class="poem-body">I transcend setback into opportunity:
+I can turn a blank canvas into color. 
+I chart my mind with ink and lead. 
+I pick up broken fragments—
+honeyed with molten gold where once was cleft. 
+That is the work of ruined hands. 
+That is what it means to be a creator
+to be past the breaking point
+on the verge of decay…and casting light. 
+We are everything the world sought to unmake... 
+</p>
+          <button class="poem-toggle" onclick="togglePoem(this)">Read more</button>
+        </div>
+
+        <!-- Poem 2 -->
+        <div class="poem-card" data-scroll data-scroll-class="in-view">
+          <h3 class="poem-title">Broken Constellations</h3>
+          <p class="poem-meta">2023 &mdash; Lyric</p>
+          <p class="poem-body">Do you remember the stars and the city
+the light of a thousand lives we had yet to meet?
+Through the myriads of people
+ we have become something worse than strangers.
+Still, I will sit with you. 
+Even in silence. 
+</p>
+
+  <button class="poem-toggle" onclick="togglePoem(this)">Read more</button>
+        </div>
+
+        <!-- Poem 2 -->
+        <div class="poem-card" data-scroll data-scroll-class="in-view">
+          <h3 class="poem-title">The Tide that Broke</h3>
+          <p class="poem-meta">2025 &mdash; Lyric</p>
+          <p class="poem-body">You care so much to care so little.
+Your loneliness is a tide that never broke the shore
+Unknowing the depth of it, until drowned by its omission
+Chasing shadows, picking up washed stones 
+
+</p>
+          <button class="poem-toggle" onclick="togglePoem(this)">Read more</button>
+        </div>
+
+        <!-- Poem 3 -->
+        <div class="poem-card" data-scroll data-scroll-class="in-view">
+          <h3 class="poem-title">Devil's Pact</h3>
+          <p class="poem-meta">2025 &mdash; Lyric</p>
+          <p class="poem-body"> What is this damnation,
+With hair made up of fire 
+Eyes that court all of fall
+Glowing like embers in the dark
+
+I would never tell
+How their deviled grin
+Was a pact of brimstone 
+I, their unwavering clientele
+
+How remiss
+A scripture you sell me
+Try and compel
+All to believe
+
+A prayer between your teeth
+A desire so ceaseless
+Unending, deathless 
+Like the Gods that bane their existence 
+
+But they are no saint nor devil
+They are just a vessel
+A member of the undivine orchestration 
+Who forgets my face in every ordainment 
+
+</p>
+          <button class="poem-toggle" onclick="togglePoem(this)">Read more</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="writing-footer" style="margin-top: 56px;">
+      <span>Poetry</span>
+      <div class="line"></div>
+    </div>
+
   </div>
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
   <script>
@@ -151,7 +511,6 @@
         });
         setTimeout(() => scroll.update(), 500);
 
-        // PAGE EXIT TRANSITION
         document.querySelectorAll("a[href]").forEach(link => {
           link.addEventListener("click", e => {
             const url = link.getAttribute("href");
@@ -164,13 +523,18 @@
 
       });
     });
+
+    function togglePoem(btn) {
+      const card = btn.closest('.poem-card');
+      card.classList.toggle('expanded');
+      btn.textContent = card.classList.contains('expanded') ? 'Read less' : 'Read more';
+    }
   </script>
 
  <footer>
   © Demi Saleeb 2025
  </footer>
 
- <!-- HAMBURGER MENU SCRIPT -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
@@ -202,9 +566,7 @@
       });
 
       mainNav.addEventListener('click', (e) => {
-        if (e.target === mainNav) {
-          closeMenu();
-        }
+        if (e.target === mainNav) closeMenu();
       });
     }
   });
