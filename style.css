@@ -296,7 +296,7 @@ span { color: #00FFB6; }
 
 /* Twirl animation when active */
 .ham-menu.active img {
-  animation: twirl 1s cubic-bezier(0.38, -0.55, 0.265, 1.55) forwards;
+  animation: twirl 1s cubic-bezier(0.58, -0.55, 0.265, 1.55) forwards;
   filter: drop-shadow(0 0 10px #00FFB6) brightness(1.2);
 }
 
@@ -764,3 +764,4 @@ footer {
       color: #00FFB6;
       box-shadow: 0 0 14px rgba(0,255,182,0.25);
     }
+    

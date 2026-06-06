@@ -23,7 +23,6 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      /* background: url("WebAnimation.gif") no-repeat center center fixed; */
       background-size: cover;
       background-color: #111;
       color: #fff;
@@ -161,7 +160,6 @@
       padding-bottom: 0;
     }
 
-    /* The scrollable track — bleeds edge to edge */
     .filmstrip-track-wrap {
       overflow-x: auto;
       overflow-y: visible;
@@ -181,7 +179,6 @@
       width: max-content;
     }
 
-    /* Alternate card heights for film-strip rhythm */
     .project-card {
       position: relative;
       border-radius: 16px;
@@ -197,7 +194,6 @@
       width: 360px;
     }
 
-    /* Tall / short alternation */
     .project-card:nth-child(odd)  { margin-top: 0; }
     .project-card:nth-child(even) { margin-top: 60px; }
 
@@ -208,7 +204,6 @@
       transform: translateY(-8px) scale(1.02);
     }
 
-    /* Keep even cards from jumping too far on hover */
     .project-card:nth-child(even):hover {
       transform: translateY(52px) scale(1.02);
     }
@@ -268,8 +263,6 @@
     .hover-cta::after { content: '→'; transition: transform 0.3s ease; }
     .project-card:hover .hover-cta::after { transform: translateX(5px); }
 
-
-
     .card-info {
       padding: 18px 20px 22px;
       display: flex;
@@ -317,7 +310,6 @@
       box-shadow: 0 0 10px rgba(0,255,182,0.2);
     }
 
-    /* Drag hint arrow */
     .drag-hint {
       padding: 0 9%;
       margin-top: 8px;
@@ -450,28 +442,43 @@
     .lightbox.active .lightbox-inner { transform: scale(1); }
     .lightbox-inner iframe { width: 100%; height: 100%; border: 0; }
 
+    /* ── CLOSE BUTTON ── */
     .close-btn {
       position: fixed;
       top: 24px; right: 28px;
       background: transparent;
-      border: 1.5px solid rgba(255,255,255,0.2);
-      color: #fff;
+      border: none;
       width: 44px; height: 44px;
-      border-radius: 50%;
-      font-size: 2rem;
       cursor: pointer;
       z-index: 1001;
-      transition: all 0.3s ease;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 6px;
+      padding: 0;
     }
 
-    .close-btn:hover {
-      border-color: #00FFB6;
-      color: #00FFB6;
-      box-shadow: 0 0 16px rgba(0,255,182,0.3);
-      transform: rotate(90deg);
+    .close-btn .bar {
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: #fff;
+      transition: transform 0.4s ease, background 0.3s ease;
+      transform-origin: center;
+    }
+
+    /* X state — when lightbox is active */
+    .lightbox.active .close-btn .bar:first-child {
+      transform: translateY(4px) rotate(45deg);
+    }
+    .lightbox.active .close-btn .bar:last-child {
+      transform: translateY(-4px) rotate(-45deg);
+    }
+
+    /* Hover on X: tint green */
+    .lightbox.active .close-btn:hover .bar {
+      background: #00FFB6;
     }
 
     footer {
@@ -499,7 +506,7 @@
       <a href="Other.html">Projects</a>
       <a href="VisualArt.html">Visual Art</a>
       <a href="Design.html" class="active">Design</a>
-      <a href="Writing Samples.html">Writing</a>
+      <a href="Writing Samples.html">Story</a>
   </nav>
 </header>
 
@@ -509,17 +516,14 @@
     <section class="hero">
       <div class="hero-inner">
         <div class="hero-left">
-          <p class="hero-eyebrow">Design Work</p>
+          <p class="hero-eyebrow">Graphic Design</p>
           <h1 class="hero-title">
             Design<br>
-            <!-- <span class="dim">&amp;</span><br>
-            Design -->
           </h1>
         </div>
         <div class="hero-right">
           <p class="hero-desc">
-Translating complex ideas into engaging visual solutions. I lead projects from initial concept through to final execution, with a process rooted in research, iterative prototyping, and seamless collaboration.          </p>
-          <p class="hero-count">03 Selected Projects</p>
+          <!-- <p class="hero-count"> For optimal visual presentation, please view site on a desktop.</p> -->
         </div>
       </div>
       <div class="hero-divider"></div>
@@ -535,16 +539,16 @@ Translating complex ideas into engaging visual solutions. I lead projects from i
           <!-- Card 1 -->
           <div class="project-card" data-link="GraphicsProject.html">
             <div class="card-media">
-              <img src="Graphic Design1.png" alt="UCLA Athletics">
+              <img src="SoccerGraphic_Portfolio_4.png" alt="UCLA Athletics">
               <div class="card-hover-overlay"><span class="hover-cta">View Project</span></div>
             </div>
             <div class="card-info">
               <div class="card-meta">
                 <p class="card-index">01</p>
                 <h2 class="card-title">UCLA Athletics</h2>
-                <p class="card-sub">Dynamic Graphics</p>
+                <p class="card-sub">Art Direction | Graphic Design</p>
               </div>
-              <span class="card-tag">Motion</span>
+              <span class="card-tag">Photoshop</span>
             </div>
           </div>
 
@@ -560,6 +564,7 @@ Translating complex ideas into engaging visual solutions. I lead projects from i
                 <h2 class="card-title">Digital Publication</h2>
                 <p class="card-sub">Editorial Design</p>
               </div>
+              <span class="card-tag">InDesign</span>
               <span class="card-tag">Print</span>
             </div>
           </div>
@@ -576,7 +581,8 @@ Translating complex ideas into engaging visual solutions. I lead projects from i
                 <h2 class="card-title">Voting Rights</h2>
                 <p class="card-sub">Campaign Design</p>
               </div>
-              <span class="card-tag">Campaign</span>
+              <span class="card-tag">Illustrator</span>
+              <span class="card-tag">Photoshop</span>
             </div>
           </div>
 
@@ -604,13 +610,17 @@ I specialize in creating visual identities for major initiatives like UCLA First
       </div>
     </section>
 
+
   <footer>© Demi Saleeb 2025</footer>
 
   </div>
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
-    <button class="close-btn" id="closeBtn">✕</button>
+    <button class="close-btn" id="closeBtn">
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
     <div class="lightbox-inner" id="lightboxInner"></div>
   </div>
 
@@ -742,5 +752,6 @@ I specialize in creating visual identities for major initiatives like UCLA First
       });
     });
   </script>
+  <script src="transitions.js"></script>
 </body>
 </html>
