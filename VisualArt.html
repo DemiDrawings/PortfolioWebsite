@@ -108,14 +108,14 @@
       width: 90%; max-width: 1200px;
       margin: 90px auto 0;
       display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
-      border-bottom: 1px solid rgba(0,255,182,0.18);
+      /* border-bottom: 1px solid rgba(0,255,182,0.18); */
       padding-bottom: 16px;
       opacity: 0; transform: translateY(18px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
     .section-label.in-view { opacity: 1; transform: translateY(0); }
     .section-label h2 {
-      font-size: clamp(1.6rem, 1.8vw, 2.75rem);
+      font-size: clamp(1.6rem, 1.0vw, 2.75rem);
       font-weight: 500; line-height: 1; color: #fff;
     }
     .section-label h2 span { color: #00FFB6; text-shadow: 0 0 20px rgba(0,255,182,0.3); }
@@ -274,23 +274,63 @@
       <a href="index.html">About</a>
       <a href="Other.html">Projects</a>
       <a href="VisualArt.html">Visual Art</a>
-      <a href="Design.html" class="active">Design</a>
+      <a href="Design.html" >Design</a>
       <a href="Writing Samples.html">Story</a>
   </nav>
 </header>
 
   <!-- Hero -->
   <div class="page-hero">
-    <p class="eyebrow"> - Visual Development - </p>
+    <!-- <p class="eyebrow"> - Visual Development - </p> -->
     <h1>Visual <span>Art</span></h1>
     <p class="sub"> For optimal visual presentation, please view site on a desktop. </p>
+  </div>
+
+      <!-- ═══ 3D ═══ -->
+  <div class="section-label" id="sl4">
+    <h2>3<span>D</span></h2>
+    <div class="label-meta">
+      <!-- <span class="label-index">04 / 04</span> -->
+      <p>Models &amp; renders</p>
+    </div>
+  </div>
+
+  <div class="photo-grid" id="pg4">
+    <a href="project-ruins.html">
+  <div class="photo-card">
+    <img src="ruinsp.png" alt="Ruins">
+    ...
+  </div>
+  </a>
+
+    <!-- <div class="photo-card"><img src="Fish Takayaki2.jpg"    alt="Ruins"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
+    <!-- <div class="photo-card"><img src="sprout 3d.png" alt="Sprout 3D"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
+    <!-- <div class="photo-card"><img src="g1.png"        alt="3D 1"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
+   
+  <!-- </a>
+    <a href="project-goblin.html">
+  <div class="photo-card">
+    <img src="Goblin Photoshoot2.png" alt="Goblin">
+    ...
+  </div>
+  </a> -->
+
+   <!-- <a href="room-project.html">
+  <div class="photo-card">
+    <img src="r1.jpg" alt="Room">
+    ...
+  </div>
+  </a> -->
+
+    <!-- <div class="photo-card"><img src="gobster.jpg"   alt="Gobster"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
+  <!-- <div class="photo-card"><img src="Sprout2D.png"    alt="Goblin"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
   </div>
   
   <!-- ═══ ILLUSTRATION ═══ -->
   <div class="section-label" id="sl1">
     <h2>2D ART</span></h2>
     <div class="label-meta">
-      <span class="label-index">01 / 04</span>
+      <!-- <span class="label-index">01 / 04</span> -->
       <p>Digital art &amp; paintings</p>
     </div>
   </div>
@@ -313,7 +353,7 @@
 
   </div>
 
-  <!-- ═══ CONCEPT ART ═══ -->
+  <!-- ═══ CONCEPT ART ═══
   <div class="section-label" id="sl2">
     <h2>CONCEPT <span>ART</span></h2>
     <div class="label-meta">
@@ -324,20 +364,20 @@
 
   <div class="photo-grid" id="pg2">
     <div class="photo-card"><img src="aris.png"        alt="Aris"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-    <!-- <div class="photo-card"><img src="qamaar.png"      alt="Qamaar"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
+    <div class="photo-card"><img src="qamaar.png"      alt="Qamaar"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
     <div class="photo-card"><img src="nomadca.png"     alt="Nomad"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
     <div class="photo-card"><img src="weapon.png"      alt="Weapon"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
     <div class="photo-card"><img src="chibisprout.gif" alt="Chibi Sprout"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-    <div class="photo-card"><img src="sproutcd.png"    alt="Sprout CD"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-        <!-- <div class="photo-card"><img src="sketch1.jpg" alt="Sketch 1"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
+    <div class="photo-card"><img src="SproutConceptArt.png"    alt="Sprout CD"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        <div class="photo-card"><img src="sketch1.jpg" alt="Sketch 1"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
 
-  </div>
+  </div> -->
 
   <!-- ═══ SKETCHES ═══ -->
   <div class="section-label" id="sl3">
     <h2><span>SKETCHES</span></h2>
     <div class="label-meta">
-      <span class="label-index">03 / 04</span>
+      <!-- <span class="label-index">03 / 04</span> -->
       <p>Studies &amp; gestures</p>
     </div>
   </div>
@@ -349,7 +389,7 @@
     <!-- <div class="photo-card"><img src="sketchy.png" alt="Demi"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
     <div class="photo-card"><img src="handy.jpg"   alt="Hand Study"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
     <!-- <div class="photo-card"><img src="body.jpg"    alt="Body Study"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
-    <div class="photo-card"><img src="owls2.png"   alt="Owls"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <!-- <div class="photo-card"><img src="owls2.png"   alt="Owls"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
     <div class="photo-card"><img src="hades1.jpg"   alt="Hades"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
     <div class="photo-card"><img src="qamaar splashforfun.jpg"   alt="QamaarSplash"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
     <!-- <div class="photo-card"><img src="al.jpeg"   alt="QamaarSplash"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
@@ -357,46 +397,6 @@
     <!-- <div class="photo-card"><img src="ross.jpeg"   alt="QamaarSplash"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
 
 
-  </div>
-
-    <!-- ═══ 3D ═══ -->
-  <div class="section-label" id="sl4">
-    <h2>3<span>D</span></h2>
-    <div class="label-meta">
-      <span class="label-index">04 / 04</span>
-      <p>Models &amp; renders</p>
-    </div>
-  </div>
-
-  <div class="photo-grid" id="pg4">
-    <a href="project-ruins.html">
-  <div class="photo-card">
-    <img src="ruinsp.png" alt="Ruins">
-    ...
-  </div>
-  </a>
-
-    <!-- <div class="photo-card"><img src="Fish Takayaki2.jpg"    alt="Ruins"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
-    <!-- <div class="photo-card"><img src="sprout 3d.png" alt="Sprout 3D"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
-    <!-- <div class="photo-card"><img src="g1.png"        alt="3D 1"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
-   
-  </a>
-    <a href="project-goblin.html">
-  <div class="photo-card">
-    <img src="Goblin Photoshoot2.png" alt="Goblin">
-    ...
-  </div>
-  </a>
-
-   <a href="room-project.html">
-  <div class="photo-card">
-    <img src="r1.jpg" alt="Room">
-    ...
-  </div>
-  </a>
-
-    <!-- <div class="photo-card"><img src="gobster.jpg"   alt="Gobster"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
-  <!-- <div class="photo-card"><img src="Sprout2D.png"    alt="Goblin"><div class="zoom-hint"><svg viewBox="0 0 24 24"><path d="M15 3h6m0 0v6m0-6l-7 7M9 21H3m0 0v-6m0 6l7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div> -->
   </div>
 
   
