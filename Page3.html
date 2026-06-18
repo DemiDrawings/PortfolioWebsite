@@ -1,319 +1,951 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background-size: cover;
-      background-position: center;
-      background: url("WebAnimation.gif") no-repeat center center fixed;
-      color: #00FFB6;
-      opacity: 0;
-      transform: scale(1.03);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SCARAB — Demi Saleeb</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --a:#00FFB6;
+  --a10:rgba(0,255,182,0.10);
+  --a20:rgba(0,255,182,0.20);
+  --a40:rgba(0,255,182,0.40);
+  --bg:#080808;
+  --s1:#111;
+  --s2:#161616;
+  --txt:#f0f0f0;
+  --muted:#777;
+  --body:#bdbdbd;
+  --r:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:"Poppins",sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;opacity:0;transition:opacity .5s}
+body.loaded{opacity:1}
 
-    body.page-loaded {
-      opacity: 1;
-      transform: scale(1);
-    }
+/* ── progress ── */
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--a);z-index:999;width:0;transition:width .08s linear}
 
-    body.page-exit {
-      opacity: 0;
-      transform: scale(0.9);
-    }
+/* ── HEADER ── */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 52px;
+  transition:padding .3s,background .3s;
+}
+header.scrolled{padding:12px 52px;background:rgba(8,8,8,.85);backdrop-filter:blur(20px);border-bottom:0.5px solid rgba(255,255,255,.05)}
+.logo img{height:34px;transition:transform .2s}
+.logo:hover img{transform:scale(1.06)}
+nav a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:.6px;margin-left:28px;transition:color .2s}
+nav a:hover{color:var(--a)}
 
-    .main-section {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 100px 60px;
-    }
+/* ── CHAPTER NAV (left side) ── */
+#chapnav{
+  position:fixed;left:28px;top:50%;transform:translateY(-50%);
+  z-index:200;display:flex;flex-direction:column;gap:14px;
+}
+.cn-dot{
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+  text-decoration:none;
+}
+.cn-pip{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--muted);transition:background .25s,transform .25s;
+  flex-shrink:0;
+}
+.cn-label{
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+  opacity:0;transform:translateX(-6px);
+  transition:opacity .2s,transform .2s,color .2s;
+  pointer-events:none;
+}
+.cn-dot:hover .cn-pip,.cn-dot.active .cn-pip{background:var(--a);transform:scale(1.5)}
+.cn-dot:hover .cn-label,.cn-dot.active .cn-label{opacity:1;transform:translateX(0);color:var(--a)}
 
-    .project-header {
-      text-align: center;
-      margin-bottom: 60px;
-      margin-top: 60px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
+/* ── HERO ── */
+#hero{
+  position:relative;height:100vh;min-height:600px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;text-align:center;
+}
+#hero-bg{position:absolute;inset:0;opacity:.3;z-index:0}
+#hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(8,8,8,.95) 80%);z-index:1}
+/* #spotlight{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(circle 280px at 50% 50%,rgba(0,255,182,.06) 0%,transparent 70%);
+  transition:background .05s;
+} */
+#hero-content{position:relative;z-index:3}
+.hero-eye{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--a);margin-bottom:18px;opacity:0;animation:fu .7s .2s forwards}
+#hero h1{
+  font-size:clamp(72px,12vw,140px);font-weight:600;
+  color:var(--a);line-height:1;letter-spacing:-2px;
+  margin-bottom:22px;opacity:0;animation:fu .7s .4s forwards;
+}
+.hero-sub{
+  font-size:clamp(13px,1.5vw,16px);font-weight:300;font-style:italic;
+  color:var(--body);max-width:520px;line-height:1.8;
+  margin:0 auto 36px;opacity:0;animation:fu .7s .6s forwards;
+}
+.hero-pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;opacity:0;animation:fu .7s .8s forwards}
+.pill{padding:6px 16px;border-radius:40px;border:1px solid var(--a40);font-size:11px;color:var(--a);letter-spacing:.4px}
+.hero-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:fu .7s 1.2s forwards;
+}
+.hero-scroll span{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+.arrow-anim{width:18px;height:18px;border-right:1.5px solid var(--a);border-bottom:1.5px solid var(--a);transform:rotate(45deg);animation:bounce 1.8s ease infinite}
 
-    .project-header.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
+/* ── SECTIONS ── */
+.chapter{padding:100px 120px 100px 80px;max-width:1300px;margin:0 auto}
+.sect-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--a);margin-bottom:14px}
+.sect-title{font-size:clamp(28px,4vw,46px);font-weight:500;line-height:1.15;margin-bottom:32px}
 
-    .project-header h1 {
-      font-size: 48px;
-      font-weight: 600;
-      color: #00FFB6;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:none}
 
-    .project-meta {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 30px;
-    }
+/* ── SYNOPSIS split ── */
+.synopsis-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.synopsis-body p{font-size:15px;line-height:1.9;color:var(--body);margin-bottom:1.1em}
+.synopsis-body p:last-child{margin-bottom:0}
+blockquote{
+  font-style:italic;font-size:17px;color:var(--txt);
+  border-left:2px solid var(--a);padding-left:20px;
+  margin-bottom:24px;line-height:1.7;
+}
+.synopsis-aside{display:flex;flex-direction:column;gap:16px}
+.stat-card{
+  background:var(--s1);border:0.5px solid rgba(255,255,255,.07);
+  border-radius:var(--r);padding:24px 22px;
+  transition:border-color .2s,background .2s;
+  cursor:default;
+}
+.stat-card:hover{border-color:var(--a20);background:rgba(0,255,182,.04)}
+.stat-card .val{font-size:32px;font-weight:600;color:var(--a);line-height:1}
+.stat-card .lbl{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.placeholder{
+  border:1.5px dashed rgba(0,255,182,.22);background:rgba(0,255,182,.02);
+  border-radius:var(--r);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+  padding:32px;color:rgba(0,255,182,.4);font-size:12px;text-align:center;
+  cursor:pointer;transition:border-color .2s,background .2s;
+}
+.placeholder:hover{border-color:rgba(0,255,182,.45);background:rgba(0,255,182,.05)}
+.ph-icon{font-size:26px;opacity:.45}
+.ph-title{font-weight:500;font-size:13px}
+.ph-hint{font-size:10px;opacity:.55}
 
-    .project-meta span {
-      padding: 8px 16px;
-      /* background: rgba(0, 255, 182, 0.1); */
-      border-radius: 20px;
-      border: 2px solid #00FFB6;
-    }
+/* ── VIDEO ── */
+.video-outer{border-radius:var(--r);overflow:hidden;aspect-ratio:16/9;background:#000;border:0.5px solid rgba(255,255,255,.07)}
+.video-outer video{width:100%;height:100%;object-fit:contain;display:block}
 
-  .project-description {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px;
-      background: rgba(37, 37, 37, 0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      /* border: 1px solid #ffffff; */
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
+/* ── INTERACTIVE GALLERY ── */
+.gallery-shell{position:relative}
+.gallery-filter{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
+.filt-btn{
+  background:none;border:0.5px solid rgba(255,255,255,.12);
+  border-radius:40px;color:var(--muted);font-family:"Poppins",sans-serif;
+  font-size:11px;letter-spacing:.5px;padding:7px 16px;cursor:pointer;
+  transition:all .2s;
+}
+.filt-btn:hover{color:var(--txt);border-color:rgba(255,255,255,.28)}
+.filt-btn.on{background:var(--a10);border-color:var(--a40);color:var(--a)}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.g-card{
+  border-radius:12px;overflow:hidden;background:#000;
+  border:0.5px solid rgba(255,255,255,.07);position:relative;
+  cursor:pointer;transition:transform .25s,border-color .25s;
+}
+.g-card:hover{transform:translateY(-5px);border-color:var(--a20)}
+.g-card img,.g-card video{width:100%;height:100%;object-fit:cover;display:block}
+.g-card.ar169{aspect-ratio:16/9}
+.g-card.ar11{aspect-ratio:1}
+.g-card.ar34{aspect-ratio:3/4}
+.g-card.ar32{aspect-ratio:3/2}
+.g-card .gcap{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,.78));
+  padding:28px 12px 12px;font-size:11px;color:rgba(255,255,255,.6);
+  font-style:italic;
+}
+.g-card[data-cat].hidden{display:none}
 
-    .project-description p {
-      color: #bdbdbd;
-      font-size: 18px;
-      line-height: 1.8;
-      margin-bottom: 1.2em;
-    }
+/* ── LIGHTBOX ── */
+#lightbox{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.92);
+  align-items:center;justify-content:center;
+}
+#lightbox.open{display:flex}
+#lb-img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:10px}
+#lb-close{
+  position:absolute;top:24px;right:32px;
+  background:none;border:none;color:var(--muted);font-size:28px;cursor:pointer;
+  transition:color .2s;font-family:"Poppins",sans-serif;line-height:1;
+}
+#lb-close:hover{color:var(--a)}
+#lb-cap{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);font-style:italic;white-space:nowrap}
 
-    .project-description p:last-child {
-      margin-bottom: 0;
-    }
+/* ── TEAM REVEAL ── */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+}
+.team-card{
+  background:var(--s1);border:0.5px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:20px 18px;
+  transition:border-color .2s,transform .2s;cursor:default;
+}
+.team-card:hover{border-color:var(--a20);transform:translateY(-3px)}
+.tc-role{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--a);margin-bottom:6px}
+.tc-name{font-size:13px;color:var(--body);line-height:1.5}
 
-    .credits {
-      font-size: 15px;
-      color: #888;
-      font-style: italic;
-      padding-top: 20px;
-      /* border-top: 1px solid rgba(0, 255, 182, 0.1); */
-      margin-top: 20px;
-    }
+/* ── PRODUCTION PIPELINE ── */
+.pipeline-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+.pipeline-legend{display:flex;gap:20px;flex-wrap:wrap}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted)}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.leg-dot.owned{background:var(--a)}
+.leg-dot.collab{background:rgba(0,255,182,.35)}
+.leg-dot.supported{background:rgba(255,255,255,.15)}
 
-    .media-showcase {
-      margin-top: 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 60px;
-    }
+.phases-track{display:flex;gap:0;position:relative;margin-bottom:40px;overflow-x:auto;padding-bottom:4px}
+.phases-track::before{content:"";position:absolute;top:22px;left:0;right:0;height:1px;background:rgba(255,255,255,.07);z-index:0}
+.phase-btn{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  flex:1;min-width:110px;cursor:pointer;position:relative;z-index:1;
+  background:none;border:none;font-family:"Poppins",sans-serif;
+  padding:0 8px;transition:opacity .2s;
+}
+.phase-btn:not(.active){opacity:.45}
+.phase-btn:hover{opacity:1}
+.phase-node{
+  width:44px;height:44px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.12);
+  background:var(--s1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  transition:border-color .25s,background .25s;
+}
+.phase-btn.active .phase-node{border-color:var(--a);background:rgba(0,255,182,.1)}
+.phase-num{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.phase-name{font-size:11px;font-weight:500;color:var(--txt);white-space:nowrap}
 
-    .media-item {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
+.phase-detail{
+  display:none;
+  background:var(--s1);border:0.5px solid rgba(255,255,255,.08);
+  border-radius:var(--r);padding:36px;
+  animation:fadeIn .3s ease;
+}
+.phase-detail.active{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-    .media-item.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.pd-left{}
+.pd-title{font-size:20px;font-weight:500;color:var(--txt);margin-bottom:6px}
+.pd-duration{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--a);margin-bottom:18px}
+.pd-desc{font-size:14px;line-height:1.85;color:var(--body);margin-bottom:24px}
 
-    .media-container {
-      position: relative;
-      background: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      /* border: 1px solid rgba(0, 255, 182, 0.2); */
-    }
+.pd-tasks{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.pd-task{
+  display:flex;align-items:flex-start;gap:11px;
+  font-size:13px;color:var(--body);line-height:1.5;
+}
+.task-own{
+  width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;
+}
+.task-own.owned{background:var(--a)}
+.task-own.collab{background:rgba(0,255,182,.4)}
+.task-own.supported{background:rgba(255,255,255,.18)}
 
-    .media-container:hover {
-      transform: translateY(-8px);
-      /* box-shadow: 0 15px 50px rgba(0, 255, 182, 0.2); */
-    }
+.pd-tools{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.tool-tag{
+  font-size:10px;letter-spacing:.4px;
+  padding:4px 12px;border-radius:20px;
+  border:0.5px solid rgba(255,255,255,.12);
+  color:var(--muted);
+}
 
-    .media-container.featured {
-      max-width: 100%;
-      aspect-ratio: 16/9;
-    }
+.pd-right{}
+.pd-right-title{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.deliverables{display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+.deliv-item{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.03);border:0.5px solid rgba(255,255,255,.06);
+  border-radius:8px;padding:11px 14px;
+  font-size:12px;color:var(--body);
+}
+.deliv-icon{font-size:15px;flex-shrink:0}
 
-    .media-container.standard {
-      max-width: 800px;
-      margin: 0 auto;
-    }
+.pd-placeholder{
+  border:1.5px dashed rgba(0,255,182,.2);border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;padding:24px;color:rgba(0,255,182,.35);font-size:11px;text-align:center;
+  min-height:100px;
+}
 
-    .media-container img,
-    .media-container video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      background: #000;
-    }
+.skills-section{margin-top:48px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:16px}
+.skill-card{
+  background:var(--s1);border:0.5px solid rgba(255,255,255,.07);
+  border-radius:10px;padding:14px 14px 12px;
+  transition:border-color .2s,transform .2s;
+}
+.skill-card:hover{border-color:var(--a20);transform:translateY(-2px)}
+.sk-name{font-size:12px;font-weight:500;color:var(--txt);margin-bottom:6px}
+.sk-bar-bg{height:3px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.sk-bar-fill{height:100%;background:var(--a);border-radius:3px;transition:width 1s ease}
+.sk-level{font-size:9px;color:var(--muted);margin-top:5px;letter-spacing:.5px}
 
-    .media-caption {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 14px;
-      color: #888;
-      font-style: italic;
-    }
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:40px;
+  border-top:0.5px solid rgba(255,255,255,.05);
+  font-size:11px;color:var(--muted);letter-spacing:.5px;
+}
 
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 40px;
-      margin-top: 60px;
-    }
+/* ── ANIMATIONS ── */
+@keyframes fu{to{opacity:1;transform:none}}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(6px)}}
 
-    @media (max-width: 1024px) {
-      .project-header h1 {
-        font-size: 36px;
-      }
-
-      .main-section {
-        padding: 80px 40px;
-      }
-
-      .media-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .project-header h1 {
-        font-size: 28px;
-      }
-
-      .project-meta {
-        gap: 15px;
-      }
-
-      .project-description {
-        padding: 30px 20px;
-      }
-
-      .project-description p {
-        font-size: 16px;
-      }
-
-      .main-section {
-        padding: 60px 20px;
-      }
-
-      .media-showcase {
-        gap: 40px;
-      }
-    }
-  </style>
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .chapter{padding:70px 28px}
+  #chapnav{display:none}
+  .synopsis-wrap,.notes-wrap{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  header{padding:16px 24px}
+  header.scrolled{padding:10px 24px}
+  nav{display:none}
+}
+@media(max-width:520px){
+  .gallery-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+}
+body.page-exit{opacity:0;transition:opacity .35s}
+</style>
 </head>
 <body>
- <header>
-  <a href="index.html" class="logo">
-    <img src="Demi Logo.png" alt="Logo" class="logo-icon">
-  </a>
-  <div class="ham-menu" id="hamburger">
-    <img src="Star Icon.png" alt="Menu">
-  </div>
-  <nav class="main-nav" id="mainNav">
-      <a href="index.html">About</a>
-      <a href="Other.html">Projects</a>
-      <a href="VisualArt.html">Visual Art</a>
-      <a href="Design.html" >Design</a>
-      <a href="Writing Samples.html">Story</a>
+<div id="prog"></div>
+
+<header id="hdr">
+  <a href="index.html" class="logo"><img src="Demi Logo.png" alt="Logo"></a>
+  <nav>
+    <a href="index.html">About</a>
+    <a href="Other.html">Projects</a>
+    <a href="VisualArt.html">Visual Art</a>
+    <a href="Design.html">Design</a>
+    <a href="Writing Samples.html">Story</a>
   </nav>
 </header>
 
-  <section class="main-section">
-    <div class="project-header">
-      <h1>SCARAB</h1>
-      <div class="project-meta">
-        <span>Digital Game</span>
-        <span>2024</span>
-        <span>Action-Adventure</span>
+<nav id="chapnav">
+  <a class="cn-dot active" href="#hero" data-ch="hero">
+    <span class="cn-pip"></span><span class="cn-label">Intro</span>
+  </a>
+  <a class="cn-dot" href="#overview" data-ch="overview">
+    <span class="cn-pip"></span><span class="cn-label">Overview</span>
+  </a>
+  <a class="cn-dot" href="#showcase" data-ch="showcase">
+    <span class="cn-pip"></span><span class="cn-label">Showcase</span>
+  </a>
+  <a class="cn-dot" href="#gallery" data-ch="gallery">
+    <span class="cn-pip"></span><span class="cn-label">Gallery</span>
+  </a>
+  <a class="cn-dot" href="#process" data-ch="process">
+    <span class="cn-pip"></span><span class="cn-label">Process</span>
+  </a>
+  <a class="cn-dot" href="#team" data-ch="team">
+    <span class="cn-pip"></span><span class="cn-label">Team</span>
+  </a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div id="hero-bg"></div>
+  <div id="hero-vignette"></div>
+  <div id="spotlight"></div>
+  <div id="hero-content">
+    <p class="hero-eye">Game Production Lead &nbsp;·&nbsp; 2024</p>
+    <h1>SCARAB</h1>
+    <p class="hero-sub">"You shall weigh your heart on the scale. Should it prove lighter than a feather, you shall proceed."</p>
+    <div class="hero-pills">
+      <span class="pill">Unity</span>
+      <span class="pill">Visual Studio Code</span>
+      <span class="pill">Maya</span>
+      <span class="pill">Adobe Creative Cloud</span>
+      <span class="pill">Procreate</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <div class="arrow-anim"></div>
+  </div>
+</section>
+
+<!-- ── OVERVIEW ── -->
+<div id="overview">
+<div class="chapter">
+  <div class="reveal">
+    <p class="sect-label">Overview</p>
+    <h2 class="sect-title">A purgatory built<br>from myth and shadow.</h2>
+  </div>
+  <div class="synopsis-wrap">
+    <div class="synopsis-body reveal" style="transition-delay:.1s">
+      <blockquote>Exiled and on the brink of death, Nomad awakens in the Egyptian-inspired Afterlife.</blockquote>
+      <p>With the sun vanquished and magic fading, they must navigate a perilous purgatory, confront twisted guardians, and reach the gates of DUAT to restore light, reclaim lost magic, and fight for a way home.</p>
+    </div>
+    <div class="synopsis-aside reveal" style="transition-delay:.2s">
+      <div class="stat-card">
+        <div class="val">2024</div>
+        <div class="lbl">Year Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="val">50+</div>
+        <div class="lbl">Team Members</div>
+      </div>
+       <div class="placeholder" style="min-height:160px">
+        <img src="" alt="Ruins environment">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── SHOWCASE (video) ── -->
+<div id="showcase">
+<div class="chapter">
+  <div class="reveal">
+    <p class="sect-label">Showcase</p>
+    <h2 class="sect-title">Story</h2>
+  </div>
+  <div class="video-outer reveal" style="transition-delay:.1s">
+    <video controls loop preload="metadata">
+      <source src="Showcase_Video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+</div>
+
+<!-- ── GALLERY ── -->
+<div id="gallery">
+<div class="chapter">
+  <div class="reveal">
+    <p class="sect-label">Gallery</p>
+    <h2 class="sect-title">Art, worlds &amp; characters</h2>
+  </div>
+  <div class="gallery-shell reveal" style="transition-delay:.1s">
+    <div class="gallery-filter">
+      <!-- <button class="filt-btn on" data-filter="all">All</button> -->
+      <!-- <button class="filt-btn" data-filter="screenshot">Screenshots</button>
+      <button class="filt-btn" data-filter="character">Character Art</button>
+      <button class="filt-btn" data-filter="environment">Environments</button>
+      <button class="filt-btn" data-filter="process">Process</button> -->
+    </div>
+    <div class="gallery-grid" id="gal">
+
+      <div class="g-card ar169" data-cat="screenshot" data-img="scarabgame.png" data-cap="Early 2D prototype">
+        <img src="scarabgame.png" alt="2D Prototype">
+        <div class="gcap">Early 2D prototype</div>
+      </div>
+
+      <div class="g-card ar11" data-cat="character" data-img="scarabcast.png" data-cap="Character cast — Jeffrey Huang">
+        <img src="scarabcast.png" alt="Character Cast">
+        <div class="gcap">Character cast — Jeffrey Huang</div>
+      </div>
+
+      <div class="g-card ar32" data-cat="environment" data-img="ruinsp.png" data-cap="3D ruins — Demi Saleeb">
+        <img src="ruinsp.png" alt="Ruins environment">
+        <div class="gcap">3D ruins — Demi Saleeb</div>
+      </div>
+<!-- 
+      <div class="g-card ar169 placeholder" data-cat="screenshot" style="aspect-ratio:16/9;border-style:dashed">
+        <div class="ph-icon">📷</div>
+        <div class="ph-title">Screenshot</div>
+        <div class="ph-hint">data-cat="screenshot"</div>
+      </div>
+
+      <div class="g-card ar34 placeholder" data-cat="character" style="aspect-ratio:3/4;border-style:dashed">
+        <div class="ph-icon">🎨</div>
+        <div class="ph-title">Character close-up</div>
+        <div class="ph-hint">data-cat="character"</div>
+      </div>
+
+      <div class="g-card ar11 placeholder" data-cat="environment" style="aspect-ratio:1;border-style:dashed">
+        <div class="ph-icon">🏛</div>
+        <div class="ph-title">Environment</div>
+        <div class="ph-hint">data-cat="environment"</div>
+      </div>
+
+      <div class="g-card ar34 placeholder" data-cat="process" style="aspect-ratio:3/4;border-style:dashed">
+        <div class="ph-icon">✏️</div>
+        <div class="ph-title">Concept sketch</div>
+        <div class="ph-hint">data-cat="process"</div>
+      </div>
+
+      <div class="g-card ar11 placeholder" data-cat="process" style="aspect-ratio:1;border-style:dashed">
+        <div class="ph-icon">✏️</div>
+        <div class="ph-title">Wireframe / iteration</div>
+        <div class="ph-hint">data-cat="process"</div>
+      </div>
+
+      <div class="g-card ar169 placeholder" data-cat="screenshot" style="aspect-ratio:16/9;border-style:dashed">
+        <div class="ph-icon">🎮</div>
+        <div class="ph-title">Gameplay screenshot</div>
+        <div class="ph-hint">data-cat="screenshot"</div>
+      </div>
+
+    </div>
+  </div>
+</div> -->
+</div>
+
+<!-- ── PRODUCTION PIPELINE ── -->
+<div id="process">
+<div class="chapter">
+  <div class="reveal">
+    <p class="sect-label">Production</p>
+    <h2 class="sect-title">From concept to delivery</h2>
+  </div>
+
+  <div class="reveal" style="transition-delay:.1s">
+    <div class="pipeline-header">
+      <div class="pipeline-legend">
+        <!-- <div class="leg-item"><span class="leg-dot owned"></span>I owned this</div> -->
+        <!-- <div class="leg-item"><span class="leg-dot collab"></span>Collaborated</div> -->
+        <!-- <div class="leg-item"><span class="leg-dot supported"></span>Supported</div> -->
       </div>
     </div>
 
-    <div class="project-description">
-      <p>"You shall weigh your heart on the scale. Should it prove lighter than a feather, you shall proceed. Should it weigh heavier, you shall not."</p>
-      
-      <p>Exiled and on the brink of death, Nomad awakens in the Egyptian-inspired Afterlife. With the sun vanquished and magic fading, they must navigate a perilous purgatory, confront twisted guardians, and reach the gates of DUAT to restore light, reclaim lost magic, and fight for a way home.</p>
-      
-      <div class="credits">
-        <strong> Game Production & Project Lead, Demi Saleeb. </strong> Animation by Helen Juwon Park. 3D Models by Demi Saleeb. Character Design by Jeffrey Huang. Concept Art (original character, prop and environmental design) by Demi Saleeb. Environmental Textures by Helen Juwon Park & Julianna Ernie. Level Design by Yongija Tang. Music/SFX by Sean Son & Aderyn Clark. Programming by DanielKao & Woyu Wang. UI/UX by Michelle Chen. Voice Acting by Akemi Webster, Demi Saleeb, Ifeanyichukwu Onyeanakwe, Karen Truong, & Sock Pan Rah. Writing by Akemi Webster, Anthony Nash, & Demi Saleeb.
+    <div class="phases-track" role="tablist" aria-label="Production phases">
+      <button class="phase-btn active" data-phase="0" role="tab" aria-selected="true">
+        <div class="phase-node">🔍</div>
+        <span class="phase-num">01</span>
+        <span class="phase-name">Ideation</span>
+      </button>
+      <button class="phase-btn" data-phase="1" role="tab" aria-selected="false">
+        <div class="phase-node">📐</div>
+        <span class="phase-num">02</span>
+        <span class="phase-name">Pre-production</span>
+      </button>
+      <button class="phase-btn" data-phase="2" role="tab" aria-selected="false">
+        <div class="phase-node">⚙️</div>
+        <span class="phase-num">03</span>
+        <span class="phase-name">Production</span>
+      </button>
+      <button class="phase-btn" data-phase="3" role="tab" aria-selected="false">
+        <div class="phase-node">🎮</div>
+        <span class="phase-num">04</span>
+        <span class="phase-name">Alpha / Beta</span>
+      </button>
+      <button class="phase-btn" data-phase="4" role="tab" aria-selected="false">
+        <div class="phase-node">🚀</div>
+        <span class="phase-num">05</span>
+        <span class="phase-name">Delivery</span>
+      </button>
+    </div>
+
+    <!-- Phase 0: Discovery -->
+    <div class="phase-detail active" data-phase="0">
+      <div class="pd-left">
+        <div class="pd-title">Ideation &amp; Research</div>
+        <div class="pd-duration">Weeks 1–2</div>
+        <div class="pd-desc">Establishing the game's creative foundation — researching Egyptian mythology, defining the tone, and setting the project vision that the whole team would build toward. Replace this with your own description of how the project idea emerged.</div>
+        <div class="pd-tasks">
+          <div class="pd-task"><span class="task-own owned"></span>Defined project vision, scope &amp; genre pillars</div>
+          <div class="pd-task"><span class="task-own owned"></span>Egyptian mythology research &amp; mood boarding</div>
+          <div class="pd-task"><span class="task-own owned"></span>Original character &amp; world concept art</div>
+          <div class="pd-task"><span class="task-own collab"></span>Assembled &amp; onboarded the 10-person team</div>
+          <div class="pd-task"><span class="task-own supported"></span>Early narrative outline &amp; lore framework</div>
+        </div>
+        <div class="pd-tools">
+          <span class="tool-tag">Miro</span>
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Procreate</span>
+          <span class="tool-tag">Adobe Photoshop</span>
+        </div>
+      </div>
+      <div class="pd-right">
+        <div class="pd-right-title">Deliverables</div>
+        <div class="deliverables">
+          <div class="deliv-item"><span class="deliv-icon">📄</span>Game Design Document (GDD)</div>
+          <div class="deliv-item"><span class="deliv-icon">🎨</span>Visual style guide &amp; mood board</div>
+          <div class="deliv-item"><span class="deliv-icon">👤</span>Original character concepts</div>
+          <div class="deliv-item"><span class="deliv-icon">🗺</span>World &amp; lore bible (draft)</div>
+        </div>
+        <div class="pd-placeholder">
+          <div style="font-size:22px;opacity:.4">🖼</div>
+          <div style="font-weight:500">Mood board or concept art</div>
+          <div style="font-size:10px;opacity:.55">Replace with your image</div>
+        </div>
       </div>
     </div>
 
-    <div class="media-showcase">
-      <div class="media-item">
-        <div class="media-container featured">
-          <video controls loop preload="metadata">
-            <source src="Showcase_Video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+    <!-- Phase 1: Pre-production -->
+    <div class="phase-detail" data-phase="1">
+      <div class="pd-left">
+        <div class="pd-title">Pre-production</div>
+        <div class="pd-duration">Weeks 3–5</div>
+        <div class="pd-desc">Translating the vision into a concrete plan — building the production roadmap, assigning disciplines, and aligning the team on art direction and technical constraints before a single line of code was written. Replace with your own pre-production story.</div>
+        <div class="pd-tasks">
+          <div class="pd-task"><span class="task-own owned"></span>Production schedule &amp; milestone planning</div>
+          <div class="pd-task"><span class="task-own owned"></span>Prop &amp; environmental concept design</div>
+          <div class="pd-task"><span class="task-own owned"></span>Asset list &amp; pipeline documentation</div>
+          <div class="pd-task"><span class="task-own collab"></span>Character design brief with Jeffrey Huang</div>
+          <div class="pd-task"><span class="task-own collab"></span>Level design brief with Yongija Tang</div>
+          <div class="pd-task"><span class="task-own supported"></span>Audio direction for Sean Son &amp; Aderyn Clark</div>
+        </div>
+        <div class="pd-tools">
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Google Sheets</span>
+          <span class="tool-tag">Procreate</span>
+          <span class="tool-tag">Figma</span>
         </div>
       </div>
-
-      <div class="media-grid">
-        <div class="media-item">
-          <div class="media-container standard">
-            <img src="scarabgame.png" alt="Scarab Game Screenshot">
-          </div>
-          <div class="media-caption">Early Game 2D Prototype</div>
+      <div class="pd-right">
+        <div class="pd-right-title">Deliverables</div>
+        <div class="deliverables">
+          <div class="deliv-item"><span class="deliv-icon">📅</span>Full production schedule</div>
+          <div class="deliv-item"><span class="deliv-icon">📋</span>Asset pipeline &amp; task assignments</div>
+          <div class="deliv-item"><span class="deliv-icon">🏛</span>Environmental concept sheets</div>
+          <div class="deliv-item"><span class="deliv-icon">🗂</span>Prop design library</div>
         </div>
-
-        <div class="media-item">
-          <div class="media-container standard">
-            <img src="scarabcast.png" alt="Scarab Character Cast">
-          </div>
-          <div class="media-caption">Character Art Made by Jeffery Huang</div>
-        </div>
-        <div class="media-item">
-          <div class="media-container standard">
-            <img src="ruinsp.png" alt="Scarab Character Cast">
-          </div>
-          <div class="media-caption">3D Environment by Demi Saleeb</div>
+        <div class="pd-placeholder">
+          <div style="font-size:22px;opacity:.4">📋</div>
+          <div style="font-weight:500">Schedule or pipeline diagram</div>
+          <div style="font-size:10px;opacity:.55">Replace with your image</div>
         </div>
       </div>
     </div>
-  </section>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      requestAnimationFrame(() => document.body.classList.add("page-loaded"));
-      document.querySelectorAll("a[href]").forEach(link => {
-        link.addEventListener("click", e => {
-          const url = link.getAttribute("href");
-          if (!url || url.startsWith("#")) return;
-          e.preventDefault();
-          document.body.classList.add("page-exit");
-          setTimeout(() => window.location.href = url, 500);
-        });
-      });
+    <!-- Phase 2: Production -->
+    <div class="phase-detail" data-phase="2">
+      <div class="pd-left">
+        <div class="pd-title">Full Production</div>
+        <div class="pd-duration">Weeks 6–14</div>
+        <div class="pd-desc">The bulk of the build — 3D modeling, environment creation, managing cross-discipline collaboration, and keeping the project on track while contributing directly as an artist and writer. Add your own version of what this sprint felt like.</div>
+        <div class="pd-tasks">
+          <div class="pd-task"><span class="task-own owned"></span>3D environment &amp; prop modeling (Blender / Maya)</div>
+          <div class="pd-task"><span class="task-own owned"></span>Weekly sprint reviews &amp; team check-ins</div>
+          <div class="pd-task"><span class="task-own owned"></span>Narrative writing &amp; dialogue scripting</div>
+          <div class="pd-task"><span class="task-own owned"></span>Voice acting direction &amp; recording sessions</div>
+          <div class="pd-task"><span class="task-own collab"></span>Art direction with animation &amp; texture teams</div>
+          <div class="pd-task"><span class="task-own collab"></span>Level iteration with design team</div>
+          <div class="pd-task"><span class="task-own supported"></span>Programming integration &amp; feedback</div>
+        </div>
+        <div class="pd-tools">
+          <span class="tool-tag">Blender</span>
+          <span class="tool-tag">Unity</span>
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Slack</span>
+          <span class="tool-tag">Adobe Suite</span>
+        </div>
+      </div>
+      <div class="pd-right">
+        <div class="pd-right-title">Deliverables</div>
+        <div class="deliverables">
+          <div class="deliv-item"><span class="deliv-icon">🏛</span>Fully modeled 3D environments</div>
+          <div class="deliv-item"><span class="deliv-icon">🎭</span>Recorded &amp; directed VO lines</div>
+          <div class="deliv-item"><span class="deliv-icon">📝</span>Complete game script &amp; dialogue</div>
+          <div class="deliv-item"><span class="deliv-icon">📊</span>Sprint reports &amp; risk log</div>
+        </div>
+        <div class="pd-placeholder">
+          <div style="font-size:22px;opacity:.4">🏛</div>
+          <div style="font-weight:500">3D model or environment WIP</div>
+          <div style="font-size:10px;opacity:.55">Replace with your image</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Alpha / Beta -->
+    <div class="phase-detail" data-phase="3">
+      <div class="pd-left">
+        <div class="pd-title">Alpha &amp; Beta Testing</div>
+        <div class="pd-duration">Weeks 15–17</div>
+        <div class="pd-desc">Playtesting with real players, triaging feedback, and making the hard calls about what stays and what gets cut. As production lead, this phase was as much about managing people as managing bugs. Add your own playtest story here.</div>
+        <div class="pd-tasks">
+          <div class="pd-task"><span class="task-own owned"></span>Organised &amp; facilitated playtest sessions</div>
+          <div class="pd-task"><span class="task-own owned"></span>Feedback synthesis &amp; prioritisation matrix</div>
+          <div class="pd-task"><span class="task-own owned"></span>Cut &amp; scope decisions based on time constraints</div>
+          <div class="pd-task"><span class="task-own collab"></span>Bug triage with programming team</div>
+          <div class="pd-task"><span class="task-own collab"></span>UI/UX iteration with Michelle Chen</div>
+          <div class="pd-task"><span class="task-own supported"></span>Audio mix feedback rounds</div>
+        </div>
+        <div class="pd-tools">
+          <span class="tool-tag">Unity Playtesting</span>
+          <span class="tool-tag">Google Forms</span>
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Discord</span>
+        </div>
+      </div>
+      <div class="pd-right">
+        <div class="pd-right-title">Deliverables</div>
+        <div class="deliverables">
+          <div class="deliv-item"><span class="deliv-icon">📋</span>Playtest reports &amp; feedback summaries</div>
+          <div class="deliv-item"><span class="deliv-icon">🔧</span>Bug priority list &amp; fix assignments</div>
+          <div class="deliv-item"><span class="deliv-icon">✂️</span>Scope adjustment documentation</div>
+          <div class="deliv-item"><span class="deliv-icon">🎯</span>Beta-ready build</div>
+        </div>
+        <div class="pd-placeholder">
+          <div style="font-size:22px;opacity:.4">📊</div>
+          <div style="font-weight:500">Feedback chart or playtest notes</div>
+          <div style="font-size:10px;opacity:.55">Replace with your image</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Ship & Reflect -->
+    <div class="phase-detail" data-phase="4">
+      <div class="pd-left">
+        <div class="pd-title">Ship &amp; Reflect</div>
+        <div class="pd-duration">Week 18</div>
+        <div class="pd-desc">Final polish, submission, and the post-mortem. What I'd do differently, what I'm proudest of, and what this project proved I can lead. Replace this with your own honest reflection — it's the most memorable part of any portfolio entry.</div>
+        <div class="pd-tasks">
+          <div class="pd-task"><span class="task-own owned"></span>Final build QA &amp; submission packaging</div>
+          <div class="pd-task"><span class="task-own owned"></span>Post-mortem writeup &amp; team retrospective</div>
+          <div class="pd-task"><span class="task-own owned"></span>Portfolio documentation &amp; showcase video</div>
+          <div class="pd-task"><span class="task-own collab"></span>Press kit &amp; presentation materials</div>
+        </div>
+        <div class="pd-tools">
+          <span class="tool-tag">Unity Build Pipeline</span>
+          <span class="tool-tag">OBS / DaVinci</span>
+          <span class="tool-tag">Notion</span>
+        </div>
+      </div>
+      <div class="pd-right">
+        <div class="pd-right-title">Key Takeaways</div>
+        <div class="deliverables">
+          <div class="deliv-item"><span class="deliv-icon">💡</span>Replace with your biggest learning</div>
+          <div class="deliv-item"><span class="deliv-icon">⭐</span>What you're most proud of</div>
+          <div class="deliv-item"><span class="deliv-icon">🔁</span>What you'd do differently</div>
+          <div class="deliv-item"><span class="deliv-icon">➡️</span>What this unlocked for you next</div>
+        </div>
+        <div class="pd-placeholder">
+          <div style="font-size:22px;opacity:.4">🚀</div>
+          <div style="font-weight:500">Final game screenshot or poster</div>
+          <div style="font-size:10px;opacity:.55">Replace with your image</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills bar section -->
+   
+</div>
+
+<!-- ── TEAM ── -->
+<div id="team">
+<div class="chapter">
+  <div class="reveal">
+    <p class="sect-label">Credits</p>
+    <h2 class="sect-title">Meet the Scarab Team!</h2>
+  </div>
+  <div class="team-grid reveal" style="transition-delay:.1s" id="team-grid">
+    <div class="team-card">
+      <div class="tc-role">Production Lead</div>
+      <div class="tc-name">Demi Saleeb</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Animation</div>
+      <div class="tc-name">Helen Park</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Character Design</div>
+      <div class="tc-name">Demi Saleeb & Jeffrey Huang</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Env. Textures</div>
+      <div class="tc-name">Helen Park &amp; Julianna Ernie</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Level Design</div>
+      <div class="tc-name">Yongija Tang</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Music / SFX</div>
+      <div class="tc-name">Sean Son &amp; Aderyn Clark</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Programming</div>
+      <div class="tc-name">Daniel Kao &amp; Woyu Wang</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">UI / UX</div>
+      <div class="tc-name">Michelle Chen</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Voice Acting</div>
+      <div class="tc-name">Akemi Webster, Demi Saleeb, Ifeanyichukwu Onyeanakwe, Karen Truong &amp; Sock Pan Rah</div>
+    </div>
+    <div class="team-card">
+      <div class="tc-role">Writing</div>
+      <div class="tc-name">Akemi Webster, Anthony Nash &amp; Demi Saleeb</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<footer>© 2024 Demi Saleeb &nbsp;·&nbsp; All Rights Reserved</footer>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lb-close" aria-label="Close lightbox">×</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-cap"></div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  requestAnimationFrame(()=>document.body.classList.add("loaded"));
+
+  // page exit
+  document.querySelectorAll("a[href]").forEach(l=>{
+    l.addEventListener("click",e=>{
+      const u=l.getAttribute("href");
+      if(!u||u.startsWith("#"))return;
+      e.preventDefault();
+      document.body.classList.add("page-exit");
+      setTimeout(()=>window.location.href=u,350);
     });
+  });
+});
 
-    window.addEventListener("pageshow", event => {
-      if (event.persisted) {
-        document.body.classList.remove("page-exit");
-        document.body.classList.add("page-loaded");
-      }
+window.addEventListener("pageshow",ev=>{
+  if(ev.persisted){document.body.classList.remove("page-exit");document.body.classList.add("loaded")}
+});
+
+// scroll progress + header + chapter nav
+const prog=document.getElementById("prog");
+const hdr=document.getElementById("hdr");
+const chapters=["hero","overview","showcase","gallery","process","team"];
+
+window.addEventListener("scroll",()=>{
+  const sy=window.scrollY;
+  const total=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(sy/total*100)+"%";
+  hdr.classList.toggle("scrolled",sy>50);
+
+  // active chapter
+  let active="hero";
+  chapters.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    if(el.getBoundingClientRect().top<=window.innerHeight*.45)active=id;
+  });
+  document.querySelectorAll(".cn-dot").forEach(d=>{
+    d.classList.toggle("active",d.dataset.ch===active);
+  });
+},{ passive:true });
+
+// spotlight on hero
+const hero=document.getElementById("hero");
+const spot=document.getElementById("spotlight");
+hero.addEventListener("mousemove",e=>{
+  const r=hero.getBoundingClientRect();
+  const x=((e.clientX-r.left)/r.width*100).toFixed(1);
+  const y=((e.clientY-r.top)/r.height*100).toFixed(1);
+  spot.style.background=`radial-gradient(circle 300px at ${x}% ${y}%,rgba(0,255,182,.07) 0%,transparent 70%)`;
+});
+hero.addEventListener("mouseleave",()=>{
+  spot.style.background="radial-gradient(circle 280px at 50% 50%,rgba(0,255,182,.05) 0%,transparent 70%)";
+});
+
+// reveal on scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target)}
+  });
+},{threshold:.1});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+// gallery filter
+document.querySelectorAll(".filt-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".filt-btn").forEach(b=>b.classList.remove("on"));
+    btn.classList.add("on");
+    const f=btn.dataset.filter;
+    document.querySelectorAll(".g-card").forEach(c=>{
+      c.classList.toggle("hidden",f!=="all"&&c.dataset.cat!==f);
     });
+  });
+});
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-        }
+// lightbox
+const lb=document.getElementById("lightbox");
+const lbImg=document.getElementById("lb-img");
+const lbCap=document.getElementById("lb-cap");
+
+document.querySelectorAll(".g-card[data-img]").forEach(c=>{
+  c.addEventListener("click",()=>{
+    lbImg.src=c.dataset.img||"";
+    lbImg.alt=c.dataset.cap||"";
+    lbCap.textContent=c.dataset.cap||"";
+    lb.classList.add("open");
+    document.body.style.overflow="hidden";
+  });
+});
+
+document.getElementById("lb-close").addEventListener("click",closeLb);
+lb.addEventListener("click",e=>{if(e.target===lb)closeLb()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLb()});
+function closeLb(){lb.classList.remove("open");document.body.style.overflow=""}
+
+// production phase switcher
+document.querySelectorAll(".phase-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const p=btn.dataset.phase;
+    document.querySelectorAll(".phase-btn").forEach(b=>{b.classList.remove("active");b.setAttribute("aria-selected","false")});
+    document.querySelectorAll(".phase-detail").forEach(d=>d.classList.remove("active"));
+    btn.classList.add("active");
+    btn.setAttribute("aria-selected","true");
+    document.querySelector(`.phase-detail[data-phase="${p}"]`).classList.add("active");
+  });
+});
+
+// skills bars animate in when visible
+const skillsObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.currentTarget.querySelectorAll(".skill-card").forEach((c,i)=>{
+        const lvl=c.dataset.level||"70";
+        setTimeout(()=>{
+          c.querySelector(".sk-bar-fill").style.width=lvl+"%";
+        },i*80);
       });
-    }, { threshold: 0.2 });
+      skillsObs.unobserve(e.currentTarget);
+    }
+  });
+},{threshold:.2});
+const sg=document.getElementById("skills-grid");
+if(sg)skillsObs.observe(sg);
 
-    document.querySelectorAll(".project-header, .project-description, .media-item").forEach(el => observer.observe(el));
-  </script>
+// stagger team cards in on load
+const tg=document.getElementById("team-grid");
+const teamObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tg.querySelectorAll(".team-card").forEach((c,i)=>{
+        setTimeout(()=>{
+          c.style.opacity="1";
+          c.style.transform="none";
+        },i*55);
+      });
+      teamObs.unobserve(tg);
+    }
+  });
+},{threshold:.1});
+tg.querySelectorAll(".team-card").forEach(c=>{
+  c.style.opacity="0";c.style.transform="translateY(18px)";
+  c.style.transition="opacity .4s ease, transform .4s ease";
+});
+teamObs.observe(tg);
+</script>
 </body>
 </html>
