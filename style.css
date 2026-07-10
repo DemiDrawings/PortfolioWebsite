@@ -764,4 +764,33 @@ footer {
       color: #00FFB6;
       box-shadow: 0 0 14px rgba(0,255,182,0.25);
     }
-    
+  /* ==========================
+   HAMBURGER ATTENTION HINT
+   ========================== */
+
+@keyframes hamAttention {
+  0%, 85%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 0px rgba(0, 255, 182, 0));
+  }
+  87% { transform: scale(1.12) rotate(-10deg); }
+  89% { transform: scale(1.12) rotate(10deg); }
+  91% { transform: scale(1.12) rotate(-8deg); }
+  93% { transform: scale(1.12) rotate(8deg); }
+  95% {
+    transform: scale(1.15) rotate(0deg);
+    filter: drop-shadow(0 0 6px #00FFB6) drop-shadow(0 0 4px #00FFB6);
+  }
+  98% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 0px rgba(0, 255, 182, 0));
+  }
+}
+
+.ham-menu:not(.active) img {
+  animation: hamAttention 5.5s ease-in-out infinite;
+}
+
+.ham-menu:not(.active):hover img {
+  animation-play-state: paused;
+}
