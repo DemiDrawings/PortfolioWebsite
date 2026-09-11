@@ -13,7 +13,7 @@
       background-size: cover;
       background-position: center;
       background: url("WebAnimation.gif") no-repeat center center fixed;
-      color: #00FFB6;
+      color: #ffffff;
       opacity: 0;
       transform: scale(1.03);
       transition: opacity 0.6s ease, transform 0.6s ease;
@@ -53,13 +53,13 @@
     .project-header h1 {
       font-size: 48px;
       font-weight: 600;
-      color: #00FFB6;
+      color: #ffffff;
       margin-bottom: 20px;
       letter-spacing: 1px;
     }
 
     .project-blurb {
-      color: #bdbdbd;
+      color: #848484;
       font-size: 18px;
       line-height: 1.8;
       max-width: 780px;
@@ -91,7 +91,7 @@
     .info-label {
       font-size: 20px;
       font-weight: 600;
-      color: #00FFB6;
+      color: #ffffff;
       letter-spacing: 1px;
       margin: 0 0 10px;
     }
@@ -148,10 +148,10 @@
     }
 
     .divider-heading {
-      text-align: center;
+      text-align: left;
       font-size: 26px;
       font-weight: 600;
-      color: #00FFB6;
+      color: #ffffff;
       letter-spacing: 1px;
       margin: 0 0 55px;
     }
@@ -166,7 +166,7 @@
     .credit-role {
       font-size: 12px;
       font-weight: 600;
-      color: #00FFB6;
+      color: #ffffff;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin: 0 0 8px;
@@ -232,7 +232,7 @@
     }
 
     .media-caption {
-      text-align: center;
+      text-align: left;
       margin-top: 15px;
       font-size: 14px;
       color: #888;
@@ -257,10 +257,10 @@
     }
 
     .overview-title {
-      text-align: center;
+      text-align: left;
       font-size: 28px;
       font-weight: 600;
-      color: #00FFB6;
+      color: #ffffff;
       letter-spacing: 1px;
       opacity: 0;
       transform: translateY(-24px);
@@ -276,13 +276,13 @@
     .overview-block {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: left;
     }
 
     .block-header {
       font-size: 22px;
       font-weight: 600;
-      color: #00FFB6;
+      color: #ffffff;
       letter-spacing: 0.5px;
       margin-bottom: 35px;
       opacity: 0;
@@ -310,7 +310,7 @@
     .pipeline-step {
       flex: 1 1 140px;
       text-align: center;
-      color: #bdbdbd;
+      color: #848484;
       opacity: 0;
       transform: translateY(35px) scale(0.96);
       transition: opacity 0.5s ease-out, transform 0.5s ease-out;
@@ -333,9 +333,9 @@
       justify-content: center;
       width: 36px;
       height: 36px;
-      border: 2px solid #00FFB6;
+      border: 2px solid #ffffff;
       border-radius: 50%;
-      color: #00FFB6;
+      color: #ffffff;
       font-size: 14px;
       margin-bottom: 12px;
     }
@@ -348,14 +348,14 @@
 
     .pipeline-step strong {
       display: block;
-      color: #00FFB6;
+      color: #ffffff;
       font-size: 15px;
       margin-bottom: 6px;
     }
 
     /* Production sheet block */
     .sheet-intro {
-      color: #bdbdbd;
+      color: #848484;
       font-size: 16px;
       line-height: 1.8;
       margin-bottom: 25px;
@@ -374,8 +374,8 @@
     .sheet-frame-wrap {
       border-radius: 12px;
       overflow: hidden;
-      border: 2px solid rgba(0, 255, 182, 0.3);
-      background: #000;
+      /* border: 2px solid rgba(0, 255, 182, 0.3); */
+      /* background: #000; */
       opacity: 0;
       transform: translateY(40px);
       transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -411,16 +411,16 @@
       display: inline-block;
       margin-top: 20px;
       font-size: 14px;
-      color: #00FFB6;
+      color: #ffffff;
       text-decoration: none;
-      border: 2px solid #00FFB6;
+      border: 2px solid #ffffff;
       border-radius: 20px;
       padding: 8px 20px;
       transition: background 0.25s ease, color 0.25s ease;
     }
 
     .sheet-link:hover {
-      background: #00FFB6;
+      background: #ffffff;
       color: #111;
     }
 
@@ -554,6 +554,23 @@
         height: 340px;
       }
     }
+    .project-link {
+  color: #00FFB6;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.project-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.production-sheet {
+  width: 100%;
+  height: auto;
+  display: block;
+}
   </style>
 </head>
 <body>
@@ -576,28 +593,34 @@
   <section class="main-section">
     <div class="project-header">
       <h1>SCARAB</h1>
-      <p class="project-blurb">"You shall weigh your heart on the scale. Should it prove lighter than a feather, you shall proceed. Should it weigh heavier, you shall not." Explore the mythological Egyptian afterlife of DUAT, with your wayward bug-companion, SCARAB.</p>
-
+     <p class="project-blurb">
+  "You shall weigh your heart on the scale. Should it prove lighter than a feather, you shall proceed. Should it weigh heavier, you shall not." 
+  Explore the mythological Egyptian afterlife of DUAT, with your wayward bug-companion, 
+  <a href="https://phantom-101.itch.io/scarab" class="project-link" target="_blank">SCARAB</a>. 
+  Game project created for the 
+  <a href="https://studio.uclaacm.com/" class="project-link" target="_blank">Association for Computing Machinery Studios</a>
+  at UCLA.
+</p>
       <div class="project-info-grid">
         <div class="info-item">
-          <h2 class="info-label">Role</h2>
-          <p>Game Production &amp; Project Lead</p>
+          <h2 class="info-label">ROLE</h2>
+          <p>Game Production Lead</p>
         </div>
         <div class="info-item">
-          <h2 class="info-label">Tools</h2>
+          <h2 class="info-label">TOOLS</h2>
           <div class="tool-icons">
-            <img src="https://cdn.simpleicons.org/unity/00FFB6" alt="Unity" title="Unity">
-            <img src="https://cdn.simpleicons.org/autodeskmaya/00FFB6" alt="Maya" title="Maya">
-            <img src="https://cdn.simpleicons.org/github/00FFB6" alt="GitHub" title="GitHub">
-            <img src="https://cdn.simpleicons.org/visualstudiocode/00FFB6" alt="Visual Studio Code" title="Visual Studio Code">
+            <img src="https://cdn.simpleicons.org/unity/FFFFFF" alt="Unity" title="Unity">
+            <img src="https://cdn.simpleicons.org/autodeskmaya/FFFFFF" alt="Maya" title="Maya">
+            <img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub" title="GitHub">
+            <!-- <img src="https://cdn.simpleicons.org/visualstudiocode/FFFFFF" alt="Visual Studio Code" title="Visual Studio Code"> -->
           </div>
         </div>
         <div class="info-item">
-          <h2 class="info-label">Team</h2>
+          <h2 class="info-label">TEAM</h2>
           <p>50+ collaborators across art, animation, programming, writing &amp; audio</p>
         </div>
         <div class="info-item">
-          <h2 class="info-label">Category</h2>
+          <h2 class="info-label">CATEGORY</h2>
           <p>Digital Game · Action-Adventure · 2024</p>
         </div>
       </div>
@@ -616,10 +639,10 @@
 
     <!-- ================= Production Overview ================= -->
     <div class="production-overview">
-      <h2 class="overview-title">Production Overview</h2>
+      <!-- <h2 class="overview-title">Production Overview</h2> -->
 
       <div class="overview-block">
-        <h3 class="block-header">Pipeline &amp; Team</h3>
+        <h3 class="block-header">PIPELINE &amp; TEAM</h3>
         <div class="block-body pipeline-track">
           <div class="pipeline-step">
             <div class="step-num">1</div>
@@ -650,12 +673,11 @@
       </div>
 
       <div class="overview-block">
-        <h3 class="block-header">Production Sheet</h3>
+        <h3 class="block-header">PRODUCTION SHEET</h3>
         <div class="block-body">
           <p class="sheet-intro">2026 Update: I am currently developing a new game demo for Scarab. The following production tracker was used to manage tasks, milestones, and assignments throughout development.</p>
        <div class="sheet-frame-wrap">
-  <img src="Scarab-Production-Sheet.png" loading="lazy"></img>
-</div>
+  <img src="Scarab-Production-Sheet.png" class="production-sheet" loading="lazy" alt="Scarab Production Sheet">
 <div class="sheet-link-wrap">
   <a class="sheet-link" href="Scarab-Project-Timeline.pdf" target="_blank" rel="noopener">Open Full Sheet ↗</a>
 </div>
@@ -663,7 +685,7 @@
       </div>
 
       <div class="overview-block">
-        <h3 class="block-header">Demo Gallery</h3>
+        <h3 class="block-header">DEMO GALLERY</h3>
         <div class="block-body gallery-grid">
           <div class="gallery-tile">
             <img src="scarabgame.png" alt="Scarab Game Screenshot">
@@ -684,7 +706,7 @@
 
   <div class="page-divider">
     <div class="page-divider-inner">
-      <h2 class="divider-heading">Full Production Credits</h2>
+      <h2 class="divider-heading">PRODUCTION CREDITS</h2>
       <div class="credit-grid">
         <div class="credit-entry">
           <p class="credit-role">Animation</p>
