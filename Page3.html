@@ -8,6 +8,7 @@
   <style>
     body {
       margin: 0;
+      overflow-x: hidden;
       font-family: "Poppins", sans-serif;
       background-size: cover;
       background-position: center;
@@ -35,8 +36,9 @@
     }
 
     .project-header {
-      text-align: center;
-      margin-bottom: 60px;
+      text-align: left;
+      max-width: 900px;
+      margin-bottom: 70px;
       margin-top: 60px;
       opacity: 0;
       transform: translateY(30px);
@@ -56,52 +58,125 @@
       letter-spacing: 1px;
     }
 
-    .project-meta {
-      display: flex;
-      justify-content: center;
+    .project-blurb {
+      color: #bdbdbd;
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 780px;
+      margin: 0 0 50px;
+    }
+
+    .project-info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(140px, 1fr));
       gap: 30px;
-      flex-wrap: wrap;
+    }
+
+    .info-item {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .project-header.in-view .info-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-header.in-view .info-item:nth-child(1) { transition-delay: 0.15s; }
+    .project-header.in-view .info-item:nth-child(2) { transition-delay: 0.25s; }
+    .project-header.in-view .info-item:nth-child(3) { transition-delay: 0.35s; }
+    .project-header.in-view .info-item:nth-child(4) { transition-delay: 0.45s; }
+
+    .info-label {
+      font-size: 20px;
+      font-weight: 600;
+      color: #00FFB6;
+      letter-spacing: 1px;
+      margin: 0 0 10px;
+    }
+
+    .info-item p {
       font-size: 14px;
       color: #888;
-      margin-bottom: 30px;
+      line-height: 1.6;
+      margin: 0;
     }
 
-    .project-meta span {
-      padding: 8px 16px;
-      /* background: rgba(0, 255, 182, 0.1); */
-      border-radius: 20px;
-      border: 2px solid #00FFB6;
+    .tool-icons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-  .project-description {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px;
+    .tool-icons img {
+      width: 26px;
+      height: 26px;
+      opacity: 0.8;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .tool-icons img:hover {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+
+  .page-divider {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      margin: 0 0 60px;
+      padding: 90px 60px;
       background: rgba(37, 37, 37, 0.6);
       backdrop-filter: blur(10px);
       border-radius: 16px;
       /* border: 1px solid #ffffff; */
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateX(-50%) translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
 
-    .project-description p {
-      color: #bdbdbd;
-      font-size: 18px;
-      line-height: 1.8;
-      margin-bottom: 1.2em;
+    .page-divider.in-view {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
-    .project-description p:last-child {
-      margin-bottom: 0;
+    .page-divider-inner {
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    .credits {
+    .divider-heading {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 600;
+      color: #00FFB6;
+      letter-spacing: 1px;
+      margin: 0 0 55px;
+    }
+
+    .credit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      row-gap: 34px;
+      column-gap: 28px;
+    }
+
+    .credit-role {
+      font-size: 12px;
+      font-weight: 600;
+      color: #00FFB6;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+
+    .credit-names {
       font-size: 15px;
-      color: #888;
-      font-style: italic;
-      padding-top: 20px;
-      /* border-top: 1px solid rgba(0, 255, 182, 0.1); */
-      margin-top: 20px;
+      color: #bdbdbd;
+      line-height: 1.6;
+      margin: 0;
     }
 
     .media-showcase {
@@ -171,6 +246,242 @@
       margin-top: 60px;
     }
 
+    /* ---------- Production Overview (new, matches existing language) ---------- */
+
+    .production-overview {
+      max-width: 1200px;
+      margin: 100px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+    }
+
+    .overview-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      color: #00FFB6;
+      letter-spacing: 1px;
+      opacity: 0;
+      transform: translateY(-24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .overview-title.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Each block: header slides down first, content pops in after */
+    .overview-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .block-header {
+      font-size: 22px;
+      font-weight: 600;
+      color: #00FFB6;
+      letter-spacing: 0.5px;
+      margin-bottom: 35px;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .overview-block.in-view .block-header {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .block-body {
+      width: 100%;
+    }
+
+    /* Pipeline block */
+    .pipeline-track {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .pipeline-step {
+      flex: 1 1 140px;
+      text-align: center;
+      color: #bdbdbd;
+      opacity: 0;
+      transform: translateY(35px) scale(0.96);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .overview-block.in-view .pipeline-step {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .overview-block.in-view .pipeline-step:nth-child(1) { transition-delay: 0.25s; }
+    .overview-block.in-view .pipeline-step:nth-child(2) { transition-delay: 0.35s; }
+    .overview-block.in-view .pipeline-step:nth-child(3) { transition-delay: 0.45s; }
+    .overview-block.in-view .pipeline-step:nth-child(4) { transition-delay: 0.55s; }
+    .overview-block.in-view .pipeline-step:nth-child(5) { transition-delay: 0.65s; }
+
+    .pipeline-step .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 2px solid #00FFB6;
+      border-radius: 50%;
+      color: #00FFB6;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .pipeline-step p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .pipeline-step strong {
+      display: block;
+      color: #00FFB6;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    /* Production sheet block */
+    .sheet-intro {
+      color: #bdbdbd;
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      transition-delay: 0.2s;
+    }
+
+    .overview-block.in-view .sheet-intro {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sheet-frame-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(0, 255, 182, 0.3);
+      background: #000;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transition-delay: 0.35s;
+    }
+
+    .overview-block.in-view .sheet-frame-wrap {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sheet-frame-wrap iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      display: block;
+    }
+
+    .sheet-link-wrap {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      transition-delay: 0.5s;
+    }
+
+    .overview-block.in-view .sheet-link-wrap {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sheet-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #00FFB6;
+      text-decoration: none;
+      border: 2px solid #00FFB6;
+      border-radius: 20px;
+      padding: 8px 20px;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .sheet-link:hover {
+      background: #00FFB6;
+      color: #111;
+    }
+
+    /* Gallery block */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .gallery-tile {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    }
+
+    .overview-block.in-view .gallery-tile {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .overview-block.in-view .gallery-tile:nth-child(1) { transition-delay: 0.25s; }
+    .overview-block.in-view .gallery-tile:nth-child(2) { transition-delay: 0.4s; }
+    .overview-block.in-view .gallery-tile:nth-child(3) { transition-delay: 0.55s; }
+
+    .gallery-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-tile:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-tile .tile-label {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #e6e6e6;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .gallery-tile:hover .tile-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 1024px) {
       .project-header h1 {
         font-size: 36px;
@@ -180,9 +491,23 @@
         padding: 80px 40px;
       }
 
+      .project-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       .media-grid {
         grid-template-columns: 1fr;
         gap: 30px;
+      }
+
+      .production-overview {
+        margin-top: 80px;
+        gap: 70px;
+      }
+
+      .pipeline-track {
+        flex-direction: column;
+        align-items: center;
       }
     }
 
@@ -191,16 +516,22 @@
         font-size: 28px;
       }
 
-      .project-meta {
-        gap: 15px;
+      .project-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
       }
 
-      .project-description {
-        padding: 30px 20px;
+      .page-divider {
+        padding: 60px 20px;
       }
 
-      .project-description p {
-        font-size: 16px;
+      .divider-heading {
+        font-size: 21px;
+        margin-bottom: 40px;
+      }
+
+      .credit-grid {
+        row-gap: 26px;
       }
 
       .main-section {
@@ -209,6 +540,18 @@
 
       .media-showcase {
         gap: 40px;
+      }
+
+      .overview-title {
+        font-size: 22px;
+      }
+
+      .block-header {
+        font-size: 19px;
+      }
+
+      .sheet-frame-wrap iframe {
+        height: 340px;
       }
     }
   </style>
@@ -233,20 +576,30 @@
   <section class="main-section">
     <div class="project-header">
       <h1>SCARAB</h1>
-      <div class="project-meta">
-        <span>Digital Game</span>
-        <span>2024</span>
-        <span>Action-Adventure</span>
-      </div>
-    </div>
+      <p class="project-blurb">"You shall weigh your heart on the scale. Should it prove lighter than a feather, you shall proceed. Should it weigh heavier, you shall not." Explore the mythological Egyptian afterlife of DUAT, with your wayward bug-companion, SCARAB.</p>
 
-    <div class="project-description">
-      <p>"You shall weigh your heart on the scale. Should it prove lighter than a feather, you shall proceed. Should it weigh heavier, you shall not."</p>
-      
-      <p>Exiled and on the brink of death, Nomad awakens in the Egyptian-inspired Afterlife. With the sun vanquished and magic fading, they must navigate a perilous purgatory, confront twisted guardians, and reach the gates of DUAT to restore light, reclaim lost magic, and fight for a way home.</p>
-      
-      <div class="credits">
-        <strong> Game Production & Project Lead, Demi Saleeb. </strong> Animation by Helen Juwon Park. 3D Models by Demi Saleeb. Character Design by Jeffrey Huang. Concept Art (original character, prop and environmental design) by Demi Saleeb. Environmental Textures by Helen Juwon Park & Julianna Ernie. Level Design by Yongija Tang. Music/SFX by Sean Son & Aderyn Clark. Programming by DanielKao & Woyu Wang. UI/UX by Michelle Chen. Voice Acting by Akemi Webster, Demi Saleeb, Ifeanyichukwu Onyeanakwe, Karen Truong, & Sock Pan Rah. Writing by Akemi Webster, Anthony Nash, & Demi Saleeb.
+      <div class="project-info-grid">
+        <div class="info-item">
+          <h2 class="info-label">Role</h2>
+          <p>Game Production &amp; Project Lead</p>
+        </div>
+        <div class="info-item">
+          <h2 class="info-label">Tools</h2>
+          <div class="tool-icons">
+            <img src="https://cdn.simpleicons.org/unity/00FFB6" alt="Unity" title="Unity">
+            <img src="https://cdn.simpleicons.org/autodeskmaya/00FFB6" alt="Maya" title="Maya">
+            <img src="https://cdn.simpleicons.org/github/00FFB6" alt="GitHub" title="GitHub">
+            <img src="https://cdn.simpleicons.org/visualstudiocode/00FFB6" alt="Visual Studio Code" title="Visual Studio Code">
+          </div>
+        </div>
+        <div class="info-item">
+          <h2 class="info-label">Team</h2>
+          <p>50+ collaborators across art, animation, programming, writing &amp; audio</p>
+        </div>
+        <div class="info-item">
+          <h2 class="info-label">Category</h2>
+          <p>Digital Game · Action-Adventure · 2024</p>
+        </div>
       </div>
     </div>
 
@@ -259,30 +612,127 @@
           </video>
         </div>
       </div>
+    </div>
 
-      <div class="media-grid">
-        <div class="media-item">
-          <div class="media-container standard">
+    <!-- ================= Production Overview ================= -->
+    <div class="production-overview">
+      <h2 class="overview-title">Production Overview</h2>
+
+      <div class="overview-block">
+        <h3 class="block-header">Pipeline &amp; Team</h3>
+        <div class="block-body pipeline-track">
+          <div class="pipeline-step">
+            <div class="step-num">1</div>
+            <strong>Pre-Production</strong>
+            <p>Concept art, worldbuilding, and scope planning for the Afterlife setting.</p>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">2</div>
+            <strong>Team Formation</strong>
+            <p>Assembled and led a 50+ person cross-discipline team.</p>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">3</div>
+            <strong>Production</strong>
+            <p>Coordinated art, animation, programming, audio, and writing pipelines.</p>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">4</div>
+            <strong>Playtesting</strong>
+            <p>Iterated on level design and mechanics based on feedback.</p>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-num">5</div>
+            <strong>Polish</strong>
+            <p>Final art passes, VO integration, and showcase build.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-block">
+        <h3 class="block-header">Production Sheet</h3>
+        <div class="block-body">
+          <p class="sheet-intro">2026 Update: I am currently developing a new game demo for Scarab. The following production tracker was used to manage tasks, milestones, and assignments throughout development.</p>
+       <div class="sheet-frame-wrap">
+  <img src="Scarab-Production-Sheet.png" loading="lazy"></img>
+</div>
+<div class="sheet-link-wrap">
+  <a class="sheet-link" href="Scarab-Project-Timeline.pdf" target="_blank" rel="noopener">Open Full Sheet ↗</a>
+</div>
+        </div>
+      </div>
+
+      <div class="overview-block">
+        <h3 class="block-header">Demo Gallery</h3>
+        <div class="block-body gallery-grid">
+          <div class="gallery-tile">
             <img src="scarabgame.png" alt="Scarab Game Screenshot">
+            <div class="tile-label">Early Game 2D Prototype</div>
           </div>
-          <div class="media-caption">Early Game 2D Prototype</div>
-        </div>
-
-        <div class="media-item">
-          <div class="media-container standard">
+          <div class="gallery-tile">
             <img src="scarabcast.png" alt="Scarab Character Cast">
+            <div class="tile-label">Character Art by Jeffery Huang</div>
           </div>
-          <div class="media-caption">Character Art Made by Jeffery Huang</div>
-        </div>
-        <div class="media-item">
-          <div class="media-container standard">
-            <img src="ruinsp.png" alt="Scarab Character Cast">
+          <div class="gallery-tile">
+            <img src="ruinsp.png" alt="Scarab 3D Environment">
+            <div class="tile-label">3D Environment by Demi Saleeb</div>
           </div>
-          <div class="media-caption">3D Environment by Demi Saleeb</div>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="page-divider">
+    <div class="page-divider-inner">
+      <h2 class="divider-heading">Full Production Credits</h2>
+      <div class="credit-grid">
+        <div class="credit-entry">
+          <p class="credit-role">Animation</p>
+          <p class="credit-names">Helen Juwon Park</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">3D Models</p>
+          <p class="credit-names">Demi Saleeb</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Character Design</p>
+          <p class="credit-names">Jeffrey Huang</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Concept Art</p>
+          <p class="credit-names">Demi Saleeb &amp; Jeffery Huang</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Environmental Textures</p>
+          <p class="credit-names">Helen Juwon Park &amp; Julianna Ernie</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Level Design</p>
+          <p class="credit-names">Yongija Tang</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Music / SFX</p>
+          <p class="credit-names">Sean Son &amp; Aderyn Clark</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Programming</p>
+          <p class="credit-names">Daniel Kao &amp; Woyu Wang</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">UI / UX</p>
+          <p class="credit-names">Michelle Chen</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Voice Acting</p>
+          <p class="credit-names">Akemi Webster, Demi Saleeb, Ifeanyichukwu Onyeanakwe, Karen Truong &amp; Sock Pan Rah</p>
+        </div>
+        <div class="credit-entry">
+          <p class="credit-role">Writing</p>
+          <p class="credit-names">Akemi Webster, Anthony Nash &amp; Demi Saleeb</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -296,6 +746,7 @@
           setTimeout(() => window.location.href = url, 500);
         });
       });
+
     });
 
     window.addEventListener("pageshow", event => {
@@ -313,7 +764,7 @@
       });
     }, { threshold: 0.2 });
 
-    document.querySelectorAll(".project-header, .project-description, .media-item").forEach(el => observer.observe(el));
+    document.querySelectorAll(".project-header, .page-divider, .media-item, .overview-title, .overview-block").forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
