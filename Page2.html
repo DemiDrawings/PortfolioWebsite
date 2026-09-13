@@ -306,6 +306,24 @@
     }, { threshold: 0.2 });
 
     document.querySelectorAll(".project-header, .project-description, .media-item").forEach(el => observer.observe(el));
+
+  // Star IOS
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const mainNav   = document.getElementById('mainNav');
+    if (!hamburger || !mainNav) return;
+    hamburger.addEventListener('click', e => {
+      e.stopPropagation();
+      if (mainNav.classList.contains('active')) closeMenu();
+      else { document.body.style.overflow = 'hidden'; hamburger.classList.add('active'); mainNav.classList.add('active'); }
+    });
+    function closeMenu() { hamburger.classList.remove('active'); mainNav.classList.remove('active'); document.body.style.overflow = ''; }
+    mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    mainNav.addEventListener('click', e => { if (e.target === mainNav) closeMenu(); });
+  });
+  </script>
+
+<footer>© Demi Saleeb 2025</footer>
   </script>
 </body>
 </html>
