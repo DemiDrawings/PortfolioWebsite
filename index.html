@@ -17,6 +17,53 @@
   <style>
     /* PAGE TRANSITION */
     body {
+    background: #0a0a0a;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: #00FFB6; 
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.18;
+    z-index: -1;
+    pointer-events: none;
+
+    animation: glowMove 12s ease-in-out infinite;
+}
+
+@keyframes glowMove {
+    0% {
+        top: -200px;
+        left: -200px;
+    }
+
+    25% {
+        top: 20%;
+        left: 70%;
+    }
+
+    50% {
+        top: 70%;
+        left: 50%;
+    }
+
+    75% {
+        top: 40%;
+        left: -200px;
+    }
+
+    100% {
+        top: -200px;
+        left: -200px;
+    }
+}
+    body {
       margin: 0;
       background-color: #111111;
       font-family: Poppins, sans-serif;
@@ -186,18 +233,19 @@
  <!-- PRELOADER SCRIPT -->
 <script>
   // Prevent scrolling during preload
-  document.body.style.overflow = 'hidden';
+  // document.body.style.overflow = 'hidden';
 
-  window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    const mainContent = document.getElementById('main-content');
+  // window.addEventListener('load', () => {
+  //   const preloader = document.getElementById('preloader');
+  //   const mainContent = document.getElementById('main-content');
 
-    setTimeout(() => {
+  //   setTimeout(() => {
+
       // Add a class to fade out
       preloader.classList.add('fade-out');
 
       // Re-enable scrolling
-      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'auto';
 
       // Fade in main content
       if (mainContent) {
